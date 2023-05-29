@@ -20,9 +20,13 @@ namespace VinEcomService
     {
         public static void InjectInfrastructure(this IServiceCollection services, IConfiguration config)
         {
+            //services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseNpgsql(config.GetConnectionString("VinEcomLocal"));
+            //});
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseNpgsql(config.GetConnectionString("VinEcomLocal"));
+                options.UseNpgsql(config.GetConnectionString("VinEcomCloud"));
             });
             //
             services.AddSingleton<ICacheService, RedisCacheService>();
@@ -33,7 +37,7 @@ namespace VinEcomService
             services.AddScoped<IStoreStaffRepository, StoreStaffRepository>();
             services.AddScoped<IShipperRepository, ShipperRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<IOrderRepository,  OrderRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //
