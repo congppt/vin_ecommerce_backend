@@ -10,6 +10,6 @@ namespace VinEcomInterface.IService
 {
     public interface IProductService
     {
-        Task<Pagination<Product>> GetProductPage(int pageIndex = 0, int pageSize = 10);
+        Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10);
     }
 }

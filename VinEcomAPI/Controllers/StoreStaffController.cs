@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StoreStaffController : ControllerBase
     {

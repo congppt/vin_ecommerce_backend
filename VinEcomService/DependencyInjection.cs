@@ -29,6 +29,8 @@ namespace VinEcomService
                 options.UseNpgsql(config.GetConnectionString("VinEcomCloud"));
             });
             //
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //
             services.AddSingleton<ICacheService, RedisCacheService>();
             services.AddSingleton<ITimeService, TimeService>();
             services.AddSingleton<ICacheService, RedisCacheService>();

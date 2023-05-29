@@ -12,7 +12,7 @@ namespace VinEcomAPI
         {
             // Add services to the container.
             services.AddControllers();
-
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -30,6 +30,7 @@ namespace VinEcomAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"] ?? "VinEcomAPIJWTKey"))
                 };
             });
+            services.AddSingleton(config);
             services.AddHttpContextAccessor();
             services.AddSingleton<IClaimService, ClaimService>();
         }

@@ -5,7 +5,7 @@ using VinEcomViewModel.Account;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
@@ -14,11 +14,11 @@ namespace VinEcomAPI.Controllers
         {
             this.customerService = customerService;
         }
-        [HttpPost]
+        [HttpPost("authorize")]
         public async Task<IActionResult> AuthorizeAsync(string phone, string password)
         {
             var vm = await customerService.AuthorizeAsync(phone, password);
-            if (vm is null) return Unauthorized();
+            if (vm is null) return Unauthorized(VinEcomService.Resources.VinEcom.VinEcom_Authorize_Failed);
             return Ok(vm);
         }
     }

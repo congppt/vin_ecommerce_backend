@@ -17,7 +17,7 @@ namespace VinEcomService.Service
         {
             this.unitOfWork = unitOfWork;
         }
-        public Task<Pagination<Product>> GetProductPage(int pageIndex = 0, int pageSize = 10)
+        public Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
         {
             return unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);
         }

@@ -5,7 +5,7 @@ namespace VinEcomAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class StoreController : ControllerBase
     {
     }
 }
