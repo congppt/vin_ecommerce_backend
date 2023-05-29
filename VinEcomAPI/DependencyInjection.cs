@@ -8,6 +8,13 @@ namespace VinEcomAPI
     {
         public static void InjectWebAPIService(this IServiceCollection services, IConfiguration config)
         {
+            // Add services to the container.
+            services.AddControllers();
+
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
