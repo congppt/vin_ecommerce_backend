@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VinEcomDomain\VinEcomDomain.csproj" />
+    <ProjectReference Include="..\VinEcomUtility\VinEcomUtility.csproj" />
+    <ProjectReference Include="..\VinEcomViewModel\VinEcomViewModel.csproj" />
+  </ItemGroup>
+
+</Project>
