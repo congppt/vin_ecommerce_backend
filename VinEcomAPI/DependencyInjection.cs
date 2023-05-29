@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using VinEcomInterface.IService;
+using VinEcomService.Service;
 
 namespace VinEcomAPI
 {
@@ -28,6 +30,8 @@ namespace VinEcomAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"] ?? "VinEcomAPIJWTKey"))
                 };
             });
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IClaimService, ClaimService>();
         }
     }
 }
