@@ -4,6 +4,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomInterface.IService;
@@ -14,9 +15,19 @@ namespace VinEcomService.Service
     {
         private readonly IDatabase _db;
         private readonly ITimeService _timeService;
-        public RedisCacheService(IConfiguration configuration, ITimeService timeService)
+        public RedisCacheService(IConfiguration config, ITimeService timeService)
         {
-            _db = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis")).GetDatabase();
+            var redisConfig = config.GetSection("Redis");
+            var redisOptions = new ConfigurationOptions
+            {
+                EndPoints = { { redisConfig["Host"], int.Parse(redisConfig["Port"]) } },
+                Ssl = true,
+                SslProtocols = SslProtocols.Tls12,
+                AbortOnConnectFail = false,
+                User = redisConfig["Username"],
+                Password = redisConfig["Password"],
+            };
+            _db = ConnectionMultiplexer.Connect(redisOptions).GetDatabase();
             _timeService = timeService;
         }
         public async Task<T> GetData<T>(string key)
