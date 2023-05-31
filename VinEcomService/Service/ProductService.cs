@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,13 +11,12 @@ using VinEcomUtility.Pagination;
 
 namespace VinEcomService.Service
 {
-    public class ProductService : IProductService
+    public class ProductService : BaseService, IProductService
     {
-        private readonly IUnitOfWork unitOfWork;
-        public ProductService(IUnitOfWork unitOfWork)
+        public ProductService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
         {
-            this.unitOfWork = unitOfWork;
         }
+
         public Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
         {
             return unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);

@@ -9,6 +9,5 @@ namespace VinEcomInterface.IService
 {
     public interface IBaseService
     {
-        Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm);
     }
 }

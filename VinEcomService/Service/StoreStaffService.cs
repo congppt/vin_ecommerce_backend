@@ -11,7 +11,7 @@ using VinEcomViewModel.Global;
 
 namespace VinEcomService.Service
 {
-    public class StoreStaffService : BaseService, IStoreStaffService
+    public class StoreStaffService : UserService, IStoreStaffService
     {
         public StoreStaffService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
         {

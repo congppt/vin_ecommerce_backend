@@ -7,8 +7,7 @@ using VinEcomViewModel.Global;
 
 namespace VinEcomInterface.IService
 {
-    public interface ICustomerService : IUserService
+    public interface IUserService : IBaseService
     {
-        Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm);
     }
 }

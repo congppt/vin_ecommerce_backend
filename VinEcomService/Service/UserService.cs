@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using VinEcomInterface;
 using VinEcomInterface.IService;
+using VinEcomViewModel.Global;
 
 namespace VinEcomService.Service
 {
-    public class StoreService : BaseService, IStoreService
+    public class UserService : BaseService, IUserService
     {
-        public StoreService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
+        public UserService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
         {
         }
     }

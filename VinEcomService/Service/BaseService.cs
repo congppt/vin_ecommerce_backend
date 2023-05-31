@@ -25,6 +25,5 @@ namespace VinEcomService.Service
             this.timeService = timeService;
             this.cacheService = cacheService;
         }
-        
     }
 }

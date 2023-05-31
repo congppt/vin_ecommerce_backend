@@ -15,6 +15,7 @@ namespace VinEcomAPI.Controllers
         {
             this.shipperService = shipperService;
         }
+        [HttpPost("authorize")]
         public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
             var result = await shipperService.AuthorizeAsync(vm);

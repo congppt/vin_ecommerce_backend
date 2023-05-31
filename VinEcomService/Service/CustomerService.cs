@@ -7,7 +7,7 @@ using VinEcomViewModel.Global;
 
 namespace VinEcomService.Service
 {
-    public class CustomerService : BaseService, ICustomerService
+    public class CustomerService : UserService, ICustomerService
     {
         public CustomerService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
         {
