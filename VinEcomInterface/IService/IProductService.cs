@@ -8,7 +8,7 @@ using VinEcomUtility.Pagination;
 
 namespace VinEcomInterface.IService
 {
-    public interface IProductService
+    public interface IProductService : IBaseService
     {
         Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10);
     }

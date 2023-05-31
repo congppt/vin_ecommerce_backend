@@ -7,7 +7,7 @@ using VinEcomUtility.Pagination;
 
 namespace VinEcomInterface.IService
 {
-    public interface IStoreService
+    public interface IStoreService : IBaseService
     {
     }
 }
