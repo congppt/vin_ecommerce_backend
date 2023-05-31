@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VinEcomViewModel.Account
+namespace VinEcomViewModel.Customer
 {
-    internal class CustomerRegisterViewModel
+    internal class CustomerSignUpViewModel
     {
     }
 }

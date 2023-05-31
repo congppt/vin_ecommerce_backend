@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VinEcomViewModel.Account
+namespace VinEcomViewModel.Global
 {
-    public class CustomerAuthorizedViewModel
+    public class AuthorizedViewModel
     {
         public string AccessToken { get; set; }
         public string Name { get; set; }

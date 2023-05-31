@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VinEcomInterface.IService
 {
-    public interface IStoreStaffService
+    public interface IStoreStaffService : IBaseService
     {
 
     }

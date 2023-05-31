@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Account;
+using VinEcomViewModel.Global;
 
 namespace VinEcomAPI.Controllers
 {
@@ -15,11 +16,11 @@ namespace VinEcomAPI.Controllers
             this.customerService = customerService;
         }
         [HttpPost("authorize")]
-        public async Task<IActionResult> AuthorizeAsync(string phone, string password)
+        public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
-            var vm = await customerService.AuthorizeAsync(phone, password);
-            if (vm is null) return Unauthorized(VinEcomService.Resources.VinEcom.VinEcom_Authorize_Failed);
-            return Ok(vm);
+            var result = await customerService.AuthorizeAsync(vm);
+            if (result is null) return Unauthorized(VinEcomService.Resources.VinEcom.VINECOM_AUTHORIZE_FAILED);
+            return Ok(result);
         }
     }
 }

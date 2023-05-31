@@ -63,9 +63,9 @@ namespace VinEcomService.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Incorrect phone number or password..
         /// </summary>
-        public static string VinEcom_Authorize_Failed {
+        public static string VINECOM_AUTHORIZE_FAILED {
             get {
-                return ResourceManager.GetString("VinEcom_Authorize_Failed", resourceCulture);
+                return ResourceManager.GetString("VINECOM_AUTHORIZE_FAILED", resourceCulture);
             }
         }
     }

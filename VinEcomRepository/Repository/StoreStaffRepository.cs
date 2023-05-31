@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,13 @@ namespace VinEcomRepository.Repository
     {
         public StoreStaffRepository(AppDbContext context) : base(context)
         {
+        }
+        public async Task<StoreStaff?> AuthorizeAsync(string phone, string passwordHash)
+        {
+            return await context.Set<StoreStaff>()
+                                .AsNoTracking()
+                                .Include(c => c.User)
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone && c.User.PasswordHash == passwordHash);
         }
     }
 }

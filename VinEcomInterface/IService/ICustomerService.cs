@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VinEcomViewModel.Account;
+using VinEcomViewModel.Global;
 
 namespace VinEcomInterface.IService
 {
-    public interface ICustomerService
+    public interface ICustomerService : IBaseService
     {
-        Task<CustomerAuthorizedViewModel?> AuthorizeAsync(string phone, string password);
     }
 }
