@@ -117,7 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="VINECOM_AUTHORIZE_FAILED" xml:space="preserve">
-    <value>Incorrect phone number or password.</value>
+  <data name="VINECOM_" xml:space="preserve">
+    <value />
+  </data>
+  <data name="VINECOM_USER_AUTHORIZE_FAILED" xml:space="preserve">
+    <value>Số điện thoại hoặc mật khẩu không chính xác.</value>
+  </data>
+  <data name="VINECOM_USER_REGISTER_FAILED" xml:space="preserve">
+    <value>Vui lòng kiểm tra lại thông tin đăng ký.</value>
+  </data>
+  <data name="VINECOM_USER_REGISTER_SUCCESS" xml:space="preserve">
+    <value>Đăng ký thành công.</value>
   </data>
 </root>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VinEcomViewModel.Global
+namespace VinEcomViewModel.Base
 {
     public class AuthorizedViewModel
     {

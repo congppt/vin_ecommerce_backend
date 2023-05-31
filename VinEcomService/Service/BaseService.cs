@@ -8,7 +8,7 @@ using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomRepository;
 using VinEcomUtility.UtilityMethod;
-using VinEcomViewModel.Global;
+using VinEcomViewModel.Base;
 
 namespace VinEcomService.Service
 {

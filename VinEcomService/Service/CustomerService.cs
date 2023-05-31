@@ -3,7 +3,7 @@ using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Customer;
-using VinEcomViewModel.Global;
+using VinEcomViewModel.Base;
 
 namespace VinEcomService.Service
 {

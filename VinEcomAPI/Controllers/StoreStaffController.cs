@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VinEcomInterface.IService;
-using VinEcomViewModel.Global;
+using VinEcomViewModel.Base;
 using static VinEcomService.Resources.VinEcom;
 
 namespace VinEcomAPI.Controllers

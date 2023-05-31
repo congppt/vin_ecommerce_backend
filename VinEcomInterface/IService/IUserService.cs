@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VinEcomViewModel.Global;
+using VinEcomViewModel.Base;
 
 namespace VinEcomInterface.IService
 {

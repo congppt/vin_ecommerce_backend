@@ -8,7 +8,7 @@
 
 	<ItemGroup>
 		<Folder Include="Shipper\" />
-		<Folder Include="Global\" />
+		<Folder Include="Base\" />
 		<Folder Include="Customer\" />
 	</ItemGroup>
 
