@@ -42,7 +42,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Building");
+                    b.ToTable("Building", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Customer", b =>
@@ -66,7 +66,7 @@ namespace VinEcomDbContext.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Order", b =>
@@ -106,7 +106,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("ShipperId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.OrderDetail", b =>
@@ -141,7 +141,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetail");
+                    b.ToTable("OrderDetail", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Product", b =>
@@ -186,7 +186,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Shipper", b =>
@@ -212,7 +212,7 @@ namespace VinEcomDbContext.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Shipper");
+                    b.ToTable("Shipper", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Store", b =>
@@ -249,7 +249,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("BuildingId");
 
-                    b.ToTable("Store");
+                    b.ToTable("Store", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.StoreStaff", b =>
@@ -273,7 +273,7 @@ namespace VinEcomDbContext.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("StoreStaff");
+                    b.ToTable("StoreStaff", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.User", b =>
@@ -307,7 +307,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("VinEcomDomain.Model.Customer", b =>
