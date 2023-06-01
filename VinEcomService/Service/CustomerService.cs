@@ -12,6 +12,7 @@ namespace VinEcomService.Service
         public CustomerService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
         {
         }
+
         #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {

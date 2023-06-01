@@ -7,6 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Folder Include="Order\" />
 		<Folder Include="Shipper\" />
 		<Folder Include="Base\" />
 		<Folder Include="Customer\" />

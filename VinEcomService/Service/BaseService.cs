@@ -15,15 +15,18 @@ namespace VinEcomService.Service
     public class BaseService : IBaseService
     {
         protected readonly IUnitOfWork unitOfWork;
+        protected readonly IClaimService claimService;
         protected readonly IConfiguration config;
         protected readonly ITimeService timeService;
         protected readonly ICacheService cacheService;
-        public BaseService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService)
+
+        public BaseService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
             this.timeService = timeService;
             this.cacheService = cacheService;
+            this.claimService = claimService;
         }
     }
 }

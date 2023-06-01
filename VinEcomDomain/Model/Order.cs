@@ -18,7 +18,7 @@ namespace VinEcomDomain.Model
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
         //
-        public int BuildingId { get; set; }
+        public int? BuildingId { get; set; }
         public Building Building { get; set; }
         //
         public int? ShipperId { get; set; }

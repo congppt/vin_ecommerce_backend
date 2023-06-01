@@ -40,10 +40,16 @@ namespace VinEcomService
             services.AddScoped<IShipperRepository, ShipperRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderDetailRepository,  OrderDetailRepository>();
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IShipperService, ShipperService>();
+            services.AddScoped<IStoreStaffService, StoreStaffService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
     }
 }

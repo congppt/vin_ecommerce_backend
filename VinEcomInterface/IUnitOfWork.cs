@@ -14,6 +14,7 @@ namespace VinEcomInterface
         IShipperRepository ShipperRepository { get; }
         IStoreStaffRepository StoreStaffRepository { get; }
         IOrderRepository OrderRepository { get; }
+        IOrderDetailRepository OrderDetailRepository { get; }
         Task<bool> SaveChangesAsync();
     }
 }

@@ -11,7 +11,7 @@ namespace VinEcomService.Service
 {
     public class StoreService : BaseService, IStoreService
     {
-        public StoreService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
+        public StoreService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
         {
         }
     }

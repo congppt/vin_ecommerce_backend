@@ -17,7 +17,8 @@ namespace VinEcomRepository
         private readonly IProductRepository productRepository;
         private readonly IStoreStaffRepository staffRepository;
         private readonly IShipperRepository shipperRepository;
-        public UnitOfWork(AppDbContext context, ICustomerRepository customerRepository, IOrderRepository orderRepository, IProductRepository productRepository, IStoreStaffRepository staffRepository, IShipperRepository shipperRepository)
+        private readonly IOrderDetailRepository orderDetailRepository;
+        public UnitOfWork(AppDbContext context, ICustomerRepository customerRepository, IOrderRepository orderRepository, IProductRepository productRepository, IStoreStaffRepository staffRepository, IShipperRepository shipperRepository, IOrderDetailRepository orderDetailRepository)
         {
             this.context = context;
             this.customerRepository = customerRepository;
@@ -25,6 +26,7 @@ namespace VinEcomRepository
             this.productRepository = productRepository;
             this.staffRepository = staffRepository;
             this.shipperRepository = shipperRepository;
+            this.orderDetailRepository = orderDetailRepository;
         }
         public ICustomerRepository CustomerRepository => customerRepository;
 
@@ -35,6 +37,8 @@ namespace VinEcomRepository
         public IStoreStaffRepository StoreStaffRepository => staffRepository;
 
         public IOrderRepository OrderRepository => orderRepository;
+
+        public IOrderDetailRepository OrderDetailRepository => orderDetailRepository;
 
         public async Task<bool> SaveChangesAsync()
         {
