@@ -13,13 +13,15 @@ namespace VinEcomUtility.UtilityMethod
 {
     public static class JWTUtility
     {
-        public static string GenerateToken(this User user, IConfiguration configuration, DateTime createdAt, int minuteValidFor, string? secretKey = null)
+        public static string GenerateToken(this User user, IConfiguration configuration, DateTime createdAt, int minuteValidFor, string role, int storeId = -1, string? secretKey = null)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
                 new Claim("Id", user.Id.ToString()),
+                new Claim(ClaimTypes.Role, role),
+                new Claim("StoreId", storeId.ToString())
             };
             var token = new JwtSecurityToken(
                 issuer: configuration["Jwt:Issuer"],

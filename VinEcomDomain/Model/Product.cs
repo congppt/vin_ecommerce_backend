@@ -15,6 +15,7 @@ namespace VinEcomDomain.Model
         public string ImageUrl { get; set; }  
         public decimal OriginalPrice { get; set; }
         public decimal? DiscountPrice { get; set; }
+        public bool IsOutOfStock { get; set; }
         public bool IsRemoved { get; set; }
         public ProductCategory Category { get; set; }
         //

@@ -20,5 +20,11 @@ namespace VinEcomService.Service
             var id = contextAccessor.HttpContext?.User?.FindFirst("Id").Value;
             return id is null ? -1 : int.Parse(id); 
         }
+
+        public int GetStoreId()
+        {
+            var id = contextAccessor.HttpContext?.User?.FindFirst("StoreId").Value;
+            return id is null ? -1 : int.Parse(id);
+        }
     }
 }

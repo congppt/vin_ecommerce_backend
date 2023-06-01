@@ -61,15 +61,6 @@ namespace VinEcomService.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string VINECOM_ {
-            get {
-                return ResourceManager.GetString("VINECOM_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Số điện thoại hoặc mật khẩu không chính xác..
         /// </summary>
         public static string VINECOM_USER_AUTHORIZE_FAILED {

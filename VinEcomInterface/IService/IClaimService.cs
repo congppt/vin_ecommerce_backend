@@ -9,5 +9,6 @@ namespace VinEcomInterface.IService
     public interface IClaimService
     {
         int GetCurrentUserId();
+        int GetStoreId();
     }
 }

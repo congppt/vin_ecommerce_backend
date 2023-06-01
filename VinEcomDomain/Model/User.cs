@@ -17,8 +17,8 @@ namespace VinEcomDomain.Model
         public bool IsBlocked { get; set; }
         public string? AvatarUrl { get; set; }
         //
-        public ICollection<Customer> Customers { get; set; }
-        public ICollection<StoreStaff> Staffs { get; set; }
-        public ICollection<Shipper> Shippers { get; set; }
+        public Customer Customers { get; set; }
+        public StoreStaff Staffs { get; set; }
+        public Shipper Shippers { get; set; }
     }
 }

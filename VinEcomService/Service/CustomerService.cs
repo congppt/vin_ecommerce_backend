@@ -17,7 +17,7 @@ namespace VinEcomService.Service
         {
             var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (customer is null) return null;
-            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30);
+            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, "Customer");
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,

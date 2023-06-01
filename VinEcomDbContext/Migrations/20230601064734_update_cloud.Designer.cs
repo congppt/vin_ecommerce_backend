@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VinEcomDbContext;
@@ -11,9 +12,11 @@ using VinEcomDbContext;
 namespace VinEcomDbContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230601064734_update_cloud")]
+    partial class update_cloud
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,8 +66,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("BuildingId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Customer");
                 });
@@ -209,8 +211,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Shipper");
                 });
@@ -270,8 +271,7 @@ namespace VinEcomDbContext.Migrations
 
                     b.HasIndex("StoreId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("StoreStaff");
                 });
@@ -319,8 +319,8 @@ namespace VinEcomDbContext.Migrations
                         .IsRequired();
 
                     b.HasOne("VinEcomDomain.Model.User", "User")
-                        .WithOne("Customers")
-                        .HasForeignKey("VinEcomDomain.Model.Customer", "UserId")
+                        .WithMany("Customers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -387,8 +387,8 @@ namespace VinEcomDbContext.Migrations
             modelBuilder.Entity("VinEcomDomain.Model.Shipper", b =>
                 {
                     b.HasOne("VinEcomDomain.Model.User", "User")
-                        .WithOne("Shippers")
-                        .HasForeignKey("VinEcomDomain.Model.Shipper", "UserId")
+                        .WithMany("Shippers")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -415,8 +415,8 @@ namespace VinEcomDbContext.Migrations
                         .IsRequired();
 
                     b.HasOne("VinEcomDomain.Model.User", "User")
-                        .WithOne("Staffs")
-                        .HasForeignKey("VinEcomDomain.Model.StoreStaff", "UserId")
+                        .WithMany("Staffs")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -463,14 +463,11 @@ namespace VinEcomDbContext.Migrations
 
             modelBuilder.Entity("VinEcomDomain.Model.User", b =>
                 {
-                    b.Navigation("Customers")
-                        .IsRequired();
+                    b.Navigation("Customers");
 
-                    b.Navigation("Shippers")
-                        .IsRequired();
+                    b.Navigation("Shippers");
 
-                    b.Navigation("Staffs")
-                        .IsRequired();
+                    b.Navigation("Staffs");
                 });
 #pragma warning restore 612, 618
         }
