@@ -13,6 +13,7 @@ namespace VinEcomAPI.Controllers
         {
             this.productService = productService;
         }
+
         [HttpGet("Products")]
         public async Task<IActionResult> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
         {

@@ -7,11 +7,12 @@ using VinEcomViewModel.Base;
 
 namespace VinEcomService.Service
 {
-    public class CustomerService : UserService, ICustomerService
+    public class CustomerService : BaseService, ICustomerService
     {
-        public CustomerService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
-        {
-        }
+        public CustomerService(IUnitOfWork unitOfWork,
+            IConfiguration config, ITimeService timeService, 
+            ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        { }
 
         #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
