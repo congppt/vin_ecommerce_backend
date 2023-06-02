@@ -12,7 +12,9 @@ namespace VinEcomService.Service
 {
     public class UserService : BaseService, IUserService
     {
-        public UserService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        public UserService(IUnitOfWork unitOfWork, IConfiguration config, 
+            ITimeService timeService, ICacheService cacheService, 
+            IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
         {
         }
     }

@@ -20,7 +20,8 @@ namespace VinEcomService.Service
         protected readonly ITimeService timeService;
         protected readonly ICacheService cacheService;
 
-        public BaseService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService)
+        public BaseService(IUnitOfWork unitOfWork, IConfiguration config,
+            ITimeService timeService, ICacheService cacheService, IClaimService claimService)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
