@@ -30,7 +30,7 @@ namespace VinEcomService.Service
         #region FilterProduct
         public async Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
-            if (string.IsNullOrEmpty(filter.Category) || !IsValidCategory(filter.Category))
+            if (!IsValidCategory(filter.Category))
                 return new Pagination<Product>
                 {
                     Items = new List<Product>(),
@@ -49,10 +49,9 @@ namespace VinEcomService.Service
         #endregion
 
         #region CheckValidCategory
-        public bool IsValidCategory(string category)
+        public bool IsValidCategory(int category)
         {
-            var categoryList = GetCategoryList();
-            return categoryList.Contains(category);
+            return Enum.IsDefined(typeof(ProductCategory), category);
         }
         #endregion
     }
