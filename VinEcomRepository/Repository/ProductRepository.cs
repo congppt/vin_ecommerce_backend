@@ -21,11 +21,7 @@ namespace VinEcomRepository.Repository
         public async Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
             var products = context.Set<Product>().AsNoTracking().AsQueryable();
-            if (!string.IsNullOrEmpty(filter.Category))
-            {
-                var enumValue = (ProductCategory) Enum.Parse(typeof(ProductCategory), filter.Category);
-                products = products.Where(x => x.Category == enumValue);
-            }
+            products = products.Where(x => (int)x.Category == filter.Category);
             var totalCount = await products.CountAsync();
             var items = await products.AsNoTracking().Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             var result = new Pagination<Product>()

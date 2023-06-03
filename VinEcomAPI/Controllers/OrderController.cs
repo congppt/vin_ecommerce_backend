@@ -22,5 +22,16 @@ namespace VinEcomAPI.Controllers
             if (result is true) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, VINECOM_ORDER_ADDTOCART_FAILED);
         }
+
+        #region GetOrders
+        [HttpGet("GetOrders")]
+        public async Task<IActionResult> GetOrdersAsync(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest();
+            if (pageSize <= 0) return BadRequest();
+            var result = await orderService.GetOrdersAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
+        #endregion
     }
 }
