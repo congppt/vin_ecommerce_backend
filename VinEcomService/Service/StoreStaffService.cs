@@ -13,9 +13,10 @@ namespace VinEcomService.Service
 {
     public class StoreStaffService : UserService, IStoreStaffService
     {
-        public StoreStaffService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
-        {
-        }
+        public StoreStaffService(IUnitOfWork unitOfWork, IConfiguration config,
+            ITimeService timeService,
+            ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        { }
 
         #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)

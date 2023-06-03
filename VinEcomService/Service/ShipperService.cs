@@ -13,7 +13,9 @@ namespace VinEcomService.Service
 {
     public class ShipperService : UserService, IShipperService
     {
-        public ShipperService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService) : base(unitOfWork, config, timeService, cacheService)
+        public ShipperService(IUnitOfWork unitOfWork, IConfiguration config,
+            ITimeService timeService, ICacheService cacheService,
+            IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
         {
         }
 
