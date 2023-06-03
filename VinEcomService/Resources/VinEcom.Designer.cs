@@ -79,11 +79,20 @@ namespace VinEcomService.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vui lòng kiểm tra lại thông tin đăng ký..
+        ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
         /// </summary>
-        public static string VINECOM_USER_REGISTER_FAILED {
+        public static string VINECOM_USER_REGISTER_INTERNAL_FAILED {
             get {
-                return ResourceManager.GetString("VINECOM_USER_REGISTER_FAILED", resourceCulture);
+                return ResourceManager.GetString("VINECOM_USER_REGISTER_INTERNAL_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại này đã được sử dụng..
+        /// </summary>
+        public static string VINECOM_USER_REGISTER_PHONE_DUPLICATED {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_REGISTER_PHONE_DUPLICATED", resourceCulture);
             }
         }
         

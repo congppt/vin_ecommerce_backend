@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomRepository;
@@ -28,6 +29,11 @@ namespace VinEcomService.Service
             this.timeService = timeService;
             this.cacheService = cacheService;
             this.claimService = claimService;
+        }
+
+        public async Task<IEnumerable<Building>> GetBuildings()
+        {
+            return await unitOfWork.BuildingRepository.GetAllAsync();
         }
     }
 }

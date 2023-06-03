@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
-using VinEcomViewModel.Base;
 
-namespace VinEcomInterface.IService
+namespace VinEcomInterface.IRepository
 {
-    public interface IBaseService
+    public interface IBuildingRepository : IBaseRepository<Building>
     {
-        Task<IEnumerable<Building>> GetBuildings();
     }
 }

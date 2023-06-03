@@ -9,5 +9,6 @@ namespace VinEcomInterface.IService
 {
     public interface IUserService : IBaseService
     {
+        Task<bool> IsPhoneExist(string phone);
     }
 }

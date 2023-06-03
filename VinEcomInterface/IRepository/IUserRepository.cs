@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
-using VinEcomViewModel.Base;
 
-namespace VinEcomInterface.IService
+namespace VinEcomInterface.IRepository
 {
-    public interface IBaseService
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Task<IEnumerable<Building>> GetBuildings();
+        Task<User?> GetByPhone(string phone);
     }
 }

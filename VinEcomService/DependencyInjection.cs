@@ -41,6 +41,7 @@ namespace VinEcomService
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderDetailRepository,  OrderDetailRepository>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //
@@ -50,6 +51,7 @@ namespace VinEcomService
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IBaseService, BaseService>();
         }
     }
 }

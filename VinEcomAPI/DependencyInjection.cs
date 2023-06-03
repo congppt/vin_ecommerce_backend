@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VinEcomInterface.IService;
 using VinEcomService.Service;
+using System.Text.Json.Serialization;
 
 namespace VinEcomAPI
 {
@@ -11,8 +12,11 @@ namespace VinEcomAPI
         public static void InjectWebAPIService(this IServiceCollection services, IConfiguration config)
         {
             // Add services to the container.
-            services.AddControllers();
-            
+            services.AddControllers()
+                    .AddJsonOptions( options =>
+                {
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

@@ -123,8 +123,11 @@
   <data name="VINECOM_USER_AUTHORIZE_FAILED" xml:space="preserve">
     <value>Số điện thoại hoặc mật khẩu không chính xác.</value>
   </data>
-  <data name="VINECOM_USER_REGISTER_FAILED" xml:space="preserve">
-    <value>Vui lòng kiểm tra lại thông tin đăng ký.</value>
+  <data name="VINECOM_USER_REGISTER_INTERNAL_FAILED" xml:space="preserve">
+    <value>Đăng ký thất bại. Lỗi hệ thống</value>
+  </data>
+  <data name="VINECOM_USER_REGISTER_PHONE_DUPLICATED" xml:space="preserve">
+    <value>Số điện thoại này đã được sử dụng.</value>
   </data>
   <data name="VINECOM_USER_REGISTER_SUCCESS" xml:space="preserve">
     <value>Đăng ký thành công.</value>

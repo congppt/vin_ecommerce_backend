@@ -23,6 +23,11 @@ namespace VinEcomRepository.Repository
             context.Set<TModel>().Remove(entity);
         }
 
+        public async Task<IEnumerable<TModel>> GetAllAsync()
+        {
+            return await context.Set<TModel>().AsNoTracking().ToListAsync();
+        }
+
         public async Task<TModel?> GetByIdAsync(int id)
         {
             return await context.Set<TModel>().FindAsync(id);

@@ -17,5 +17,11 @@ namespace VinEcomService.Service
             IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
         {
         }
+
+        public async Task<bool> IsPhoneExist(string phone)
+        {
+            var user = await unitOfWork.UserRepository.GetByPhone(phone);
+            return user is null ? false : true;
+        }
     }
 }

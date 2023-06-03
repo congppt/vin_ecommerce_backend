@@ -18,7 +18,17 @@ namespace VinEcomRepository
         private readonly IStoreStaffRepository staffRepository;
         private readonly IShipperRepository shipperRepository;
         private readonly IOrderDetailRepository orderDetailRepository;
-        public UnitOfWork(AppDbContext context, ICustomerRepository customerRepository, IOrderRepository orderRepository, IProductRepository productRepository, IStoreStaffRepository staffRepository, IShipperRepository shipperRepository, IOrderDetailRepository orderDetailRepository)
+        private readonly IBuildingRepository buildingRepository;
+        private readonly IUserRepository userRepository;
+        public UnitOfWork(AppDbContext context,
+                          ICustomerRepository customerRepository,
+                          IOrderRepository orderRepository,
+                          IProductRepository productRepository,
+                          IStoreStaffRepository staffRepository,
+                          IShipperRepository shipperRepository,
+                          IOrderDetailRepository orderDetailRepository,
+                          IBuildingRepository buildingRepository,
+                          IUserRepository userRepository)
         {
             this.context = context;
             this.customerRepository = customerRepository;
@@ -27,6 +37,8 @@ namespace VinEcomRepository
             this.staffRepository = staffRepository;
             this.shipperRepository = shipperRepository;
             this.orderDetailRepository = orderDetailRepository;
+            this.buildingRepository = buildingRepository;
+            this.userRepository = userRepository;
         }
         public ICustomerRepository CustomerRepository => customerRepository;
 
@@ -39,6 +51,10 @@ namespace VinEcomRepository
         public IOrderRepository OrderRepository => orderRepository;
 
         public IOrderDetailRepository OrderDetailRepository => orderDetailRepository;
+
+        public IBuildingRepository BuildingRepository => buildingRepository;
+
+        public IUserRepository UserRepository => userRepository;
 
         public async Task<bool> SaveChangesAsync()
         {

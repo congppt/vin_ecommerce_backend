@@ -14,5 +14,6 @@ namespace VinEcomInterface.IRepository
         void Update(TModel entity);
         void Delete(TModel entity);
         Task<Pagination<TModel>> GetPageAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<TModel>> GetAllAsync();
     }
 }
