@@ -9,6 +9,7 @@ using VinEcomInterface.IService;
 using VinEcomDomain.Enum;
 using VinEcomViewModel.OrderDetail;
 using VinEcomDomain.Model;
+using VinEcomUtility.Pagination;
 
 namespace VinEcomService.Service
 {
@@ -66,5 +67,12 @@ namespace VinEcomService.Service
                 }
             }
         }
+
+        #region GetOrders
+        public async Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize)
+        {
+            return await unitOfWork.OrderRepository.GetPageAsync(pageIndex, pageSize); 
+        }
+        #endregion
     }
 }
