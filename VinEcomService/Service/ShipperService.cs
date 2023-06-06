@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomUtility.UtilityMethod;
@@ -22,9 +23,9 @@ namespace VinEcomService.Service
         #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
-            var shipper = await unitOfWork.ShipperRepository.AuthorizeAsync(vm.Phone, vm.Password.BCryptSaltAndHash(vm.Phone));
+            var shipper = await unitOfWork.ShipperRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (shipper is null) return null;
-            string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, "Shipper");
+            string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_SHIPPER);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,

@@ -15,7 +15,7 @@ namespace VinEcomAPI.Controllers
         {
             this.orderService = orderService;
         }
-        [HttpGet("addtocart")]
+        [HttpGet("AddToCart")]
         public async Task<IActionResult> AddToCartAsync([FromBody] AddToCartViewModel vm)
         {
             var result = await orderService.AddToCartAsync(vm);

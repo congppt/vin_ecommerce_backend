@@ -15,8 +15,9 @@ namespace VinEcomUtility.UtilityMethod
         /// </summary>
         /// <param name="source">Source string</param>
         /// <returns>A hashed string</returns>
-        public static string BCryptSaltAndHash(this string source, string salt)
+        public static string BCryptSaltAndHash(this string source)
         {
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
             return BCrypt.Net.BCrypt.HashPassword(source, salt);
         }
         /// <summary>
@@ -25,7 +26,11 @@ namespace VinEcomUtility.UtilityMethod
         /// <param name="source"></param>
         /// <param name="correctHash"></param>
         /// <returns>True if the string is the original key of the hashed string, otherwise false</returns>
-        public static bool IsCorrectHashSource(this string source, string correctHash) => BCrypt.Net.BCrypt.Verify(source, correctHash);
+        public static bool IsCorrectHashSource(this string source, string correctHash)
+        {
+            if (source == null || correctHash == null) return false; 
+            return BCrypt.Net.BCrypt.Verify(source, correctHash);
+        }
         #endregion
         #region Other Methods
         #endregion

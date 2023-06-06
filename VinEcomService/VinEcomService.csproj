@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VinEcomRepository\VinEcomRepository.csproj" />
-    <ProjectReference Include="..\VinEcomUtility\VinEcomUtility.csproj" />
     <ProjectReference Include="..\VinEcomViewModel\VinEcomViewModel.csproj" />
   </ItemGroup>
 

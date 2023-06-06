@@ -196,6 +196,33 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Khách hàng.
+        /// </summary>
+        public static string VINECOM_USER_ROLE_CUSTOMER {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_ROLE_CUSTOMER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài xế.
+        /// </summary>
+        public static string VINECOM_USER_ROLE_SHIPPER {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_ROLE_SHIPPER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhân viên cửa hàng.
+        /// </summary>
+        public static string VINECOM_USER_ROLE_STORESTAFF {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_ROLE_STORESTAFF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xe máy.
         /// </summary>
         public static string VINECOM_VEHICLE_TYPE_MOTORBIKE {

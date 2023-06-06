@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDbContext;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.UtilityMethod;
 
 namespace VinEcomRepository.Repository
 {
@@ -18,10 +19,12 @@ namespace VinEcomRepository.Repository
 
         public async Task<Customer?> AuthorizeAsync(string phone, string passwordHash)
         {
-            return await context.Set<Customer>()
+            var customer = await context.Set<Customer>()
                                 .AsNoTracking()
                                 .Include(c => c.User)
-                                .FirstOrDefaultAsync(c => c.User.Phone == phone && c.User.PasswordHash == passwordHash);
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone);
+            if (passwordHash.IsCorrectHashSource(customer?.User.PasswordHash)) return customer;
+            return null;
         }
     }
 }

@@ -5,6 +5,7 @@ using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Base;
 using VinEcomDomain.Model;
+using VinEcomDomain.Resources;
 
 namespace VinEcomService.Service
 {
@@ -17,9 +18,9 @@ namespace VinEcomService.Service
 
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
-            var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password.BCryptSaltAndHash(vm.Phone));
+            var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (customer is null) return null;
-            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, "Customer");
+            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_CUSTOMER);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,
@@ -32,7 +33,7 @@ namespace VinEcomService.Service
             var user = new User
             {
                 Name = vm.Name,
-                PasswordHash = vm.Password.BCryptSaltAndHash(vm.Phone),
+                PasswordHash = vm.Password.BCryptSaltAndHash(),
                 IsBlocked = false,
                 Phone = vm.Phone,
             };

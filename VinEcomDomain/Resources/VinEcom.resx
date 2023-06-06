@@ -162,6 +162,15 @@
   <data name="VINECOM_USER_REGISTER_SUCCESS" xml:space="preserve">
     <value>Đăng ký thành công.</value>
   </data>
+  <data name="VINECOM_USER_ROLE_CUSTOMER" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="VINECOM_USER_ROLE_SHIPPER" xml:space="preserve">
+    <value>Tài xế</value>
+  </data>
+  <data name="VINECOM_USER_ROLE_STORESTAFF" xml:space="preserve">
+    <value>Nhân viên cửa hàng</value>
+  </data>
   <data name="VINECOM_VEHICLE_TYPE_MOTORBIKE" xml:space="preserve">
     <value>Xe máy</value>
   </data>

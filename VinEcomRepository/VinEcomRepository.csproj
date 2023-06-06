@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\VinEcomDbContext\VinEcomDbContext.csproj" />
     <ProjectReference Include="..\VinEcomInterface\VinEcomInterface.csproj" />
+    <ProjectReference Include="..\VinEcomUtility\VinEcomUtility.csproj" />
   </ItemGroup>
 
 </Project>
