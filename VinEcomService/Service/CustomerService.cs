@@ -17,7 +17,7 @@ namespace VinEcomService.Service
 
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
-            var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password);
+            var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password.BCryptSaltAndHash(vm.Phone));
             if (customer is null) return null;
             string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, "Customer");
             return new AuthorizedViewModel
@@ -32,7 +32,7 @@ namespace VinEcomService.Service
             var user = new User
             {
                 Name = vm.Name,
-                PasswordHash = vm.Password.BCryptSaltAndHash(),
+                PasswordHash = vm.Password.BCryptSaltAndHash(vm.Phone),
                 IsBlocked = false,
                 Phone = vm.Phone,
             };

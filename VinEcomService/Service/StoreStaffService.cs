@@ -21,7 +21,7 @@ namespace VinEcomService.Service
         #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
-            var storeStaff = await unitOfWork.StoreStaffRepository.AuthorizeAsync(vm.Phone, vm.Password);
+            var storeStaff = await unitOfWork.StoreStaffRepository.AuthorizeAsync(vm.Phone, vm.Password.BCryptSaltAndHash(vm.Phone));
             if (storeStaff is null) return null;
             string accessToken = storeStaff.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, "StoreStaff", storeStaff.StoreId);
             return new AuthorizedViewModel

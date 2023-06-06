@@ -15,9 +15,8 @@ namespace VinEcomUtility.UtilityMethod
         /// </summary>
         /// <param name="source">Source string</param>
         /// <returns>A hashed string</returns>
-        public static string BCryptSaltAndHash(this string source)
+        public static string BCryptSaltAndHash(this string source, string salt)
         {
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
             return BCrypt.Net.BCrypt.HashPassword(source, salt);
         }
         /// <summary>
