@@ -9,6 +9,7 @@ namespace VinEcomDomain.Enum
     public enum StoreCategory
     {
         Food,
-        Grocery
+        Beverage,
+        Grocery,
     }
 }

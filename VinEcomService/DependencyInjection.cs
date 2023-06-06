@@ -4,9 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDbContext;
+using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IRepository;
 using VinEcomInterface.IService;
@@ -29,7 +31,8 @@ namespace VinEcomService
                 options.UseNpgsql(config.GetConnectionString("VinEcomCloud"));
             });
             //
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            string resourcePath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(VinEcom)).Location);
+            services.AddLocalization(options => options.ResourcesPath = resourcePath);
             //
             services.AddSingleton<ICacheService, RedisCacheService>();
             services.AddSingleton<ITimeService, TimeService>();
@@ -42,6 +45,7 @@ namespace VinEcomService
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderDetailRepository,  OrderDetailRepository>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //

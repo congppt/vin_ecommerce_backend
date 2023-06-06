@@ -120,6 +120,36 @@
   <data name="VINECOM_ORDER_ADDTOCART_FAILED" xml:space="preserve">
     <value>Không thể thêm vào giỏ hàng. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_ORDER_STATUS_CANCEL" xml:space="preserve">
+    <value>Đã huỷ</value>
+  </data>
+  <data name="VINECOM_ORDER_STATUS_DONE" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="VINECOM_ORDER_STATUS_PREPARING" xml:space="preserve">
+    <value>Đang chuẩn bị</value>
+  </data>
+  <data name="VINECOM_ORDER_STATUS_SHIPPING" xml:space="preserve">
+    <value>Đang giao</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CATEGORY_BEVERAGE" xml:space="preserve">
+    <value>Thức uống</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CATEGORY_FOOD" xml:space="preserve">
+    <value>Món ăn</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CATEGORY_NECESSITY" xml:space="preserve">
+    <value>Nhu yếu phẩm</value>
+  </data>
+  <data name="VINECOM_STORE_CATEGORY_BEVERAGE" xml:space="preserve">
+    <value>Quán cafe</value>
+  </data>
+  <data name="VINECOM_STORE_CATEGORY_FOOD" xml:space="preserve">
+    <value>Quán ăn</value>
+  </data>
+  <data name="VINECOM_STORE_CATEGORY_GROCERY" xml:space="preserve">
+    <value>Tạp hoá</value>
+  </data>
   <data name="VINECOM_USER_AUTHORIZE_FAILED" xml:space="preserve">
     <value>Số điện thoại hoặc mật khẩu không chính xác.</value>
   </data>
@@ -131,5 +161,8 @@
   </data>
   <data name="VINECOM_USER_REGISTER_SUCCESS" xml:space="preserve">
     <value>Đăng ký thành công.</value>
+  </data>
+  <data name="VINECOM_VEHICLE_TYPE_MOTORBIKE" xml:space="preserve">
+    <value>Xe máy</value>
   </data>
 </root>

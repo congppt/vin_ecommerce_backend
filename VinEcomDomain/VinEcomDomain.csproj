@@ -10,4 +10,19 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\VinEcom.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VinEcom.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\VinEcom.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>VinEcom.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VinEcomInterface.IService;
 using VinEcomViewModel.OrderDetail;
-using static VinEcomService.Resources.VinEcom;
+using VinEcomDomain.Resources;
 
 namespace VinEcomAPI.Controllers
 {
@@ -20,7 +20,7 @@ namespace VinEcomAPI.Controllers
         {
             var result = await orderService.AddToCartAsync(vm);
             if (result is true) return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError, VINECOM_ORDER_ADDTOCART_FAILED);
+            return StatusCode(StatusCodes.Status500InternalServerError, VinEcom.VINECOM_ORDER_ADDTOCART_FAILED);
         }
 
         #region GetOrders

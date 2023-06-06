@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VinEcomService.Resources {
+namespace VinEcomDomain.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VinEcomService.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VinEcomService.Resources.VinEcom", typeof(VinEcom).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VinEcomDomain.Resources.VinEcom", typeof(VinEcom).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,6 +66,96 @@ namespace VinEcomService.Resources {
         public static string VINECOM_ORDER_ADDTOCART_FAILED {
             get {
                 return ResourceManager.GetString("VINECOM_ORDER_ADDTOCART_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã huỷ.
+        /// </summary>
+        public static string VINECOM_ORDER_STATUS_CANCEL {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_STATUS_CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoàn thành.
+        /// </summary>
+        public static string VINECOM_ORDER_STATUS_DONE {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_STATUS_DONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đang chuẩn bị.
+        /// </summary>
+        public static string VINECOM_ORDER_STATUS_PREPARING {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_STATUS_PREPARING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đang giao.
+        /// </summary>
+        public static string VINECOM_ORDER_STATUS_SHIPPING {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_STATUS_SHIPPING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thức uống.
+        /// </summary>
+        public static string VINECOM_PRODUCT_CATEGORY_BEVERAGE {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CATEGORY_BEVERAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Món ăn.
+        /// </summary>
+        public static string VINECOM_PRODUCT_CATEGORY_FOOD {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CATEGORY_FOOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhu yếu phẩm.
+        /// </summary>
+        public static string VINECOM_PRODUCT_CATEGORY_NECESSITY {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CATEGORY_NECESSITY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quán cafe.
+        /// </summary>
+        public static string VINECOM_STORE_CATEGORY_BEVERAGE {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CATEGORY_BEVERAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quán ăn.
+        /// </summary>
+        public static string VINECOM_STORE_CATEGORY_FOOD {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CATEGORY_FOOD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tạp hoá.
+        /// </summary>
+        public static string VINECOM_STORE_CATEGORY_GROCERY {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CATEGORY_GROCERY", resourceCulture);
             }
         }
         
@@ -102,6 +192,15 @@ namespace VinEcomService.Resources {
         public static string VINECOM_USER_REGISTER_SUCCESS {
             get {
                 return ResourceManager.GetString("VINECOM_USER_REGISTER_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xe máy.
+        /// </summary>
+        public static string VINECOM_VEHICLE_TYPE_MOTORBIKE {
+            get {
+                return ResourceManager.GetString("VINECOM_VEHICLE_TYPE_MOTORBIKE", resourceCulture);
             }
         }
     }

@@ -9,7 +9,7 @@ namespace VinEcomDomain.Enum
     public enum ProductCategory
     {
         Food,
-        Drink,
+        Beverage,
         Necessity
     }
 }
