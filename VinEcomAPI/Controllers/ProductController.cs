@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
+using VinEcomDomain.Model;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Product;
 
@@ -35,6 +36,15 @@ namespace VinEcomAPI.Controllers
             if (pageSize <= 0) return BadRequest();
             var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
             return Ok(products);
+        }
+        #endregion
+
+        #region AddAsync
+        [HttpPost("AddAsync")]
+        public async Task<IActionResult> AddProductAsync(ProductCreateModel product)
+        {
+            if (await productService.AddAsync(product)) return Ok(product);
+            return BadRequest();
         }
         #endregion
     }

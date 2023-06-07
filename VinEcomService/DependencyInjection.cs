@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,9 +14,14 @@ using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IRepository;
 using VinEcomInterface.IService;
+using VinEcomInterface.IValidator;
+using VinEcomOther.MapperConfig;
+using VinEcomOther.ValidationRule.Product;
+using VinEcomOther.Validator;
 using VinEcomRepository;
 using VinEcomRepository.Repository;
 using VinEcomService.Service;
+using VinEcomViewModel.Product;
 
 namespace VinEcomService
 {
@@ -56,6 +63,11 @@ namespace VinEcomService
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IBaseService, BaseService>();
+            //
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            //
+            services.AddScoped<IProductValidator, ProductValidator>();
+            services.AddValidatorsFromAssemblyContaining<ProductCreateRule>();
         }
     }
 }

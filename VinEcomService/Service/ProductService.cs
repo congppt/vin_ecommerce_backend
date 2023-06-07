@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +10,7 @@ using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
+using VinEcomInterface.IValidator;
 using VinEcomUtility.Pagination;
 using VinEcomViewModel.Product;
 
@@ -15,8 +18,16 @@ namespace VinEcomService.Service
 {
     public class ProductService : BaseService, IProductService
     {
-        public ProductService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        private readonly IMapper mapper;
+        private readonly IProductValidator productValidator;
+        public ProductService(IUnitOfWork unitOfWork, IConfiguration config,
+            ITimeService timeService, ICacheService cacheService,
+            IClaimService claimService, IMapper mapper, IProductValidator productValidator) : 
+            base(unitOfWork, config, timeService,
+                cacheService, claimService)
         {
+            this.mapper = mapper;
+            this.productValidator = productValidator;
         }
 
         #region GetProductPage
@@ -52,6 +63,20 @@ namespace VinEcomService.Service
         public bool IsValidCategory(int category)
         {
             return Enum.IsDefined(typeof(ProductCategory), category);
+        }
+        #endregion
+
+        #region AddAsync
+        public async Task<bool> AddAsync(ProductCreateModel product)
+        {
+            var result = await productValidator.ProductCreateValidator.ValidateAsync(product);
+            if (result.IsValid)
+            {
+                var createProduct = mapper.Map<Product>(product);
+                await unitOfWork.ProductRepository.AddAsync(createProduct);
+                return await unitOfWork.SaveChangesAsync();
+            }
+            return false;
         }
         #endregion
     }

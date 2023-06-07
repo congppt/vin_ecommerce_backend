@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,8 @@ namespace VinEcomService.Service
         protected readonly ICacheService cacheService;
 
         public BaseService(IUnitOfWork unitOfWork, IConfiguration config,
-            ITimeService timeService, ICacheService cacheService, IClaimService claimService)
+            ITimeService timeService, ICacheService cacheService, 
+            IClaimService claimService)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
