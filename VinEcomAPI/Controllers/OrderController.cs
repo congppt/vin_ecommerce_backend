@@ -33,5 +33,14 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region IsProductSameStore
+        [HttpGet("IsProductSameStore")]
+        public async Task<IActionResult> IsProductSameStoreAsync(int productId)
+        {
+            var result = await orderService.IsProductSameStoreAsync(productId);
+            return Ok(result);
+        }
+        #endregion
     }
 }

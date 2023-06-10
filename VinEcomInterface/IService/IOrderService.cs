@@ -13,5 +13,6 @@ namespace VinEcomInterface.IService
     {
         Task<bool> AddToCartAsync(AddToCartViewModel vm);
         Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize);
+        Task<bool> IsProductSameStoreAsync(int productId);
     }
 }

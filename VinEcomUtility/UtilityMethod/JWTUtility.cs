@@ -13,7 +13,8 @@ namespace VinEcomUtility.UtilityMethod
 {
     public static class JWTUtility
     {
-        public static string GenerateToken(this User user, IConfiguration configuration, DateTime createdAt, int minuteValidFor, string role, int storeId = -1, string? secretKey = null)
+        public static string GenerateToken(this User user, IConfiguration configuration, 
+            DateTime createdAt, int minuteValidFor, string role, int storeId = -1, string? secretKey = null)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

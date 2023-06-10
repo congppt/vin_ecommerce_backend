@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDbContext;
+using VinEcomDbContext.Migrations;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
@@ -15,6 +16,17 @@ namespace VinEcomRepository.Repository
     {
         public OrderRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId)
+        {
+            return await context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .FirstOrDefaultAsync(x => x.CustomerId == userId && x.Status == OrderStatus.Cart &&
+                x.Details.Any(det => det.Product.Store.Id == storeId));
         }
 
         public async Task<IEnumerable<Order>?> GetOrderAtStateWithDetailsAsync(OrderStatus status, int? customerId)

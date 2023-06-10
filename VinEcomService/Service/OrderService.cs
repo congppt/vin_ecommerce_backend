@@ -74,5 +74,19 @@ namespace VinEcomService.Service
             return await unitOfWork.OrderRepository.GetPageAsync(pageIndex, pageSize); 
         }
         #endregion
+
+        #region IsProductSameStore
+        public async Task<bool> IsProductSameStoreAsync(int productId)
+        {
+            var product = await unitOfWork.ProductRepository.GetProductByIdAsync(productId);
+            var userId = claimService.GetCurrentUserId();
+            if (product is not null && userId != -1)
+            {
+                var order = await unitOfWork.OrderRepository.GetCartByUserIdAndStoreId(userId, product.StoreId);
+                return order is not null;
+            }
+            return false;
+        }
+        #endregion
     }
 }

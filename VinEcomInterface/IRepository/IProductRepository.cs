@@ -12,5 +12,6 @@ namespace VinEcomInterface.IRepository
     public interface IProductRepository : IBaseRepository<Product>
     {
         Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter);
+        Task<Product?> GetProductByIdAsync(int id);
     }
 }

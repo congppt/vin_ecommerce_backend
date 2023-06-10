@@ -18,6 +18,14 @@ namespace VinEcomRepository.Repository
         public ProductRepository(AppDbContext context) : base(context)
         { }
 
+        public async Task<Product?> GetProductByIdAsync(int id)
+        {
+            return await context.Set<Product>()
+                .Include(x => x.Store)
+                .Include(x => x.OrderDetails)
+                .FirstOrDefaultAsync(x => x.Id == id && x.IsRemoved == false);
+        }
+
         public async Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
             var products = context.Set<Product>().AsNoTracking().AsQueryable();
