@@ -18,6 +18,13 @@ namespace VinEcomRepository.Repository
         {
         }
 
+        public async Task<Order?> GetCartByIdAsync(int id)
+        {
+            return await context.Set<Order>()
+                .Include(x => x.Details)
+                .FirstOrDefaultAsync(x => x.Id == id && x.Status == OrderStatus.Cart);
+        }
+
         public async Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId)
         {
             return await context.Set<Order>()

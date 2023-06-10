@@ -42,5 +42,15 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region EmptyCart
+        [HttpPut("EmptyCart")]
+        public async Task<IActionResult> EmptyCartAsync(int id)
+        {
+            var result = await orderService.EmptyCartAsync(id);
+            if (result) return Ok();
+            return BadRequest();
+        }
+        #endregion
     }
 }

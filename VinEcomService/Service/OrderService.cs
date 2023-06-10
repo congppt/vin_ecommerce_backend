@@ -68,6 +68,18 @@ namespace VinEcomService.Service
             }
         }
 
+        public async Task<bool> EmptyCartAsync(int cartId)
+        {
+            var cart = await unitOfWork.OrderRepository.GetCartByIdAsync(cartId);
+            if (cart is not null)
+            {
+                cart.Details = new List<OrderDetail>();
+                unitOfWork.OrderRepository.Update(cart);
+                return await unitOfWork.SaveChangesAsync();
+            }
+            return false;
+        }
+
         #region GetOrders
         public async Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize)
         {
