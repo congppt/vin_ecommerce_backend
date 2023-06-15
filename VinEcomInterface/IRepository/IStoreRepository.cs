@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Model;
 
-namespace VinEcomInterface.IValidator
+namespace VinEcomInterface.IRepository
 {
-    public interface ICustomerValidator
+    public interface IStoreRepository : IBaseRepository<Store>
     {
     }
 }

@@ -53,6 +53,7 @@ namespace VinEcomService
             services.AddScoped<IOrderDetailRepository,  OrderDetailRepository>();
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IStoreRepository, StoreRepository>();
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //
@@ -67,6 +68,7 @@ namespace VinEcomService
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             //
             services.AddScoped<IProductValidator, ProductValidator>();
+            services.AddScoped<IUserValidator, UserValidator>();
             services.AddValidatorsFromAssemblyContaining<ProductCreateRule>();
         }
     }

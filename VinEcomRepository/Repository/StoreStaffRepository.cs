@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDbContext;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.UtilityMethod;
 
 namespace VinEcomRepository.Repository
 {
@@ -15,12 +16,15 @@ namespace VinEcomRepository.Repository
         public StoreStaffRepository(AppDbContext context) : base(context)
         {
         }
-        public async Task<StoreStaff?> AuthorizeAsync(string phone, string passwordHash)
+        public async Task<StoreStaff?> AuthorizeAsync(string phone, string password)
         {
-            return await context.Set<StoreStaff>()
+            var staff = await context.Set<StoreStaff>()
                                 .AsNoTracking()
                                 .Include(c => c.User)
-                                .FirstOrDefaultAsync(c => c.User.Phone == phone && c.User.PasswordHash == passwordHash);
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone);
+            if (staff == null) return null;
+            if (password.IsCorrectHashSource(staff.User.PasswordHash)) return staff;
+            return null;
         }
     }
 }

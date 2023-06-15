@@ -33,9 +33,9 @@ namespace VinEcomService.Service
         }
 
         #region GetProductPage
-        public async Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
+        public async Task<Pagination<Product>> GetProductPageAsync(int storeId, int pageIndex = 0, int pageSize = 10)
         {
-            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);
+            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize, storeId);
         }
 
         #endregion

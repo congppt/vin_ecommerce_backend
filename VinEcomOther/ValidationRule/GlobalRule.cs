@@ -9,6 +9,5 @@ namespace VinEcomOther.ValidationRule
 {
     public static class GlobalRule
     {
-        public static IRuleBuilderOptions<T> IsValidPassword(this T )
     }
 }

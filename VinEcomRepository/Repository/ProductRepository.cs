@@ -18,6 +18,22 @@ namespace VinEcomRepository.Repository
         public ProductRepository(AppDbContext context) : base(context)
         { }
 
+        public async Task<Pagination<Product>> GetPageAsync(int storeId, int pageIndex, int pageSize)
+        {
+            var source = context.Set<Product>().AsNoTracking().Where(p => p.StoreId == storeId);
+            var totalCount = await source.CountAsync();
+            var items = await source.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+            var result = new Pagination<Product>()
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItemsCount = totalCount
+            };
+            //if (result.TotalPagesCount < pageIndex + 1) return await GetPageAsync(0, pageSize);
+            return result;
+        }
+
         public async Task<Product?> GetProductByIdAsync(int id)
         {
             return await context.Set<Product>()

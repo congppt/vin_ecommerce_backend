@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Base;
 using VinEcomDomain.Resources;
+using VinEcomViewModel.StoreStaff;
+using VinEcomService.Service;
 
 namespace VinEcomAPI.Controllers
 {
@@ -21,6 +23,21 @@ namespace VinEcomAPI.Controllers
             var result = await staffService.AuthorizeAsync(vm);
             if (result is null) return Unauthorized(new { message = VinEcom.VINECOM_USER_AUTHORIZE_FAILED });
             return Ok(result);
+        }
+        [HttpPost("Register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] StoreStaffSignUpViewModel vm)
+        {
+            var validateResult = await staffService.ValidateRegistrationAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            if (await staffService.IsPhoneExistAsync(vm.Phone)) return BadRequest(new { message = VinEcom.VINECOM_USER_REGISTER_PHONE_DUPLICATED });
+            if (!await staffService.IsStoreExistedAsync(vm.StoreId)) return BadRequest(new { message = VinEcom.VINECOM_STORE_NOT_EXIST });
+            var result = await staffService.RegisterAsync(vm);
+            if (result) return Created("", new { message = VinEcom.VINECOM_USER_REGISTER_SUCCESS });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_USER_REGISTER_INTERNAL_FAILED });
         }
     }
 }

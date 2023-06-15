@@ -5,8 +5,10 @@ using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Base;
 using VinEcomDomain.Model;
-using VinEcomDomain.Resources;
 using AutoMapper;
+using VinEcomInterface.IValidator;
+using VinEcomDomain.Enum;
+using FluentValidation.Results;
 
 namespace VinEcomService.Service
 {
@@ -17,18 +19,24 @@ namespace VinEcomService.Service
                                ITimeService timeService,
                                ICacheService cacheService,
                                IClaimService claimService,
-                               IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
+                               IMapper mapper,
+                               IUserValidator validator) : base(unitOfWork, config, timeService, cacheService, claimService, mapper, validator)
         { }
 
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
             var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (customer is null) return null;
-            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_CUSTOMER);
+            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Customer);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken
             };
+        }
+
+        public async Task<bool> IsBuildingExistedAsync(int buildingId)
+        {
+            return await unitOfWork.BuildingRepository.GetByIdAsync(buildingId) is not null;
         }
 
         public async Task<bool> RegisterAsync(CustomerSignUpViewModel vm)
@@ -41,15 +49,13 @@ namespace VinEcomService.Service
                 BuildingId = vm.BuildingId,
             };
             await unitOfWork.CustomerRepository.AddAsync(customer);
-            try
-            {
-                if (await unitOfWork.SaveChangesAsync()) return true;
-            }
-            catch
-            {
-                return false;
-            }
+            if (await unitOfWork.SaveChangesAsync()) return true;
             return false;
+        }
+
+        public async Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm)
+        {
+            return await validator.CustomerCreateValidator.ValidateAsync(vm);
         }
     }
 }

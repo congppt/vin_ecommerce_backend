@@ -30,21 +30,21 @@ namespace VinEcomService.Service
             _db = ConnectionMultiplexer.Connect(redisOptions).GetDatabase();
             _timeService = timeService;
         }
-        public async Task<T> GetData<T>(string key)
+        public async Task<T> GetDataAsync<T>(string key)
         {
             var value = await _db.StringGetAsync(key);
             if (string.IsNullOrEmpty(value)) return default;
             return JsonConvert.DeserializeObject<T>(value);
         }
 
-        public async Task<object> RemoveData(string key)
+        public async Task<object> RemoveDataAsync(string key)
         {
             var isExist = await _db.KeyExistsAsync(key);
             if (isExist) return await _db.KeyDeleteAsync(key);
             return false;
         }
 
-        public async Task<bool> SetData<T>(string key, T data, DateTime expireTime)
+        public async Task<bool> SetDataAsync<T>(string key, T data, DateTime expireTime)
         {
             var timeSpan = expireTime.Subtract(_timeService.GetCurrentTime());
             var isSet = await _db.StringSetAsync(key, JsonConvert.SerializeObject(data), timeSpan);

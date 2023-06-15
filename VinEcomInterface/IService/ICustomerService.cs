@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,7 @@ namespace VinEcomInterface.IService
     {
         Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm);
         Task<bool> RegisterAsync(CustomerSignUpViewModel vm);
+        Task<bool> IsBuildingExistedAsync(int buildingId);
+        Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm);
     }
 }

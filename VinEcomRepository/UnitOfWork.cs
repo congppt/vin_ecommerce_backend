@@ -20,6 +20,7 @@ namespace VinEcomRepository
         private readonly IOrderDetailRepository orderDetailRepository;
         private readonly IBuildingRepository buildingRepository;
         private readonly IUserRepository userRepository;
+        private readonly IStoreRepository storeRepository;
         public UnitOfWork(AppDbContext context,
                           ICustomerRepository customerRepository,
                           IOrderRepository orderRepository,
@@ -28,7 +29,8 @@ namespace VinEcomRepository
                           IShipperRepository shipperRepository,
                           IOrderDetailRepository orderDetailRepository,
                           IBuildingRepository buildingRepository,
-                          IUserRepository userRepository)
+                          IUserRepository userRepository,
+                          IStoreRepository storeRepository)
         {
             this.context = context;
             this.customerRepository = customerRepository;
@@ -39,6 +41,7 @@ namespace VinEcomRepository
             this.orderDetailRepository = orderDetailRepository;
             this.buildingRepository = buildingRepository;
             this.userRepository = userRepository;
+            this.storeRepository = storeRepository;
         }
         public ICustomerRepository CustomerRepository => customerRepository;
 
@@ -56,9 +59,18 @@ namespace VinEcomRepository
 
         public IUserRepository UserRepository => userRepository;
 
+        public IStoreRepository StoreRepository => storeRepository;
+
         public async Task<bool> SaveChangesAsync()
         {
-            return await context.SaveChangesAsync() > 0;
+            try
+            {
+                return await context.SaveChangesAsync() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

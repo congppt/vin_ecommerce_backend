@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 
 namespace VinEcomUtility.UtilityMethod
@@ -14,14 +15,14 @@ namespace VinEcomUtility.UtilityMethod
     public static class JWTUtility
     {
         public static string GenerateToken(this User user, IConfiguration configuration, 
-            DateTime createdAt, int minuteValidFor, string role, int storeId = -1, string? secretKey = null)
+            DateTime createdAt, int minuteValidFor, Role role, int storeId = -1, string? secretKey = null)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
                 new Claim("Id", user.Id.ToString()),
-                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Role, role.ToString()),
                 new Claim("StoreId", storeId.ToString())
             };
             var token = new JwtSecurityToken(

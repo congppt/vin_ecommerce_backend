@@ -1,15 +1,18 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VinEcomDomain.Resources;
+using VinEcomDomain.Enum;
 using VinEcomInterface;
 using VinEcomInterface.IService;
+using VinEcomInterface.IValidator;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
+using VinEcomViewModel.Shipper;
 
 namespace VinEcomService.Service
 {
@@ -20,21 +23,26 @@ namespace VinEcomService.Service
                               ITimeService timeService,
                               ICacheService cacheService,
                               IClaimService claimService,
-                              IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
+                              IMapper mapper,
+                              IUserValidator validator) : base(unitOfWork, config, timeService, cacheService, claimService, mapper, validator)
         {
         }
 
-        #region AuthorizeAsync
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
         {
             var shipper = await unitOfWork.ShipperRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (shipper is null) return null;
-            string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_SHIPPER);
+            string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Shipper);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken
             };
         }
-        #endregion
+
+        public async Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm)
+        {
+            return await validator.ShipperCreateValidator.ValidateAsync(vm);
+        }
+        
     }
 }

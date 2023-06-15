@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VinEcomInterface.IValidator;
 
-namespace VinEcomOther.Validator
+namespace VinEcomDomain.Enum
 {
-    public class CustomerValidator : ICustomerValidator
+    public enum Role
     {
+        Administrator,
+        Customer,
+        Shipper,
+        Staff
     }
 }

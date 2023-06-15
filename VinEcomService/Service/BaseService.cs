@@ -38,7 +38,7 @@ namespace VinEcomService.Service
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<Building>> GetBuildings()
+        public async Task<IEnumerable<Building>> GetBuildingsAsync()
         {
             return await unitOfWork.BuildingRepository.GetAllAsync();
         }

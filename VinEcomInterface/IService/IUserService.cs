@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace VinEcomInterface.IService
 {
     public interface IUserService : IBaseService
     {
-        Task<bool> IsPhoneExist(string phone);
+        Task<bool> IsPhoneExistAsync(string phone);
     }
 }

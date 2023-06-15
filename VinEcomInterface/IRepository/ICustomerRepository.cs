@@ -9,6 +9,6 @@ namespace VinEcomInterface.IRepository
 {
     public interface ICustomerRepository : IBaseRepository<Customer>
     {
-        Task<Customer?> AuthorizeAsync(string phone, string passwordHash);
+        Task<Customer?> AuthorizeAsync(string phone, string password);
     }
 }

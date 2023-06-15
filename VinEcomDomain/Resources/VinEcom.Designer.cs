@@ -61,6 +61,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toà nhà không tồn tại..
+        /// </summary>
+        public static string VINECOM_BUILDING_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("VINECOM_BUILDING_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể thêm vào giỏ hàng. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_ORDER_ADDTOCART_FAILED {
@@ -160,6 +169,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cửa hàng không tồn tại..
+        /// </summary>
+        public static string VINECOM_STORE_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số điện thoại hoặc mật khẩu không chính xác..
         /// </summary>
         public static string VINECOM_USER_AUTHORIZE_FAILED {
@@ -192,33 +210,6 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_USER_REGISTER_SUCCESS {
             get {
                 return ResourceManager.GetString("VINECOM_USER_REGISTER_SUCCESS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Khách hàng.
-        /// </summary>
-        public static string VINECOM_USER_ROLE_CUSTOMER {
-            get {
-                return ResourceManager.GetString("VINECOM_USER_ROLE_CUSTOMER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tài xế.
-        /// </summary>
-        public static string VINECOM_USER_ROLE_SHIPPER {
-            get {
-                return ResourceManager.GetString("VINECOM_USER_ROLE_SHIPPER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nhân viên cửa hàng.
-        /// </summary>
-        public static string VINECOM_USER_ROLE_STORESTAFF {
-            get {
-                return ResourceManager.GetString("VINECOM_USER_ROLE_STORESTAFF", resourceCulture);
             }
         }
         
@@ -282,6 +273,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_VEHICLE_TYPE_MOTORBIKE {
             get {
                 return ResourceManager.GetString("VINECOM_VEHICLE_TYPE_MOTORBIKE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại phương tiện không phù hợp..
+        /// </summary>
+        public static string VINECOM_VEHICLE_TYPE_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("VINECOM_VEHICLE_TYPE_NOT_EXIST", resourceCulture);
             }
         }
     }

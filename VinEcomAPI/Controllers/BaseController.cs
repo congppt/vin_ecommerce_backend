@@ -19,7 +19,7 @@ namespace VinEcomAPI.Controllers
         [HttpGet("Buildings")]
         public async Task<IActionResult> GetBuildingsAsync()
         {
-            var buildings = await baseService.GetBuildings();
+            var buildings = await baseService.GetBuildingsAsync();
             if (buildings == null) return StatusCode(StatusCodes.Status500InternalServerError);
             return Ok(buildings);
         }

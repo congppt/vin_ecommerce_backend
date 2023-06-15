@@ -13,4 +13,8 @@
 		<Folder Include="Customer\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\VinEcomDomain\VinEcomDomain.csproj" />
+	</ItemGroup>
+
 </Project>

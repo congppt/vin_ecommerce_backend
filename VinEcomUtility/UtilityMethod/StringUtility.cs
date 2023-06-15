@@ -17,8 +17,7 @@ namespace VinEcomUtility.UtilityMethod
         /// <returns>A hashed string</returns>
         public static string BCryptSaltAndHash(this string source)
         {
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
-            return BCrypt.Net.BCrypt.HashPassword(source, salt);
+            return BCrypt.Net.BCrypt.HashPassword(source);
         }
         /// <summary>
         /// Check if a string is the input key of the hashed string

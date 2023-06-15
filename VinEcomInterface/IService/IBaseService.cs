@@ -10,6 +10,6 @@ namespace VinEcomInterface.IService
 {
     public interface IBaseService
     {
-        Task<IEnumerable<Building>> GetBuildings();
+        Task<IEnumerable<Building>> GetBuildingsAsync();
     }
 }

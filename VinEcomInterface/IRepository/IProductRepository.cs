@@ -13,5 +13,6 @@ namespace VinEcomInterface.IRepository
     {
         Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter);
         Task<Product?> GetProductByIdAsync(int id);
+        Task<Pagination<Product>> GetPageAsync(int storeId, int pageIndex, int pageSize);
     }
 }

@@ -9,6 +9,6 @@ namespace VinEcomViewModel.StoreStaff
 {
     public class StoreStaffSignUpViewModel : SignUpViewModel
     {
-        public int BuildingId { get; set; }
+        public int StoreId { get; set; }
     }
 }

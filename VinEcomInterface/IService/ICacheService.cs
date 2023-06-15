@@ -8,8 +8,8 @@ namespace VinEcomInterface.IService
 {
     public interface ICacheService
     {
-        Task<T> GetData<T>(string key);
-        Task<bool> SetData<T>(string key, T data, DateTime expireTime);
-        Task<object> RemoveData(string key);
+        Task<T> GetDataAsync<T>(string key);
+        Task<bool> SetDataAsync<T>(string key, T data, DateTime expireTime);
+        Task<object> RemoveDataAsync(string key);
     }
 }
