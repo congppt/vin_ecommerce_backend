@@ -21,16 +21,21 @@ namespace VinEcomService.Service
         protected readonly IConfiguration config;
         protected readonly ITimeService timeService;
         protected readonly ICacheService cacheService;
+        protected readonly IMapper mapper;
 
-        public BaseService(IUnitOfWork unitOfWork, IConfiguration config,
-            ITimeService timeService, ICacheService cacheService, 
-            IClaimService claimService)
+        public BaseService(IUnitOfWork unitOfWork,
+                           IConfiguration config,
+                           ITimeService timeService,
+                           ICacheService cacheService,
+                           IClaimService claimService,
+                           IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.config = config;
             this.timeService = timeService;
             this.cacheService = cacheService;
             this.claimService = claimService;
+            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<Building>> GetBuildings()

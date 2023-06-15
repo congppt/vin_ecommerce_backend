@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace VinEcomService.Service
 {
     public class ShipperService : UserService, IShipperService
     {
-        public ShipperService(IUnitOfWork unitOfWork, IConfiguration config,
-            ITimeService timeService, ICacheService cacheService,
-            IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        public ShipperService(IUnitOfWork unitOfWork,
+                              IConfiguration config,
+                              ITimeService timeService,
+                              ICacheService cacheService,
+                              IClaimService claimService,
+                              IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
         {
         }
 
@@ -28,8 +32,7 @@ namespace VinEcomService.Service
             string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_SHIPPER);
             return new AuthorizedViewModel
             {
-                AccessToken = accessToken,
-                Name = shipper.User.Name
+                AccessToken = accessToken
             };
         }
         #endregion

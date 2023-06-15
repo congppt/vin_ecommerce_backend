@@ -13,8 +13,9 @@ namespace VinEcomDomain.Model
         public string Name { get; set; } 
         public string? ImageUrl { get; set; }
         public StoreCategory Category { get; set; }
-        public decimal CommissionPercent { get; set; }
-        public DateTime? LastWithdraw { get; set; }
+        public double CommissionPercent { get; set; }
+        public decimal Balance { get; set; }
+        public bool IsWorking { get; set; }
         public bool IsBlocked { get; set; }
         //
         public int BuildingId { get; set; }

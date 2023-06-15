@@ -10,5 +10,6 @@ namespace VinEcomInterface.IService
     public interface IStoreStaffService : IUserService
     {
         Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm);
+        Task<bool> RegisterAsync(SignInViewModel vm);
     }
 }

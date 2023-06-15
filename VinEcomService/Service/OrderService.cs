@@ -10,12 +10,18 @@ using VinEcomDomain.Enum;
 using VinEcomViewModel.OrderDetail;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
+using AutoMapper;
 
 namespace VinEcomService.Service
 {
     public class OrderService : BaseService, IOrderService
     {
-        public OrderService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        public OrderService(IUnitOfWork unitOfWork,
+                            IConfiguration config,
+                            ITimeService timeService,
+                            ICacheService cacheService,
+                            IClaimService claimService,
+                            IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
         {
         }
 

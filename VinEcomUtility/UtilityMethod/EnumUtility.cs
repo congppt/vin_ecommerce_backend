@@ -36,7 +36,6 @@ namespace VinEcomUtility.UtilityMethod
             return status switch
             {
                 OrderStatus.Cart => "",
-                OrderStatus.CartCancel => "",
                 OrderStatus.Preparing => VinEcom.VINECOM_ORDER_STATUS_PREPARING,
                 OrderStatus.Cancel => VinEcom.VINECOM_ORDER_STATUS_CANCEL,
                 OrderStatus.Done => VinEcom.VINECOM_ORDER_STATUS_DONE,

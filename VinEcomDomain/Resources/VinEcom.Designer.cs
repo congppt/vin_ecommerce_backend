@@ -223,6 +223,60 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Họ và tên không thể để trống..
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_NAME_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_NAME_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Họ và tên phải từ {0} - {1} ký tự..
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_NAME_LENGTH_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_NAME_LENGTH_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu không thể để trống..
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_PASSWORD_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_PASSWORD_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu phải từ {0} - {1} ký tự. .
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_PASSWORD_LENGTH_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_PASSWORD_LENGTH_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại không thể để trống..
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_PHONE_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_PHONE_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại không hợp lệ. Vui lòng kiểm tra lại cú pháp..
+        /// </summary>
+        public static string VINECOM_USER_SIGNUP_PHONE_FORMAT_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_SIGNUP_PHONE_FORMAT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xe máy.
         /// </summary>
         public static string VINECOM_VEHICLE_TYPE_MOTORBIKE {

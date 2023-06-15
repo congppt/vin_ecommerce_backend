@@ -18,15 +18,17 @@ namespace VinEcomService.Service
 {
     public class ProductService : BaseService, IProductService
     {
-        private readonly IMapper mapper;
         private readonly IProductValidator productValidator;
-        public ProductService(IUnitOfWork unitOfWork, IConfiguration config,
-            ITimeService timeService, ICacheService cacheService,
-            IClaimService claimService, IMapper mapper, IProductValidator productValidator) : 
+        public ProductService(IUnitOfWork unitOfWork,
+                              IConfiguration config,
+                              ITimeService timeService,
+                              ICacheService cacheService,
+                              IClaimService claimService,
+                              IMapper mapper,
+                              IProductValidator productValidator) : 
             base(unitOfWork, config, timeService,
-                cacheService, claimService)
+                cacheService, claimService, mapper)
         {
-            this.mapper = mapper;
             this.productValidator = productValidator;
         }
 

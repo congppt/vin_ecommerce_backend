@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
+using VinEcomViewModel.Base;
 using VinEcomViewModel.Product;
 
 namespace VinEcomOther.MapperConfig
@@ -14,6 +15,7 @@ namespace VinEcomOther.MapperConfig
         public AutoMapperProfile()
         {
             CreateMap<ProductCreateModel, Product>();
+            CreateMap<SignUpViewModel, User>();
         }
     }
 }

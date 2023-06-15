@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,12 @@ namespace VinEcomService.Service
 {
     public class StoreService : BaseService, IStoreService
     {
-        public StoreService(IUnitOfWork unitOfWork, IConfiguration config, ITimeService timeService, ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+        public StoreService(IUnitOfWork unitOfWork,
+                            IConfiguration config,
+                            ITimeService timeService,
+                            ICacheService cacheService,
+                            IClaimService claimService,
+                            IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
         {
         }
     }

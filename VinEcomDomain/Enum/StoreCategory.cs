@@ -11,5 +11,6 @@ namespace VinEcomDomain.Enum
         Food,
         Beverage,
         Grocery,
+        Pharmacy,
     }
 }

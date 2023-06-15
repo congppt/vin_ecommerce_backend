@@ -14,7 +14,6 @@ namespace VinEcomDomain.Enum
         Preparing,
         Shipping,
         Done,
-        Cancel,
-        CartCancel
+        Cancel
     }
 }

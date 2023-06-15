@@ -20,7 +20,7 @@ namespace VinEcomAPI.Controllers
         public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
             var result = await shipperService.AuthorizeAsync(vm);
-            if (result is null) return Unauthorized(VinEcom.VINECOM_USER_AUTHORIZE_FAILED);
+            if (result is null) return Unauthorized(new { message = VinEcom.VINECOM_USER_AUTHORIZE_FAILED });
             return Ok(result);
         }
     }

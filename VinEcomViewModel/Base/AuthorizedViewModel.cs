@@ -9,7 +9,6 @@ namespace VinEcomViewModel.Base
     public class AuthorizedViewModel
     {
         public string AccessToken { get; set; }
-        public string Name { get; set; }
 
     }
 }

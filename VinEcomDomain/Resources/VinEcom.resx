@@ -171,6 +171,24 @@
   <data name="VINECOM_USER_ROLE_STORESTAFF" xml:space="preserve">
     <value>Nhân viên cửa hàng</value>
   </data>
+  <data name="VINECOM_USER_SIGNUP_NAME_EMPTY_ERROR" xml:space="preserve">
+    <value>Họ và tên không thể để trống.</value>
+  </data>
+  <data name="VINECOM_USER_SIGNUP_NAME_LENGTH_ERROR" xml:space="preserve">
+    <value>Họ và tên phải từ {0} - {1} ký tự.</value>
+  </data>
+  <data name="VINECOM_USER_SIGNUP_PASSWORD_EMPTY_ERROR" xml:space="preserve">
+    <value>Mật khẩu không thể để trống.</value>
+  </data>
+  <data name="VINECOM_USER_SIGNUP_PASSWORD_LENGTH_ERROR" xml:space="preserve">
+    <value>Mật khẩu phải từ {0} - {1} ký tự. </value>
+  </data>
+  <data name="VINECOM_USER_SIGNUP_PHONE_EMPTY_ERROR" xml:space="preserve">
+    <value>Số điện thoại không thể để trống.</value>
+  </data>
+  <data name="VINECOM_USER_SIGNUP_PHONE_FORMAT_ERROR" xml:space="preserve">
+    <value>Số điện thoại không hợp lệ. Vui lòng kiểm tra lại cú pháp.</value>
+  </data>
   <data name="VINECOM_VEHICLE_TYPE_MOTORBIKE" xml:space="preserve">
     <value>Xe máy</value>
   </data>

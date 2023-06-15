@@ -6,14 +6,18 @@ using VinEcomViewModel.Customer;
 using VinEcomViewModel.Base;
 using VinEcomDomain.Model;
 using VinEcomDomain.Resources;
+using AutoMapper;
 
 namespace VinEcomService.Service
 {
     public class CustomerService : UserService, ICustomerService
     {
         public CustomerService(IUnitOfWork unitOfWork,
-            IConfiguration config, ITimeService timeService, 
-            ICacheService cacheService, IClaimService claimService) : base(unitOfWork, config, timeService, cacheService, claimService)
+                               IConfiguration config,
+                               ITimeService timeService,
+                               ICacheService cacheService,
+                               IClaimService claimService,
+                               IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
         { }
 
         public async Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm)
@@ -23,27 +27,28 @@ namespace VinEcomService.Service
             string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, VinEcom.VINECOM_USER_ROLE_CUSTOMER);
             return new AuthorizedViewModel
             {
-                AccessToken = accessToken,
-                Name = customer.User.Name
+                AccessToken = accessToken
             };
         }
 
         public async Task<bool> RegisterAsync(CustomerSignUpViewModel vm)
         {
-            var user = new User
-            {
-                Name = vm.Name,
-                PasswordHash = vm.Password.BCryptSaltAndHash(),
-                IsBlocked = false,
-                Phone = vm.Phone,
-            };
+            var user = mapper.Map<User>(vm);
+            user.PasswordHash = vm.Password.BCryptSaltAndHash();
             var customer = new Customer
             {
                 User = user,
                 BuildingId = vm.BuildingId,
             };
             await unitOfWork.CustomerRepository.AddAsync(customer);
-            if (await unitOfWork.SaveChangesAsync()) return true;
+            try
+            {
+                if (await unitOfWork.SaveChangesAsync()) return true;
+            }
+            catch
+            {
+                return false;
+            }
             return false;
         }
     }
