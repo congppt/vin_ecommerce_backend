@@ -142,6 +142,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Biển số xe không được để trống..
+        /// </summary>
+        public static string VINECOM_SHIPPER_SIGNUP_PLATE_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_SHIPPER_SIGNUP_PLATE_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quán cafe.
         /// </summary>
         public static string VINECOM_STORE_CATEGORY_BEVERAGE {

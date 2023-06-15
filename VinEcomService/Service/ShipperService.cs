@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Enum;
+using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
+using VinEcomViewModel.Customer;
 using VinEcomViewModel.Shipper;
 
 namespace VinEcomService.Service
@@ -37,6 +39,20 @@ namespace VinEcomService.Service
             {
                 AccessToken = accessToken
             };
+        }
+        public async Task<bool> RegisterAsync(ShipperSignUpViewModel vm)
+        {
+            var user = mapper.Map<User>(vm);
+            user.PasswordHash = vm.Password.BCryptSaltAndHash();
+            var shipper = new Shipper
+            {
+                User = user,
+                LicensePlate = vm.LicensePlate,
+                VehicleType = vm.VehicleType
+            };
+            await unitOfWork.ShipperRepository.AddAsync(shipper);
+            if (await unitOfWork.SaveChangesAsync()) return true;
+            return false;
         }
 
         public async Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm)

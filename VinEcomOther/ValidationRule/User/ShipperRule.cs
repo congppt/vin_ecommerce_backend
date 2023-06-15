@@ -14,6 +14,7 @@ namespace VinEcomOther.ValidationRule.User
         public ShipperCreateRule():base()
         {
             RuleFor(x => x.VehicleType).IsInEnum().WithMessage(VinEcom.VINECOM_VEHICLE_TYPE_NOT_EXIST);
+            RuleFor(x => x.LicensePlate).NotEmpty().WithMessage(VinEcom.VINECOM_SHIPPER_SIGNUP_PLATE_EMPTY_ERROR);
         }
     }
 }

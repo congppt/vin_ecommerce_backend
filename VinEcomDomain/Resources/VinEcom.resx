@@ -144,6 +144,9 @@
   <data name="VINECOM_PRODUCT_CATEGORY_NECESSITY" xml:space="preserve">
     <value>Nhu yếu phẩm</value>
   </data>
+  <data name="VINECOM_SHIPPER_SIGNUP_PLATE_EMPTY_ERROR" xml:space="preserve">
+    <value>Biển số xe không được để trống.</value>
+  </data>
   <data name="VINECOM_STORE_CATEGORY_BEVERAGE" xml:space="preserve">
     <value>Quán cafe</value>
   </data>
