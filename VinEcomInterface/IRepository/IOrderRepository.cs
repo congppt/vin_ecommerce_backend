@@ -13,5 +13,6 @@ namespace VinEcomInterface.IRepository
         Task<IEnumerable<Order>?> GetOrderAtStateWithDetailsAsync(OrderStatus status, int? customerId);
         Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId);
         Task<Order?> GetCartByIdAsync(int id);
+        Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId);
     }
 }

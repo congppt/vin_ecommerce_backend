@@ -11,4 +11,10 @@ namespace VinEcomViewModel.Customer
     {
         public int BuildingId { get; set; }
     }
+    public class CustomerCreateRule : UserCreateRule<CustomerSignUpViewModel>
+    {
+        public CustomerCreateRule() : base()
+        {
+        }
+    }
 }

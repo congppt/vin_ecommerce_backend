@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="VINECOM_BUILDING_NOT_EXIST" xml:space="preserve">
-    <value>Toà nhà không tồn tại.</value>
+    <value>Không có dữ liệu về toà nhà.</value>
   </data>
   <data name="VINECOM_ORDER_ADDTOCART_FAILED" xml:space="preserve">
     <value>Không thể thêm vào giỏ hàng. Vui lòng thử lại.</value>
@@ -156,13 +156,25 @@
   <data name="VINECOM_STORE_CATEGORY_GROCERY" xml:space="preserve">
     <value>Tạp hoá</value>
   </data>
+  <data name="VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR" xml:space="preserve">
+    <value>Phân loại cửa hàng không phù hợp.</value>
+  </data>
   <data name="VINECOM_STORE_NOT_EXIST" xml:space="preserve">
-    <value>Cửa hàng không tồn tại.</value>
+    <value>Không có dữ liệu về cửa hàng</value>
+  </data>
+  <data name="VINECOM_STORE_REGISTER_COMMISSION_RANGE_ERROR" xml:space="preserve">
+    <value>Hoa hồng trích xuất từ doanh thu cửa hàng phải nằm trong khoảng từ {0}% đến {1}%.</value>
+  </data>
+  <data name="VINECOM_STORE_REGISTER_NAME_LENGTH_ERROR" xml:space="preserve">
+    <value>Tên cửa hàng phải từ {0} - {1} ký tự.</value>
+  </data>
+  <data name="VINECOM_STORE_REGISTER_SUCCESS" xml:space="preserve">
+    <value>Đăng ký cửa hàng thành công.</value>
   </data>
   <data name="VINECOM_USER_AUTHORIZE_FAILED" xml:space="preserve">
     <value>Số điện thoại hoặc mật khẩu không chính xác.</value>
   </data>
-  <data name="VINECOM_USER_REGISTER_INTERNAL_FAILED" xml:space="preserve">
+  <data name="VINECOM_SERVER_ERROR" xml:space="preserve">
     <value>Đăng ký thất bại. Lỗi hệ thống</value>
   </data>
   <data name="VINECOM_USER_REGISTER_PHONE_DUPLICATED" xml:space="preserve">
@@ -194,5 +206,11 @@
   </data>
   <data name="VINECOM_VEHICLE_TYPE_NOT_EXIST" xml:space="preserve">
     <value>Loại phương tiện không phù hợp.</value>
+  </data>
+  <data name="VINECOM_IMAGE_URL_EMPTY_ERROR" xml:space="preserve">
+    <value>Đường dẫn ảnh không được để trống.</value>
+  </data>
+  <data name="VINECOM_IMAGE_URL_FORMAT_ERROR" xml:space="preserve">
+    <value>Định dạng đường dẫn ảnh không phù hợp.</value>
   </data>
 </root>

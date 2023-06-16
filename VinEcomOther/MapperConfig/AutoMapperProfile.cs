@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDomain.Model;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Product;
+using VinEcomViewModel.Store;
 
 namespace VinEcomOther.MapperConfig
 {
@@ -16,6 +17,7 @@ namespace VinEcomOther.MapperConfig
         {
             CreateMap<ProductCreateModel, Product>();
             CreateMap<SignUpViewModel, User>();
+            CreateMap<StoreRegisterViewModel, Store>();
         }
     }
 }

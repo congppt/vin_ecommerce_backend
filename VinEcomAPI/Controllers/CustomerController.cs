@@ -32,11 +32,11 @@ namespace VinEcomAPI.Controllers
                 var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
                 return BadRequest(errors);
             } 
-            if (await customerService.IsPhoneExistAsync(vm.Phone)) return BadRequest(new { message = VinEcom.VINECOM_USER_REGISTER_PHONE_DUPLICATED });
-            if (!await customerService.IsBuildingExistedAsync(vm.BuildingId)) return BadRequest(new { message = VinEcom.VINECOM_BUILDING_NOT_EXIST});
+            if (await customerService.IsPhoneExistAsync(vm.Phone)) return Conflict(new { message = VinEcom.VINECOM_USER_REGISTER_PHONE_DUPLICATED });
+            if (!await customerService.IsBuildingExistedAsync(vm.BuildingId)) return Conflict(new { message = VinEcom.VINECOM_BUILDING_NOT_EXIST});
             var result = await customerService.RegisterAsync(vm);
             if (result) return Created("", new { message = VinEcom.VINECOM_USER_REGISTER_SUCCESS });
-            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_USER_REGISTER_INTERNAL_FAILED });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
     }
 }

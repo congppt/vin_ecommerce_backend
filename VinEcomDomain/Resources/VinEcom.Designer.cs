@@ -61,11 +61,29 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toà nhà không tồn tại..
+        ///   Looks up a localized string similar to Không có dữ liệu về toà nhà..
         /// </summary>
         public static string VINECOM_BUILDING_NOT_EXIST {
             get {
                 return ResourceManager.GetString("VINECOM_BUILDING_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đường dẫn ảnh không được để trống..
+        /// </summary>
+        public static string VINECOM_IMAGE_URL_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_IMAGE_URL_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Định dạng đường dẫn ảnh không phù hợp..
+        /// </summary>
+        public static string VINECOM_IMAGE_URL_FORMAT_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_IMAGE_URL_FORMAT_ERROR", resourceCulture);
             }
         }
         
@@ -142,6 +160,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
+        /// </summary>
+        public static string VINECOM_SERVER_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_SERVER_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Biển số xe không được để trống..
         /// </summary>
         public static string VINECOM_SHIPPER_SIGNUP_PLATE_EMPTY_ERROR {
@@ -178,11 +205,47 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cửa hàng không tồn tại..
+        ///   Looks up a localized string similar to Phân loại cửa hàng không phù hợp..
+        /// </summary>
+        public static string VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không có dữ liệu về cửa hàng.
         /// </summary>
         public static string VINECOM_STORE_NOT_EXIST {
             get {
                 return ResourceManager.GetString("VINECOM_STORE_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoa hồng trích xuất từ doanh thu cửa hàng phải nằm trong khoảng từ {0}% đến {1}%..
+        /// </summary>
+        public static string VINECOM_STORE_REGISTER_COMMISSION_RANGE_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_REGISTER_COMMISSION_RANGE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên cửa hàng phải từ {0} - {1} ký tự..
+        /// </summary>
+        public static string VINECOM_STORE_REGISTER_NAME_LENGTH_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_REGISTER_NAME_LENGTH_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký cửa hàng thành công..
+        /// </summary>
+        public static string VINECOM_STORE_REGISTER_SUCCESS {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_REGISTER_SUCCESS", resourceCulture);
             }
         }
         
@@ -192,15 +255,6 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_USER_AUTHORIZE_FAILED {
             get {
                 return ResourceManager.GetString("VINECOM_USER_AUTHORIZE_FAILED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
-        /// </summary>
-        public static string VINECOM_USER_REGISTER_INTERNAL_FAILED {
-            get {
-                return ResourceManager.GetString("VINECOM_USER_REGISTER_INTERNAL_FAILED", resourceCulture);
             }
         }
         

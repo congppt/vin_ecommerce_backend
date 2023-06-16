@@ -21,6 +21,8 @@ using VinEcomOther.Validator;
 using VinEcomRepository;
 using VinEcomRepository.Repository;
 using VinEcomService.Service;
+using VinEcomViewModel.Base;
+using VinEcomViewModel.Customer;
 using VinEcomViewModel.Product;
 
 namespace VinEcomService
@@ -69,6 +71,8 @@ namespace VinEcomService
             //
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IUserValidator, UserValidator>();
+            services.AddScoped<IStoreValidator, StoreValidator>();
+            services.AddValidatorsFromAssemblyContaining<CustomerCreateRule>();
             services.AddValidatorsFromAssemblyContaining<ProductCreateRule>();
         }
     }

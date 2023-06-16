@@ -11,4 +11,10 @@ namespace VinEcomViewModel.StoreStaff
     {
         public int StoreId { get; set; }
     }
+    public class StaffCreateRule : UserCreateRule<StoreStaffSignUpViewModel>
+    {
+        public StaffCreateRule() : base()
+        {
+        }
+    }
 }
