@@ -27,7 +27,6 @@ namespace VinEcomRepository.Repository
         {
             return await context.Set<TModel>().AsNoTracking().ToListAsync();
         }
-
         public async Task<TModel?> GetByIdAsync(int id)
         {
             return await context.Set<TModel>().FindAsync(id);

@@ -21,7 +21,7 @@ namespace VinEcomRepository.Repository
             var shipper = await context.Set<Shipper>()
                                 .AsNoTracking()
                                 .Include(c => c.User)
-                                .FirstOrDefaultAsync(c => c.User.Phone == phone);
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone && !c.User.IsBlocked);
             if (shipper == null) return null;
             if (password.IsCorrectHashSource(shipper.User.PasswordHash)) return shipper;
             return null;

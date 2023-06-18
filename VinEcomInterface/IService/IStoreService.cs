@@ -14,5 +14,7 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateStoreRegistrationAsync(StoreRegisterViewModel vm);
         Task<bool> IsBuildingExistedAsync(int buildingId);
         Task<bool> RegisterAsync(StoreRegisterViewModel vm);
+        Task<ValidationResult> ValidateStoreFilterAsync(StoreFilterViewModel vm);
+        Task<Pagination<StoreFilterResultViewModel>> GetStoreFilterResultAsync(StoreFilterViewModel vm);
     }
 }

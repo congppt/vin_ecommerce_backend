@@ -12,10 +12,14 @@ namespace VinEcomOther.Validator
     public class StoreValidator : IStoreValidator
     {
         private readonly StoreCreateValidator storeCreateValidator;
-        public StoreValidator(StoreCreateValidator storeCreateValidator)
+        private readonly StoreFilterValidator storeFilterValidator;
+        public StoreValidator(StoreCreateValidator storeCreateValidator, StoreFilterValidator storeFilterValidator)
         {
             this.storeCreateValidator = storeCreateValidator;
+            this.storeFilterValidator = storeFilterValidator;
         }
         public IValidator<StoreRegisterViewModel> StoreCreateValidator => storeCreateValidator;
+
+        public IValidator<StoreFilterViewModel> StoreFilterValidator => storeFilterValidator;
     }
 }

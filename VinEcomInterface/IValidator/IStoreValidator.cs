@@ -11,5 +11,6 @@ namespace VinEcomInterface.IValidator
     public interface IStoreValidator
     {
         IValidator<StoreRegisterViewModel> StoreCreateValidator { get; }
+        IValidator<StoreFilterViewModel> StoreFilterValidator { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,8 @@ using System.Threading.Tasks;
 using VinEcomDbContext;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.Pagination;
+using VinEcomViewModel.Store;
 
 namespace VinEcomRepository.Repository
 {
@@ -13,6 +16,24 @@ namespace VinEcomRepository.Repository
     {
         public StoreRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<Pagination<Store>> FilterStoreAsync(StoreFilterViewModel vm)
+        {
+            var source = context.Set<Store>().AsNoTracking().Where(s => !s.IsBlocked);
+            if (!string.IsNullOrWhiteSpace(vm.Name)) source = source.Where(s => s.Name.ToLower().Contains(vm.Name.ToLower()));
+            if (vm.Category.HasValue) source = source.Where(s => s.Category == vm.Category);
+            var totalCount = await source.CountAsync();
+            var items = await source.Skip(vm.PageIndex * vm.PageSize).Take(vm.PageSize).ToListAsync();
+            var result = new Pagination<Store>()
+            {
+                Items = items,
+                PageIndex = vm.PageIndex,
+                PageSize = vm.PageSize,
+                TotalItemsCount = totalCount
+            };
+            //if (result.TotalPagesCount < pageIndex + 1) return await GetPageAsync(0, pageSize);
+            return result;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace VinEcomRepository.Repository
             var customer = await context.Set<Customer>()
                                 .AsNoTracking()
                                 .Include(c => c.User)
-                                .FirstOrDefaultAsync(c => c.User.Phone == phone);
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone && !c.User.IsBlocked);
             if (customer == null) return null;
             if (password.IsCorrectHashSource(customer.User.PasswordHash)) return customer;
             return null;

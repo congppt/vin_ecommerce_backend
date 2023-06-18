@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Constant;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Resources;
 
@@ -19,12 +20,12 @@ namespace VinEcomViewModel.Store
     }
     public class StoreCreateValidator : AbstractValidator<StoreRegisterViewModel>
     {
-        private const int MIN_NAME_LENGTH = 2;
-        private const int MAX_NAME_LENGTH = 40;
-        private const int MAX_COMMISSION_PERCENT = 100;
-        private const int MIN_COMMISSION_PERCENT = 0;
-        private readonly string NAME_LENGTH_ERROR = string.Format(VinEcom.VINECOM_STORE_REGISTER_NAME_LENGTH_ERROR, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
-        private readonly string COMMISSION_PERCENT_RANGE_ERROR = string.Format(VinEcom.VINECOM_STORE_REGISTER_COMMISSION_RANGE_ERROR, MIN_COMMISSION_PERCENT, MAX_COMMISSION_PERCENT);
+        private readonly int MIN_NAME_LENGTH = int.Parse(VinEcomSettings.Settings["STORE_NAME_MIN_LENGTH"].ToString());
+        private readonly int MAX_NAME_LENGTH = int.Parse(VinEcomSettings.Settings["STORE_NAME_MAX_LENGTH"].ToString());
+        private readonly int MIN_COMMISSION_PERCENT = int.Parse(VinEcomSettings.Settings["MIN_COMMISSION_PERCENT"].ToString());
+        private readonly int MAX_COMMISSION_PERCENT = int.Parse(VinEcomSettings.Settings["MAX_COMMISSION_PERCENT"].ToString());
+        private string NAME_LENGTH_ERROR => string.Format(VinEcom.VINECOM_STORE_REGISTER_NAME_LENGTH_ERROR, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
+        private string COMMISSION_PERCENT_RANGE_ERROR => string.Format(VinEcom.VINECOM_STORE_REGISTER_COMMISSION_RANGE_ERROR, MIN_COMMISSION_PERCENT, MAX_COMMISSION_PERCENT);
         public StoreCreateValidator(){
             RuleFor(x => x.Name).Length(MIN_NAME_LENGTH, MAX_NAME_LENGTH).WithMessage(NAME_LENGTH_ERROR);
             RuleFor(x => x.ImageUrl).NotEmpty()

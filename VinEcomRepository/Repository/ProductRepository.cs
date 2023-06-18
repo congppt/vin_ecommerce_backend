@@ -39,7 +39,7 @@ namespace VinEcomRepository.Repository
             return await context.Set<Product>()
                 .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
-                .FirstOrDefaultAsync(x => x.Id == id && x.IsRemoved == false);
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);
         }
 
         public async Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter)

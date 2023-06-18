@@ -21,7 +21,7 @@ namespace VinEcomRepository.Repository
             var staff = await context.Set<StoreStaff>()
                                 .AsNoTracking()
                                 .Include(c => c.User)
-                                .FirstOrDefaultAsync(c => c.User.Phone == phone);
+                                .FirstOrDefaultAsync(c => c.User.Phone == phone && !c.User.IsBlocked);
             if (staff == null) return null;
             if (password.IsCorrectHashSource(staff.User.PasswordHash)) return staff;
             return null;

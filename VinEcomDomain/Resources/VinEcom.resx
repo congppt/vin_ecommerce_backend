@@ -213,4 +213,10 @@
   <data name="VINECOM_IMAGE_URL_FORMAT_ERROR" xml:space="preserve">
     <value>Định dạng đường dẫn ảnh không phù hợp.</value>
   </data>
+  <data name="VINECOM_PAGE_INDEX_ERROR" xml:space="preserve">
+    <value>Chỉ mục trang yêu cầu tối thiểu là 0.</value>
+  </data>
+  <data name="VINECOM_PAGE_SIZE_ERROR" xml:space="preserve">
+    <value>Kích thước trang phải lớn hơn 0.</value>
+  </data>
 </root>

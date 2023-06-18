@@ -133,6 +133,24 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chỉ mục trang yêu cầu tối thiểu là 0..
+        /// </summary>
+        public static string VINECOM_PAGE_INDEX_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PAGE_INDEX_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kích thước trang phải lớn hơn 0..
+        /// </summary>
+        public static string VINECOM_PAGE_SIZE_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PAGE_SIZE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thức uống.
         /// </summary>
         public static string VINECOM_PRODUCT_CATEGORY_BEVERAGE {

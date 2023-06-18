@@ -10,6 +10,7 @@ using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
+using VinEcomUtility.Pagination;
 using VinEcomViewModel.Store;
 
 namespace VinEcomService.Service
@@ -43,6 +44,18 @@ namespace VinEcomService.Service
             await unitOfWork.StoreRepository.AddAsync(store);
             if (await unitOfWork.SaveChangesAsync()) return true;
             return false;
+        }
+
+        public async Task<ValidationResult> ValidateStoreFilterAsync(StoreFilterViewModel vm)
+        {
+            return await validator.StoreFilterValidator.ValidateAsync(vm);
+        }
+
+        public async Task<Pagination<StoreFilterResultViewModel>> GetStoreFilterResultAsync(StoreFilterViewModel vm)
+        {
+            var stores = await unitOfWork.StoreRepository.FilterStoreAsync(vm);
+            var result = mapper.Map<Pagination<StoreFilterResultViewModel>>(stores);
+            return result;
         }
     }
 }

@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Constant\VinEcomSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Constant\VinEcomSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.5" />
   </ItemGroup>
 
