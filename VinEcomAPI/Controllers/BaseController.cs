@@ -11,7 +11,7 @@ namespace VinEcomAPI.Controllers
     [ApiController]
     public class BaseController : ControllerBase
     {
-        private readonly IBaseService baseService ;
+        private readonly IBaseService baseService;
         public BaseController(IBaseService baseService)
         {
             this.baseService = baseService;

@@ -32,7 +32,7 @@ namespace VinEcomRepository.Repository
                 PageSize = vm.PageSize,
                 TotalItemsCount = totalCount
             };
-            //if (result.TotalPagesCount < pageIndex + 1) return await GetPageAsync(0, pageSize);
+            //if (result.TotalPagesCount < pageIndex + 1) return await GetPageByStoreIdAsync(0, pageSize);
             return result;
         }
     }

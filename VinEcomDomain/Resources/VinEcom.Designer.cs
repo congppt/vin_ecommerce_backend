@@ -178,6 +178,42 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phân loại sản phẩm này không tồn tại..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CREATE_CATEGORY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_CATEGORY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giá tiền sản phẩm không hợp lệ. Chi chấp nhận giá trị là số và số tiền lớn 0..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên sản phẩm không được để trống..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CREATE_NAME_EMPTY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_NAME_EMPTY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên sản phẩm phải từ {0} - {1} ký tự..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CREATE_NAME_LENGTH_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_NAME_LENGTH_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
         /// </summary>
         public static string VINECOM_SERVER_ERROR {
@@ -228,6 +264,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR {
             get {
                 return ResourceManager.GetString("VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại. Lỗi hệ thống..
+        /// </summary>
+        public static string VINECOM_STORE_CHANGE_STATUS_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CHANGE_STATUS_ERROR", resourceCulture);
             }
         }
         

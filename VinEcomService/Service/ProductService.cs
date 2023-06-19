@@ -26,15 +26,11 @@ namespace VinEcomService.Service
                               ICacheService cacheService,
                               IClaimService claimService,
                               IMapper mapper,
-                              IProductValidator productValidator) : 
+                              IProductValidator productValidator) :
             base(unitOfWork, config, timeService,
                 cacheService, claimService, mapper)
         {
             this.productValidator = productValidator;
-        }
-        public async Task<Pagination<Product>> GetProductPageAsync(int storeId, int pageIndex = 0, int pageSize = 10)
-        {
-            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize, storeId);
         }
         public async Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
@@ -57,14 +53,13 @@ namespace VinEcomService.Service
         }
         public async Task<bool> AddAsync(ProductCreateModel product)
         {
-            var result = await productValidator.ProductCreateValidator.ValidateAsync(product);
-            if (result.IsValid)
-            {
-                var createProduct = mapper.Map<Product>(product);
-                await unitOfWork.ProductRepository.AddAsync(createProduct);
-                return await unitOfWork.SaveChangesAsync();
-            }
-            return false;
+            var createProduct = mapper.Map<Product>(product);
+            await unitOfWork.ProductRepository.AddAsync(createProduct);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        public async Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product)
+        {
+            return await productValidator.ProductCreateValidator.ValidateAsync(product);
         }
 
         public async Task<ValidationResult> ValidateStoreProductFilterAsync(StoreProductFilterViewModel vm)

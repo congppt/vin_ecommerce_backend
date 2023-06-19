@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
 using VinEcomDomain.Model;
+using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Product;
 
@@ -17,8 +19,7 @@ namespace VinEcomAPI.Controllers
             this.productService = productService;
         }
 
-        #region GetProductPage
-        [HttpGet("Products")]
+        [HttpPost("StoreProducts")]
         public async Task<IActionResult> GetProductPageAsync([FromBody] StoreProductFilterViewModel vm)
         {
             var validateResult = await productService.ValidateStoreProductFilterAsync(vm);
@@ -30,9 +31,6 @@ namespace VinEcomAPI.Controllers
             var result = await productService.GetStoreProductPageAsync(vm);
             return Ok(result);
         }
-        #endregion
-
-        #region GetProductFilter
         [HttpPost("Filter")]
         public async Task<IActionResult> GetProductFilterAsync(ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
         {
@@ -41,15 +39,17 @@ namespace VinEcomAPI.Controllers
             var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
             return Ok(products);
         }
-        #endregion
-
-        #region AddAsync
         [HttpPost("AddAsync")]
         public async Task<IActionResult> AddProductAsync(ProductCreateModel product)
         {
+            var validateResult = await productService.ValidateCreateProductAsync(product);
+            //if (!await productService.IsExistsStoreAsync(product.StoreId)) validateResult.Errors
+            //        .Add(new ValidationFailure("StoreId", VinEcom.VINECOM_STORE_NOT_EXIST, product.StoreId));
+            //
+            if (!validateResult.IsValid) return BadRequest(validateResult.Errors);
+            //
             if (await productService.AddAsync(product)) return Ok(product);
             return BadRequest();
         }
-        #endregion
     }
 }

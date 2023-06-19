@@ -57,5 +57,17 @@ namespace VinEcomService.Service
             var result = mapper.Map<Pagination<StoreFilterResultViewModel>>(stores);
             return result;
         }
+
+        #region UpdateWorkingStatus
+        public async Task<bool> UpdateWorkingStatusAsync(int storeId)
+        {
+            var store = await unitOfWork.StoreRepository.GetByIdAsync(storeId);
+            if (store is null) return false;
+            var currentStatus = store.IsWorking;
+            store.IsWorking = !currentStatus;
+            unitOfWork.StoreRepository.Update(store);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        #endregion
     }
 }
