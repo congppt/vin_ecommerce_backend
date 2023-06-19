@@ -76,7 +76,7 @@ namespace VinEcomService.Service
         #endregion
 
         #region IsExistsStore
-        public async Task<bool> IsExistsStore(int storeId)
+        public async Task<bool> IsExistsStoreAsync(int storeId)
         {
             var store = await unitOfWork.StoreRepository.GetByIdAsync(storeId);
             return store is not null;
@@ -93,7 +93,7 @@ namespace VinEcomService.Service
         #endregion
 
         #region ProductCreateValidate
-        public async Task<ValidationResult> ValidateCreateProduct(ProductCreateModel product)
+        public async Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product)
         {
             return await productValidator.ProductCreateValidator.ValidateAsync(product);
         }

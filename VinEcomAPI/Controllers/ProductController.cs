@@ -57,9 +57,9 @@ namespace VinEcomAPI.Controllers
         [HttpPost("AddAsync")]
         public async Task<IActionResult> AddProductAsync(ProductCreateModel product)
         {
-            var validateResult = await productService.ValidateCreateProduct(product);
-            if (!await productService.IsExistsStore(product.StoreId)) validateResult.Errors
-                    .Add(new ValidationFailure("StoreId", VinEcom.VINECOM_PRODUCT_CREATE_STORE_ERROR, product.StoreId));
+            var validateResult = await productService.ValidateCreateProductAsync(product);
+            if (!await productService.IsExistsStoreAsync(product.StoreId)) validateResult.Errors
+                    .Add(new ValidationFailure("StoreId", VinEcom.VINECOM_STORE_NOT_EXIST, product.StoreId));
             //
             if (!validateResult.IsValid) return BadRequest(validateResult.Errors);
             //

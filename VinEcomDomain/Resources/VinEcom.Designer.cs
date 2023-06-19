@@ -214,15 +214,6 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cửa hàng không tồn tại..
-        /// </summary>
-        public static string VINECOM_PRODUCT_CREATE_STORE_ERROR {
-            get {
-                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_STORE_ERROR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
         /// </summary>
         public static string VINECOM_SERVER_ERROR {
@@ -273,6 +264,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR {
             get {
                 return ResourceManager.GetString("VINECOM_STORE_CATEGORY_NOT_EXIST_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại. Lỗi hệ thống..
+        /// </summary>
+        public static string VINECOM_STORE_CHANGE_STATUS_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_STORE_CHANGE_STATUS_ERROR", resourceCulture);
             }
         }
         

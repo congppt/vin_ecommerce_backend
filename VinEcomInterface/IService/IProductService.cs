@@ -17,7 +17,7 @@ namespace VinEcomInterface.IService
         Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter);
         List<string> GetCategoryList();
         Task<bool> AddAsync(ProductCreateModel product);
-        Task<ValidationResult> ValidateCreateProduct(ProductCreateModel product);
-        Task<bool> IsExistsStore(int storeId);
+        Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product);
+        Task<bool> IsExistsStoreAsync(int storeId);
     }
 }
