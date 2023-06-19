@@ -18,16 +18,16 @@ namespace VinEcomRepository.Repository
         public ProductRepository(AppDbContext context) : base(context)
         { }
 
-        public async Task<Pagination<Product>> GetPageAsync(int storeId, int pageIndex, int pageSize)
+        public async Task<Pagination<Product>> GetStoreProductPageAsync(StoreProductFilterViewModel vm)
         {
-            var source = context.Set<Product>().AsNoTracking().Where(p => p.StoreId == storeId);
+            var source = context.Set<Product>().AsNoTracking().Where(p => p.StoreId == vm.StoreId && !p.IsRemoved);
             var totalCount = await source.CountAsync();
-            var items = await source.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+            var items = await source.Skip(vm.PageIndex * vm.PageSize).Take(vm.PageSize).ToListAsync();
             var result = new Pagination<Product>()
             {
                 Items = items,
-                PageIndex = pageIndex,
-                PageSize = pageSize,
+                PageIndex = vm.PageIndex,
+                PageSize = vm.PageSize,
                 TotalItemsCount = totalCount
             };
             //if (result.TotalPagesCount < pageIndex + 1) return await GetPageAsync(0, pageSize);

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -31,16 +32,10 @@ namespace VinEcomService.Service
         {
             this.productValidator = productValidator;
         }
-
-        #region GetProductPage
         public async Task<Pagination<Product>> GetProductPageAsync(int storeId, int pageIndex = 0, int pageSize = 10)
         {
             return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize, storeId);
         }
-
-        #endregion
-
-        #region FilterProduct
         public async Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
             if (!IsValidCategory(filter.Category))
@@ -52,23 +47,14 @@ namespace VinEcomService.Service
                 };
             return await unitOfWork.ProductRepository.GetProductFiltetAsync(pageIndex, pageSize, filter);
         }
-        #endregion
-
-        #region GetCategoryList
         public List<string> GetCategoryList()
         {
             return Enum.GetNames(typeof(ProductCategory)).ToList();
         }
-        #endregion
-
-        #region CheckValidCategory
         public bool IsValidCategory(int category)
         {
             return Enum.IsDefined(typeof(ProductCategory), category);
         }
-        #endregion
-
-        #region AddAsync
         public async Task<bool> AddAsync(ProductCreateModel product)
         {
             var result = await productValidator.ProductCreateValidator.ValidateAsync(product);
@@ -80,6 +66,14 @@ namespace VinEcomService.Service
             }
             return false;
         }
-        #endregion
+
+        public async Task<ValidationResult> ValidateStoreProductFilterAsync(StoreProductFilterViewModel vm)
+        {
+            return await productValidator.StoreProductFilterValidator.ValidateAsync(vm);
+        }
+        public async Task<Pagination<Product>> GetStoreProductPageAsync(StoreProductFilterViewModel vm)
+        {
+            return await unitOfWork.ProductRepository.GetStoreProductPageAsync(vm);
+        }
     }
 }

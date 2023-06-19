@@ -19,11 +19,15 @@ namespace VinEcomAPI.Controllers
 
         #region GetProductPage
         [HttpGet("Products")]
-        public async Task<IActionResult> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetProductPageAsync([FromBody] StoreProductFilterViewModel vm)
         {
-            if (pageIndex < 0) return BadRequest();
-            if (pageSize <= 0) return BadRequest();
-            var result = await productService.GetProductPageAsync(pageIndex, pageSize);
+            var validateResult = await productService.ValidateStoreProductFilterAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            var result = await productService.GetStoreProductPageAsync(vm);
             return Ok(result);
         }
         #endregion
