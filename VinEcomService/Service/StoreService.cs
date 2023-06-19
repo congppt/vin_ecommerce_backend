@@ -58,16 +58,15 @@ namespace VinEcomService.Service
             return result;
         }
 
-        #region UpdateWorkingStatus
-        public async Task<bool> UpdateWorkingStatusAsync(int storeId)
+        public async Task<bool> ChangeBlockStatusAsync(Store store)
         {
-            var store = await unitOfWork.StoreRepository.GetByIdAsync(storeId);
-            if (store is null) return false;
-            var currentStatus = store.IsWorking;
-            store.IsWorking = !currentStatus;
-            unitOfWork.StoreRepository.Update(store);
+            store.IsBlocked = !store.IsBlocked;
             return await unitOfWork.SaveChangesAsync();
         }
-        #endregion
+
+        public async Task<Store?> FindStoreAsync(int storeId)
+        {
+            return await unitOfWork.StoreRepository.GetByIdAsync(storeId);
+        }
     }
 }
