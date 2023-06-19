@@ -33,12 +33,18 @@ namespace VinEcomService.Service
             this.productValidator = productValidator;
         }
 
-        #region GetProductPage
-        public async Task<Pagination<Product>> GetProductPageAsync(int storeId, int pageIndex = 0, int pageSize = 10)
+        #region GetProductPageByStoreId
+        public async Task<Pagination<Product>> GetProductPageByStoreIdAsync(int storeId, int pageIndex = 0, int pageSize = 10)
         {
-            return await unitOfWork.ProductRepository.GetPageAsync(storeId, pageIndex, pageSize);
+            return await unitOfWork.ProductRepository.GetPageByStoreIdAsync(storeId, pageIndex, pageSize);
         }
+        #endregion
 
+        #region GetProductPages
+        public async Task<Pagination<Product>> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
+        {
+            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);
+        }
         #endregion
 
         #region FilterProduct
