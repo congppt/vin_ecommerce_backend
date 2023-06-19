@@ -40,16 +40,13 @@ namespace VinEcomAPI.Controllers
             return Ok(products);
         }
         [HttpPost("AddAsync")]
-        public async Task<IActionResult> AddProductAsync(ProductCreateModel product)
+        public async Task<IActionResult> AddProductAsync([FromBody] ProductCreateModel product)
         {
             var validateResult = await productService.ValidateCreateProductAsync(product);
-            //if (!await productService.IsExistsStoreAsync(product.StoreId)) validateResult.Errors
-            //        .Add(new ValidationFailure("StoreId", VinEcom.VINECOM_STORE_NOT_EXIST, product.StoreId));
-            //
             if (!validateResult.IsValid) return BadRequest(validateResult.Errors);
             //
             if (await productService.AddAsync(product)) return Ok(product);
-            return BadRequest();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_PRODUCT_CREATE_ERROR });
         }
     }
 }

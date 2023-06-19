@@ -187,6 +187,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đăng ký sản phẩm không thành công. Lỗi hệ thống..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CREATE_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giá tiền sản phẩm không hợp lệ. Chi chấp nhận giá trị là số và số tiền lớn hơn 0..
         /// </summary>
         public static string VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR {

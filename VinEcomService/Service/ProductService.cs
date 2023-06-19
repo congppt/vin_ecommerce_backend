@@ -53,7 +53,12 @@ namespace VinEcomService.Service
         }
         public async Task<bool> AddAsync(ProductCreateModel product)
         {
+            var storeId = claimService.GetStoreId();
+            if (storeId < 0) return false;
+            //
             var createProduct = mapper.Map<Product>(product);
+            createProduct.StoreId = storeId;
+            //
             await unitOfWork.ProductRepository.AddAsync(createProduct);
             return await unitOfWork.SaveChangesAsync();
         }

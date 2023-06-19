@@ -234,4 +234,7 @@
   <data name="VINECOM_STORE_CHANGE_STATUS_ERROR" xml:space="preserve">
     <value>Cập nhật thất bại. Lỗi hệ thống.</value>
   </data>
+  <data name="VINECOM_PRODUCT_CREATE_ERROR" xml:space="preserve">
+    <value>Đăng ký sản phẩm không thành công. Lỗi hệ thống.</value>
+  </data>
 </root>

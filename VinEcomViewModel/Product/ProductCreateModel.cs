@@ -19,8 +19,6 @@ namespace VinEcomViewModel.Product
         public string ImageUrl { get; set; }
         public decimal OriginalPrice { get; set; }
         public ProductCategory Category { get; set; }
-        //
-        public int StoreId { get; set; }
     }
 
     public class ProductCreateRule : AbstractValidator<ProductCreateModel>
