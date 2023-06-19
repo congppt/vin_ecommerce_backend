@@ -51,5 +51,16 @@ namespace VinEcomAPI.Controllers
             if (result) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
+        
+        [HttpPatch("UpdateWorkingStatus")]
+        public async Task<IActionResult> UpdateWorkingStatusAsync(int storeId)
+        {
+            if (storeId < 0) return BadRequest();
+            var store = await storeService.FindStoreAsync(storeId);
+            if (store == null) return NotFound(new { message = VinEcom.VINECOM_STORE_NOT_EXIST });
+            var result = await storeService.UpdateWorkingStatus(store);
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
+        }
     }
 }

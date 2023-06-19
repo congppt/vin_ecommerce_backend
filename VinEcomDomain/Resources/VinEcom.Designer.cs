@@ -187,7 +187,7 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Giá tiền sản phẩm không hợp lệ. Chi chấp nhận giá trị là số và số tiền lớn 0..
+        ///   Looks up a localized string similar to Giá tiền sản phẩm không hợp lệ. Chi chấp nhận giá trị là số và số tiền lớn hơn 0..
         /// </summary>
         public static string VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR {
             get {
