@@ -20,7 +20,7 @@ namespace VinEcomRepository.Repository
 
         public async Task<Pagination<Product>> GetPageAsync(int storeId, int pageIndex, int pageSize)
         {
-            var source = context.Set<Product>().AsNoTracking().Where(p => p.StoreId == storeId);
+            var source = context.Set<Product>().AsNoTracking().Where(p => p.StoreId == storeId).AsQueryable();
             var totalCount = await source.CountAsync();
             var items = await source.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             var result = new Pagination<Product>()

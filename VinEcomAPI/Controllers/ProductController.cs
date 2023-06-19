@@ -18,12 +18,13 @@ namespace VinEcomAPI.Controllers
         }
 
         #region GetProductPage
-        [HttpGet("Products")]
-        public async Task<IActionResult> GetProductPageAsync(int pageIndex = 0, int pageSize = 10)
+        [HttpGet("Products/{storeId?}")]
+        public async Task<IActionResult> GetProductPageAsync(int storeId, int pageIndex = 0, int pageSize = 10)
         {
+            if (storeId < 0) return BadRequest();
             if (pageIndex < 0) return BadRequest();
             if (pageSize <= 0) return BadRequest();
-            var result = await productService.GetProductPageAsync(pageIndex, pageSize);
+            var result = await productService.GetProductPageAsync(storeId, pageIndex, pageSize);
             return Ok(result);
         }
         #endregion
