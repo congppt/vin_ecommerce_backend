@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,7 @@ namespace VinEcomInterface.IService
         Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter);
         List<string> GetCategoryList();
         Task<bool> AddAsync(ProductCreateModel product);
+        Task<ValidationResult> ValidateCreateProduct(ProductCreateModel product);
+        Task<bool> IsExistsStore(int storeId);
     }
 }

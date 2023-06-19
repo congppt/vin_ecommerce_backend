@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -25,7 +26,7 @@ namespace VinEcomService.Service
                               ICacheService cacheService,
                               IClaimService claimService,
                               IMapper mapper,
-                              IProductValidator productValidator) : 
+                              IProductValidator productValidator) :
             base(unitOfWork, config, timeService,
                 cacheService, claimService, mapper)
         {
@@ -68,17 +69,27 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region IsExistsStore
+        public async Task<bool> IsExistsStore(int storeId)
+        {
+            var store = await unitOfWork.StoreRepository.GetByIdAsync(storeId);
+            return store is not null;
+        }
+        #endregion
+
         #region AddAsync
         public async Task<bool> AddAsync(ProductCreateModel product)
         {
-            var result = await productValidator.ProductCreateValidator.ValidateAsync(product);
-            if (result.IsValid)
-            {
-                var createProduct = mapper.Map<Product>(product);
-                await unitOfWork.ProductRepository.AddAsync(createProduct);
-                return await unitOfWork.SaveChangesAsync();
-            }
-            return false;
+            var createProduct = mapper.Map<Product>(product);
+            await unitOfWork.ProductRepository.AddAsync(createProduct);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        #endregion
+
+        #region ProductCreateValidate
+        public async Task<ValidationResult> ValidateCreateProduct(ProductCreateModel product)
+        {
+            return await productValidator.ProductCreateValidator.ValidateAsync(product);
         }
         #endregion
     }

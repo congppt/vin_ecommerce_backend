@@ -10,7 +10,7 @@ namespace VinEcomDomain.Constant
 {
     public static class VinEcomSettings
     {
-        public static Dictionary<string , object> Settings { get; set; }
+        public static Dictionary<string, object> Settings { get; set; }
         static VinEcomSettings()
         {
             string parentPath = Path.GetDirectoryName(typeof(VinEcomSettings).Assembly.Location);

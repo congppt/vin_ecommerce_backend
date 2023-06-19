@@ -219,4 +219,19 @@
   <data name="VINECOM_PAGE_SIZE_ERROR" xml:space="preserve">
     <value>Kích thước trang phải lớn hơn 0.</value>
   </data>
+  <data name="VINECOM_PRODUCT_CREATE_CATEGORY_ERROR" xml:space="preserve">
+    <value>Phân loại sản phẩm này không tồn tại.</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR" xml:space="preserve">
+    <value>Giá tiền sản phẩm không hợp lệ. Chi chấp nhận giá trị là số và số tiền lớn 0.</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CREATE_NAME_EMPTY_ERROR" xml:space="preserve">
+    <value>Tên sản phẩm không được để trống.</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CREATE_NAME_LENGTH_ERROR" xml:space="preserve">
+    <value>Tên sản phẩm phải từ {0} - {1} ký tự.</value>
+  </data>
+  <data name="VINECOM_PRODUCT_CREATE_STORE_ERROR" xml:space="preserve">
+    <value>Cửa hàng không tồn tại.</value>
+  </data>
 </root>

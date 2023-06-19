@@ -16,7 +16,6 @@ using VinEcomInterface.IRepository;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
 using VinEcomOther.MapperConfig;
-using VinEcomOther.ValidationRule.Product;
 using VinEcomOther.Validator;
 using VinEcomRepository;
 using VinEcomRepository.Repository;

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
 using VinEcomDomain.Model;
+using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Product;
 
@@ -44,6 +46,12 @@ namespace VinEcomAPI.Controllers
         [HttpPost("AddAsync")]
         public async Task<IActionResult> AddProductAsync(ProductCreateModel product)
         {
+            var validateResult = await productService.ValidateCreateProduct(product);
+            if (!await productService.IsExistsStore(product.StoreId)) validateResult.Errors
+                    .Add(new ValidationFailure("StoreId", VinEcom.VINECOM_PRODUCT_CREATE_STORE_ERROR, product.StoreId));
+            //
+            if (!validateResult.IsValid) return BadRequest(validateResult.Errors);
+            //
             if (await productService.AddAsync(product)) return Ok(product);
             return BadRequest();
         }
