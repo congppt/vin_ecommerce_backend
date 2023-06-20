@@ -67,5 +67,16 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
         }
         #endregion
+
+        #region GetCustomerOrder
+        [HttpGet("CustomerOrder/{orderId?}")]
+        public async Task<IActionResult> GetCustomerOrder(int orderId)
+        {
+            if (orderId <= 0) return BadRequest();
+            var result = await orderService.GetCustomerOrdersAsync(orderId);
+            if (result is null) return NotFound();
+            return Ok(result);
+        }
+        #endregion
     }
 }

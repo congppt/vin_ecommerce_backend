@@ -22,8 +22,7 @@ namespace VinEcomService.Service
                             ICacheService cacheService,
                             IClaimService claimService,
                             IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
-        {
-        }
+        { }
 
         public async Task<bool> AddToCartAsync(AddToCartViewModel vm)
         {
@@ -113,6 +112,14 @@ namespace VinEcomService.Service
             var storeId = claimService.GetStoreId();
             if (storeId <= 0) return null; 
             return await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
+        }
+        #endregion
+
+        #region GetCustomerOrders
+        public async Task<Order?> GetCustomerOrdersAsync(int orderId)
+        {
+            var userId = claimService.GetCurrentUserId();
+            return await unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId, userId);
         }
         #endregion
     }
