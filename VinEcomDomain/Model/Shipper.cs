@@ -12,6 +12,7 @@ namespace VinEcomDomain.Model
         public int Id { get; set; }
         public string LicensePlate { get; set; }
         public VehicleType VehicleType { get; set; }
+        public ShipperStatus Status { get; set; }
         //
         public int UserId { get; set; }
         public User User { get; set; }
