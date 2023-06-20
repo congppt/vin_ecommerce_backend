@@ -10,5 +10,6 @@ namespace VinEcomInterface.IRepository
     public interface IShipperRepository : IBaseRepository<Shipper>
     {
         Task<Shipper?> AuthorizeAsync(string phone, string password);
+        Task<IEnumerable<Shipper>> GetAvailableShipperAsync();
     }
 }

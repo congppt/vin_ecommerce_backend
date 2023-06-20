@@ -38,5 +38,12 @@ namespace VinEcomAPI.Controllers
             if (result) return Created("", new { message = VinEcom.VINECOM_USER_REGISTER_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
+
+        [HttpGet("AvailableShippers")]
+        public async Task<IActionResult> GetListAvailableShipper()
+        {
+            var result = await shipperService.GetShippersAvailableAsync();
+            return Ok(result);
+        }
     }
 }

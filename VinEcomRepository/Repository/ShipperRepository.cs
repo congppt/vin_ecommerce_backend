@@ -26,5 +26,13 @@ namespace VinEcomRepository.Repository
             if (password.IsCorrectHashSource(shipper.User.PasswordHash)) return shipper;
             return null;
         }
+
+        public async Task<IEnumerable<Shipper>> GetAvailableShipperAsync()
+        {
+            return await context.Set<Shipper>()
+                .AsNoTracking()
+                .Where(x => x.Status == VinEcomDomain.Enum.ShipperStatus.Available)
+                .ToListAsync();
+        }
     }
 }
