@@ -106,5 +106,14 @@ namespace VinEcomService.Service
             return false;
         }
         #endregion
+
+        #region StoreOrderPagesAtStatus
+        public async Task<Pagination<Order>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        {
+            var storeId = claimService.GetStoreId();
+            if (storeId <= 0) return null; 
+            return await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
+        }
+        #endregion
     }
 }

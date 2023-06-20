@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
+using VinEcomUtility.Pagination;
 
 namespace VinEcomInterface.IRepository
 {
@@ -14,5 +15,6 @@ namespace VinEcomInterface.IRepository
         Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId);
         Task<Order?> GetCartByIdAsync(int id);
         Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId);
+        Task<Pagination<Order>> GetOrderPagesByStoreIdAndStatusAsync(int storeId, int status, int pageIndex, int pageSize);
     }
 }

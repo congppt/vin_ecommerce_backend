@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using VinEcomInterface.IService;
 using VinEcomViewModel.OrderDetail;
 using VinEcomDomain.Resources;
+using VinEcomDomain.Enum;
+using VinEcomRepository;
 
 namespace VinEcomAPI.Controllers
 {
@@ -27,8 +29,8 @@ namespace VinEcomAPI.Controllers
         [HttpGet("GetOrders")]
         public async Task<IActionResult> GetOrdersAsync(int pageIndex = 0, int pageSize = 10)
         {
-            if (pageIndex < 0) return BadRequest();
-            if (pageSize <= 0) return BadRequest();
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
             var result = await orderService.GetOrdersAsync(pageIndex, pageSize);
             return Ok(result);
         }
@@ -50,6 +52,19 @@ namespace VinEcomAPI.Controllers
             var result = await orderService.EmptyCartAsync(id);
             if (result) return Ok();
             return BadRequest();
+        }
+        #endregion
+
+        #region StoreOrderPagesAtStatus
+        [HttpGet("StoreOrderPagesByStatus")]
+        public async Task<IActionResult> GetStoreOrderPagesByStatus(OrderStatus status, int pageIndex = 0, int pageSize = 10)
+        {
+            if (!Enum.IsDefined(typeof(OrderStatus), status)) return BadRequest();
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
+            var result = await orderService.GetStoreOrderPagesByStatus((int) status, pageIndex, pageSize);
+            if (result is not null) return Ok(result);
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
         }
         #endregion
     }

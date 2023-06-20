@@ -9,6 +9,7 @@ using VinEcomDbContext.Migrations;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.Pagination;
 
 namespace VinEcomRepository.Repository
 {
@@ -48,6 +49,31 @@ namespace VinEcomRepository.Repository
                 result = result.Where(o => o.CustomerId == customerId);
             }
             return await result.ToListAsync();
+        }
+
+        public async Task<Pagination<Order>> GetOrderPagesByStoreIdAndStatusAsync(int storeId, int status, int pageIndex, int pageSize)
+        {
+            var sourse = context.Set<Order>()
+                .Where(x => x.Details.Any(ord => ord.Product.StoreId == storeId) &&
+                (int) x.Status == status);
+            //
+            var totalCount = await sourse.CountAsync();
+            var items = await sourse
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .AsNoTracking()
+                .Skip(pageIndex * pageSize).Take(pageSize)
+                .ToListAsync();
+            //
+            var result = new Pagination<Order>
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItemsCount = totalCount
+            };
+            return result;
         }
 
         public async Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId)
