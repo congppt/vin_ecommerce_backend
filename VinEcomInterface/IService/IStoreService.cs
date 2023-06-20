@@ -19,6 +19,6 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateStoreFilterAsync(StoreFilterViewModel vm);
         Task<Pagination<StoreFilterResultViewModel>> GetStoreFilterResultAsync(StoreFilterViewModel vm);
         Task<bool> ChangeBlockStatusAsync(Store store);
-        Task<bool> UpdateWorkingStatus(Store store);
+        Task<bool> UpdateWorkingStatus();
     }
 }

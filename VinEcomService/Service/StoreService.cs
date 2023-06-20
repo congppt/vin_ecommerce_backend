@@ -64,10 +64,16 @@ namespace VinEcomService.Service
             return await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateWorkingStatus(Store store)
+        public async Task<bool> UpdateWorkingStatus()
         {
-            var currentStatus = store.IsWorking;
-            store.IsWorking = !currentStatus;
+            var storeId = claimService.GetStoreId();
+            if (storeId < 0) return false;
+            //
+            var store = await unitOfWork.StoreRepository.GetByIdAsync(storeId);
+            if (store is null) return false;
+            //
+            store.IsWorking = !store.IsWorking;
+            unitOfWork.StoreRepository.Update(store);
             return await unitOfWork.SaveChangesAsync();
         }
 
