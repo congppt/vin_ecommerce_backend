@@ -83,5 +83,16 @@ namespace VinEcomRepository.Repository
             if (customerId.HasValue) return result.CustomerId == customerId ? result : null;
             return result;
         }
+
+        public async Task<Order?> GetStoreOrderWithDetailAsync(int orderId, int storeId)
+        {
+            return await context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .FirstOrDefaultAsync(x => x.Id == orderId && 
+                x.Details.Any(ord => ord.Product.StoreId == storeId));
+        }
     }
 }

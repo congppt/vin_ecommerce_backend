@@ -78,5 +78,16 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetStoreOrder
+        [HttpGet("GetStoreOrder/{orderId}")]
+        public async Task<IActionResult> GetStoreOrder(int orderId)
+        {
+            if (orderId <= 0) return BadRequest();
+            var result = await orderService.GetStoreOrderAsync(orderId);
+            if (result is null) return NotFound();
+            return Ok(result);
+        }
+        #endregion
     }
 }

@@ -122,5 +122,14 @@ namespace VinEcomService.Service
             return await unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId, userId);
         }
         #endregion
+
+        #region GetStoreOrder
+        public async Task<Order?> GetStoreOrderAsync(int orderId)
+        {
+            var storeId = claimService.GetStoreId();
+            if (storeId <= 0) return null;
+            return await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+        }
+        #endregion
     }
 }
