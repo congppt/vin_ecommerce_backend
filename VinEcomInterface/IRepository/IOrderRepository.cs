@@ -17,6 +17,5 @@ namespace VinEcomInterface.IRepository
         Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId);
         Task<Order?> GetStoreOrderWithDetailAsync(int orderId, int storeId);
         Task<Pagination<Order>> GetOrderPagesByStoreIdAndStatusAsync(int storeId, int status, int pageIndex, int pageSize);
-
     }
 }

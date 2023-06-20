@@ -97,6 +97,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhận đơn thất bại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_ORDER_ASSIGN_SHIPPER_FAILED {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_ASSIGN_SHIPPER_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đã huỷ.
         /// </summary>
         public static string VINECOM_ORDER_STATUS_CANCEL {

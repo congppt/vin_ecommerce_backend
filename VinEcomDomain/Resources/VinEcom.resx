@@ -237,4 +237,7 @@
   <data name="VINECOM_PRODUCT_CREATE_ERROR" xml:space="preserve">
     <value>Đăng ký sản phẩm không thành công. Lỗi hệ thống.</value>
   </data>
+  <data name="VINECOM_ORDER_ASSIGN_SHIPPER_FAILED" xml:space="preserve">
+    <value>Nhận đơn thất bại. Vui lòng thử lại.</value>
+  </data>
 </root>

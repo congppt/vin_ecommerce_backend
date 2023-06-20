@@ -11,6 +11,7 @@ using VinEcomViewModel.OrderDetail;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using AutoMapper;
+using System.Numerics;
 
 namespace VinEcomService.Service
 {
@@ -129,6 +130,35 @@ namespace VinEcomService.Service
             var storeId = claimService.GetStoreId();
             if (storeId <= 0) return null;
             return await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+        }
+        #endregion
+
+        #region AssignShipper
+        public async Task<bool> AssignShipperAsync(int orderId)
+        {
+            var shipper = await FindShipperAsync();
+            if (shipper is null) return false;
+            //
+            var order = await unitOfWork.OrderRepository.GetByIdAsync(orderId);
+            if (order is null || !order.ShipperId.HasValue) return false;
+            //
+            order.ShipperId = shipper.Id;
+            unitOfWork.OrderRepository.Update(order);
+            //
+            UpdateShipperStatus(shipper);
+            return await unitOfWork.SaveChangesAsync();
+        }
+
+        private async Task<Shipper?> FindShipperAsync()
+        {
+            var shipperId = claimService.GetCurrentUserId();
+            return await unitOfWork.ShipperRepository.GetByIdAsync(shipperId);
+        }
+
+        private void UpdateShipperStatus(Shipper shipper)
+        {
+            shipper.Status = ShipperStatus.Enroute;
+            unitOfWork.ShipperRepository.Update(shipper);
         }
         #endregion
     }
