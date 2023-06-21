@@ -65,5 +65,19 @@ namespace VinEcomService.Service
             return await unitOfWork.ShipperRepository.GetAvailableShipperAsync();
         }
 
+        public async Task<bool> ChangeWorkingStatusAsync()
+        {
+            var shipper = await FindShipperAsync();
+            if (shipper == null) return false;
+            shipper.Status = shipper.Status == ShipperStatus.Offline ? ShipperStatus.Available : ShipperStatus.Offline;
+            unitOfWork.ShipperRepository.Update(shipper);
+            return await unitOfWork.SaveChangesAsync();
+        }
+
+        private async Task<Shipper?> FindShipperAsync()
+        {
+            var shipperId = claimService.GetCurrentUserId();
+            return await unitOfWork.ShipperRepository.GetByIdAsync(shipperId);
+        }
     }
 }

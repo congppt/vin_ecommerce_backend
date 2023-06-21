@@ -45,5 +45,13 @@ namespace VinEcomAPI.Controllers
             var result = await shipperService.GetShippersAvailableAsync();
             return Ok(result);
         }
+
+        [HttpPut("ChangeWorkingStatus")]
+        public async Task<IActionResult> ChangeWorkingStatus()
+        {
+            var result = await shipperService.ChangeWorkingStatusAsync();
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
+        }
     }
 }
