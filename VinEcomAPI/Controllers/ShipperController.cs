@@ -53,5 +53,13 @@ namespace VinEcomAPI.Controllers
             if (result) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
+
+        [HttpPatch("FinishOrder")]
+        public async Task<IActionResult> FinishedOrder()
+        {
+            var result = await shipperService.OrderDeliveredAsync();
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
+        }
     }
 }

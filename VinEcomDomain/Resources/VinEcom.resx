@@ -240,4 +240,7 @@
   <data name="VINECOM_ORDER_ASSIGN_SHIPPER_FAILED" xml:space="preserve">
     <value>Nhận đơn thất bại. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_SHIPPER_FINISH_ORDER_FAILED" xml:space="preserve">
+    <value>Hoàn thành đơn hàng thất bại. Vui lòng thử lại.</value>
+  </data>
 </root>

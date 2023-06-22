@@ -19,5 +19,6 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm);
         Task<IEnumerable<Shipper>> GetShippersAvailableAsync();
         Task<bool> ChangeWorkingStatusAsync();
+        Task<bool> OrderDeliveredAsync();
     }
 }
