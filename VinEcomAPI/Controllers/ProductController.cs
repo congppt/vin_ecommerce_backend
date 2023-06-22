@@ -20,7 +20,7 @@ namespace VinEcomAPI.Controllers
         }
 
         [HttpPost("StoreProducts")]
-        public async Task<IActionResult> GetProductPageAsync([FromBody] StoreProductFilterViewModel vm)
+        public async Task<IActionResult> GetStoreProductPageAsync([FromBody] StoreProductFilterViewModel vm)
         {
             var validateResult = await productService.ValidateStoreProductFilterAsync(vm);
             if (!validateResult.IsValid)
@@ -31,6 +31,21 @@ namespace VinEcomAPI.Controllers
             var result = await productService.GetStoreProductPageAsync(vm);
             return Ok(result);
         }
+
+        [HttpGet("GetProducts")]
+        public async Task<IActionResult> GetProductPage(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
+            if (pageSize <= 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
+            var products = await productService.GetProductPagingAsync(pageIndex, pageSize);
+            var ratings = await productService.GetProductRatingAsync(products.Items.Select(x => x.Id).ToList());
+            return Ok(new
+            {
+                ProductPaging = products,
+                ProductRatings = ratings
+            });
+        }
+
         [HttpPost("Filter")]
         public async Task<IActionResult> GetProductFilterAsync(ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
         {

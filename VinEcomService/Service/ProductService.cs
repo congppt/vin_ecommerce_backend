@@ -43,11 +43,8 @@ namespace VinEcomService.Service
                 };
             return await unitOfWork.ProductRepository.GetProductFiltetAsync(pageIndex, pageSize, filter);
         }
-        public List<string> GetCategoryList()
-        {
-            return Enum.GetNames(typeof(ProductCategory)).ToList();
-        }
-        public bool IsValidCategory(int category)
+
+        private bool IsValidCategory(int category)
         {
             return Enum.IsDefined(typeof(ProductCategory), category);
         }
@@ -75,5 +72,47 @@ namespace VinEcomService.Service
         {
             return await unitOfWork.ProductRepository.GetStoreProductPageAsync(vm);
         }
+
+        #region GetProducts
+        public async Task<Pagination<Product>> GetProductPagingAsync(int pageIndex, int pageSize)
+        {
+            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);
+        }
+
+        public async Task<IEnumerable<ProductRatingViewModel>> GetProductRatingAsync(List<int> productIds)
+        {
+            var listRatingDetail = new List<ProductRatingViewModel>();
+            foreach (var productId in productIds)
+            {
+                var ratingDetail = await GetRatingDetailAsync(productId);
+                listRatingDetail.Add(ratingDetail);
+            }
+            return listRatingDetail;
+        }
+
+        private async Task<ProductRatingViewModel> GetRatingDetailAsync(int productId)
+        {
+            var orderDetails = await unitOfWork.OrderDetailRepository.GetDetailsByProductIdAsync(productId);
+            var rating = 0;
+            var numOfRating = 0;
+            //
+            foreach (var detail in orderDetails)
+            {
+                if (detail.Rate.HasValue)
+                {
+                    rating += detail.Rate.Value;
+                    numOfRating++;
+                }
+            }
+            //
+            var averageRate = numOfRating != 0 ? rating / numOfRating : 0;
+            return new ProductRatingViewModel
+            {
+                ProductId = productId,
+                AverageRating = averageRate,
+                NumOfRating = numOfRating
+            };
+        }
+        #endregion
     }
 }

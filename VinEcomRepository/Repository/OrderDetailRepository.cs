@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,14 @@ namespace VinEcomRepository.Repository
     {
         public OrderDetailRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<OrderDetail>> GetDetailsByProductIdAsync(int productId)
+        {
+            return await context.Set<OrderDetail>()
+                .Include(x => x.Product)
+                .Where(x => x.ProductId == productId)
+                .ToListAsync();
         }
     }
 }

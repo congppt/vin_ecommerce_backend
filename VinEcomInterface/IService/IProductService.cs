@@ -13,7 +13,8 @@ namespace VinEcomInterface.IService
     public interface IProductService : IBaseService
     {
         Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter);
-        List<string> GetCategoryList();
+        Task<Pagination<Product>> GetProductPagingAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<ProductRatingViewModel>> GetProductRatingAsync(List<int> productIds);
         Task<bool> AddAsync(ProductCreateModel product);
         Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product);
         Task<ValidationResult> ValidateStoreProductFilterAsync(StoreProductFilterViewModel vm);
