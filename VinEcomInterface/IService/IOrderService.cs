@@ -21,5 +21,6 @@ namespace VinEcomInterface.IService
         Task<Order?> GetCustomerOrdersAsync(int orderId);
         Task<Order?> GetStoreOrderAsync(int orderId);
         Task<bool> AssignShipperAsync(int orderId);
+        Task<bool> CheckoutAsync();
     }
 }

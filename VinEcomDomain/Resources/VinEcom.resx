@@ -249,4 +249,7 @@
   <data name="VINECOM_ORDER_REMOVE_FROM_CART_FAILED" xml:space="preserve">
     <value>Không thể xóa sản phẩm khỏi giỏ hàng. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_ORDER_CHECKOUT_FAILED" xml:space="preserve">
+    <value>Thanh toán thất bại. Vui lòng thử lại.</value>
+  </data>
 </root>

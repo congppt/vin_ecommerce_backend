@@ -124,5 +124,15 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
         }
         #endregion
+
+        #region Checkout
+        [HttpPatch("Checkout")]
+        public async Task<IActionResult> CheckoutAsync()
+        {
+            var result = await orderService.CheckoutAsync();
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CHECKOUT_FAILED });
+        }
+        #endregion
     }
 }

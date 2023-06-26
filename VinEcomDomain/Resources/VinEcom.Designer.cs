@@ -115,6 +115,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thanh toán thất bại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_ORDER_CHECKOUT_FAILED {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_CHECKOUT_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể xóa sản phẩm khỏi giỏ hàng. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_ORDER_REMOVE_FROM_CART_FAILED {

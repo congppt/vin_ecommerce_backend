@@ -30,13 +30,16 @@ namespace VinEcomService.Service
             var customer = await FindCustomerAsync();
             var cart = (await unitOfWork.OrderRepository
                 .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id)).FirstOrDefault();
+            var product = await unitOfWork.ProductRepository.GetByIdAsync(vm.ProductId);
+            if (product is null) return false;
             //cart empty
             if (cart is null)
             {
                 var orderDetail = new OrderDetail
                 {
                     ProductId = vm.ProductId,
-                    Quantity = vm.Quantity
+                    Quantity = vm.Quantity,
+                    Price = product.DiscountPrice is null ? product.OriginalPrice : product.DiscountPrice,
                 };
                 var newOrder = new Order
                 {
@@ -66,7 +69,8 @@ namespace VinEcomService.Service
                     {
                         OrderId = cart.Id,
                         ProductId = vm.ProductId,
-                        Quantity = vm.Quantity
+                        Quantity = vm.Quantity,
+                        Price = product.DiscountPrice is null ? product.OriginalPrice : product.DiscountPrice,
                     };
                     await unitOfWork.OrderDetailRepository.AddAsync(orderDetail);
                     if (await unitOfWork.SaveChangesAsync()) return true;
@@ -183,6 +187,23 @@ namespace VinEcomService.Service
         {
             shipper.Status = ShipperStatus.Enroute;
             unitOfWork.ShipperRepository.Update(shipper);
+        }
+        #endregion
+
+        #region Checkout
+        public async Task<bool> CheckoutAsync()
+        {
+            var customer = await FindCustomerAsync();
+            if (customer is null) return false;
+            //
+            var cart = (await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id))!.FirstOrDefault();
+            if (cart == null) return false;
+            //
+            cart.ShipFee = 5000;
+            cart.Status = OrderStatus.Preparing;
+            cart.BuildingId = customer.BuildingId;
+            //
+            return await unitOfWork.SaveChangesAsync();
         }
         #endregion
 
