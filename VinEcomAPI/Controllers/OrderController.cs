@@ -25,6 +25,17 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, VinEcom.VINECOM_ORDER_ADDTOCART_FAILED);
         }
 
+        #region RemoveFromCart
+        [HttpPatch("RemoveFromCart/{productId?}")]
+        public async Task<IActionResult> RemoveFromCartAsync(int productId)
+        {
+            if (productId <= 0) return BadRequest();
+            var result = await orderService.RemoveFromCartAsync(productId); 
+            if (result is true) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_REMOVE_FROM_CART_FAILED });
+        }
+        #endregion
+
         #region GetOrders
         [HttpGet("GetOrders")]
         public async Task<IActionResult> GetOrdersAsync(int pageIndex = 0, int pageSize = 10)

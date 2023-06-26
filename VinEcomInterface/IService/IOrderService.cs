@@ -12,6 +12,7 @@ namespace VinEcomInterface.IService
     public interface IOrderService : IBaseService
     {
         Task<bool> AddToCartAsync(AddToCartViewModel vm);
+        Task<bool> RemoveFromCartAsync(int productId);
         Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize);
         Task<bool> IsProductSameStoreAsync(int productId);
         Task<bool> EmptyCartAsync(int cartId);

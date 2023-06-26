@@ -75,6 +75,25 @@ namespace VinEcomService.Service
             }
         }
 
+        #region RemoveFromCart
+        public async Task<bool> RemoveFromCartAsync(int productId)
+        {
+            var customer = await FindCustomerAsync();
+            if (customer == null) return false;
+            var cart = (await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id))!.FirstOrDefault();
+            if (cart == null) return false;
+            var detail = cart.Details.FirstOrDefault(x => x.ProductId == productId);
+            if (detail != null)
+            {
+                unitOfWork.OrderDetailRepository.Delete(detail);
+                return await unitOfWork.SaveChangesAsync();
+            }
+
+            return false;
+        }
+        #endregion
+
+        #region EmptyCart
         public async Task<bool> EmptyCartAsync(int cartId)
         {
             var cart = await unitOfWork.OrderRepository.GetCartByIdAsync(cartId);
@@ -86,6 +105,7 @@ namespace VinEcomService.Service
             }
             return false;
         }
+        #endregion
 
         #region GetOrders
         public async Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize)
