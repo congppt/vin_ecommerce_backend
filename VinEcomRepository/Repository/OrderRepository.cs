@@ -76,6 +76,14 @@ namespace VinEcomRepository.Repository
             return result;
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersByShipperIdAsync(int shipperId)
+        {
+            return await context.Set<Order>()
+                .Include(x => x.Details)
+                .Where(x => x.ShipperId == shipperId)
+                .ToListAsync();
+        }
+
         public async Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId)
         {
             var result = await context.Set<Order>().AsNoTracking().Include(o => o.Details).FirstOrDefaultAsync(o => o.Id == orderId);

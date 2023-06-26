@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
+using VinEcomRepository;
 using VinEcomService.Service;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Shipper;
@@ -60,6 +61,14 @@ namespace VinEcomAPI.Controllers
             var result = await shipperService.OrderDeliveredAsync();
             if (result) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
+        }
+
+        [HttpGet("DeliveredList")]
+        public async Task<IActionResult> GetDeliveredList()
+        {
+            var result = await shipperService.GetDeliveredListAsync();
+            if (result is null) return NotFound();
+            return Ok(result);
         }
     }
 }
