@@ -57,5 +57,11 @@ namespace VinEcomService.Service
         {
             return await validator.CustomerCreateValidator.ValidateAsync(vm);
         }
+
+        public async Task<CustomerViewModel?> GetCustomerByIdAsync(int id)
+        {
+            var result = await unitOfWork.CustomerRepository.GetCustomerByIdASync(id);
+            return mapper.Map<CustomerViewModel?>(result);
+        }
     }
 }

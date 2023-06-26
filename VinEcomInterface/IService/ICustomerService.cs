@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Model;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 
@@ -15,5 +16,6 @@ namespace VinEcomInterface.IService
         Task<bool> RegisterAsync(CustomerSignUpViewModel vm);
         Task<bool> IsBuildingExistedAsync(int buildingId);
         Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm);
+        Task<CustomerViewModel?> GetCustomerByIdAsync(int id);
     }
 }

@@ -38,5 +38,14 @@ namespace VinEcomAPI.Controllers
             if (result) return Created("", new { message = VinEcom.VINECOM_USER_REGISTER_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
+
+        [HttpGet("GetById/{id?}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var result = await customerService.GetCustomerByIdAsync(id);
+            if (result is not null) return Ok(result);
+            return NotFound();
+        }
     }
 }
