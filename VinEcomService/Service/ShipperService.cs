@@ -85,15 +85,15 @@ namespace VinEcomService.Service
 
         private async Task<Shipper?> FindShipperAsync()
         {
-            var shipperId = claimService.GetCurrentUserId();
-            return await unitOfWork.ShipperRepository.GetByIdAsync(shipperId);
+            var userId = claimService.GetCurrentUserId();
+            return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
         }
 
         public async Task<IEnumerable<Order>?> GetDeliveredListAsync()
         {
             var shipper = await FindShipperAsync();
             if (shipper is null) return null;
-            return await unitOfWork.OrderRepository.GetOrdersByShipperIdAsync(shipper.Id);
+            return shipper.Orders;
         }
     }
 }

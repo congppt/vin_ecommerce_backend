@@ -34,5 +34,13 @@ namespace VinEcomRepository.Repository
                 .Where(x => x.Status == VinEcomDomain.Enum.ShipperStatus.Available)
                 .ToListAsync();
         }
+
+        public async Task<Shipper?> GetShipperByUserId(int userId)
+        {
+            return await context.Set<Shipper>()
+                .Include(x => x.User)
+                .Include(x => x.Orders)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+        }
     }
 }
