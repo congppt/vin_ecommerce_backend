@@ -27,8 +27,9 @@ namespace VinEcomService.Service
 
         public async Task<bool> AddToCartAsync(AddToCartViewModel vm)
         {
-            var customerId = claimService.GetCurrentUserId();
-            var cart = (await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customerId)).FirstOrDefault();
+            var customer = await FindCustomerAsync();
+            var cart = (await unitOfWork.OrderRepository
+                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id)).FirstOrDefault();
             //cart empty
             if (cart is null)
             {
@@ -41,7 +42,7 @@ namespace VinEcomService.Service
                 {
                     OrderDate = timeService.GetCurrentTime(),
                     Status = OrderStatus.Cart,
-                    CustomerId = customerId,
+                    CustomerId = customer.Id,
                     Details = new List<OrderDetail> { orderDetail }
                 };
                 await unitOfWork.OrderRepository.AddAsync(newOrder);
