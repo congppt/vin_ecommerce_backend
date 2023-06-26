@@ -103,7 +103,12 @@ namespace VinEcomRepository.Repository
         public async Task<IEnumerable<Order>> GetOrdersByShipperIdAsync(int shipperId)
         {
             return await context.Set<Order>()
+                .AsNoTracking()
                 .Include(x => x.Details)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
                 .Where(x => x.ShipperId == shipperId)
                 .ToListAsync();
         }

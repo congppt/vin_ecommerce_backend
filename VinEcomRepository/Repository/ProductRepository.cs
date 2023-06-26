@@ -42,6 +42,15 @@ namespace VinEcomRepository.Repository
                 .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);
         }
 
+        public async Task<Product?> GetProductByIdNoTrackingAsync(int id)
+        {
+            return await context.Set<Product>()
+                .AsNoTracking()
+                .Include(x => x.Store)
+                .Include(x => x.OrderDetails)
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);
+        }
+
         public async Task<Pagination<Product>> GetProductFiltetAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
             var products = context.Set<Product>().AsNoTracking().AsQueryable();

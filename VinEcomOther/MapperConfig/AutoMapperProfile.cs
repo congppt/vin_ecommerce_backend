@@ -8,6 +8,7 @@ using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
+using VinEcomViewModel.Order;
 using VinEcomViewModel.Product;
 using VinEcomViewModel.Store;
 
@@ -28,6 +29,12 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
                 .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.User.IsBlocked));
+            //Order
+            CreateMap<Order, OrderWithDetailsViewModel>()
+                .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer.User.Name))
+                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper.User.Name));
+            //OrderDetail
+            CreateMap<OrderDetail, OrderDetailViewModel>();
         }
     }
 }

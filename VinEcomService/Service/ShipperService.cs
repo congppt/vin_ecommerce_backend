@@ -14,6 +14,7 @@ using VinEcomInterface.IValidator;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
+using VinEcomViewModel.Order;
 using VinEcomViewModel.Shipper;
 
 namespace VinEcomService.Service
@@ -80,6 +81,12 @@ namespace VinEcomService.Service
             if (shipper == null) return false;
             shipper.Status = ShipperStatus.Available;
             unitOfWork.ShipperRepository.Update(shipper);
+            // Get current shipper order
+            var shipperOrderList = await unitOfWork.OrderRepository.GetOrdersByShipperIdAsync(shipper.Id);
+            var currentOrder = shipperOrderList.LastOrDefault(x => x.Status == OrderStatus.Shipping);
+            // Update order status
+            if (currentOrder is not null) currentOrder.Status = OrderStatus.Done;
+            //
             return await unitOfWork.SaveChangesAsync();
         }
 
@@ -89,11 +96,28 @@ namespace VinEcomService.Service
             return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
         }
 
-        public async Task<IEnumerable<Order>?> GetDeliveredListAsync()
+        public async Task<IEnumerable<OrderWithDetailsViewModel>?> GetDeliveredListAsync()
         {
             var shipper = await FindShipperAsync();
             if (shipper is null) return null;
-            return shipper.Orders;
+            //
+            var orders = await unitOfWork.OrderRepository.GetOrdersByShipperIdAsync(shipper.Id);
+            return MapListOrder(orders);
+        }
+
+        private IEnumerable<OrderWithDetailsViewModel> MapListOrder(IEnumerable<Order> orders)
+        {
+            var ordersVM = new List<OrderWithDetailsViewModel>();
+            //
+            foreach (var item in orders)
+            {
+                var orderVM = mapper.Map<OrderWithDetailsViewModel>(item);
+                var detail = mapper.Map<List<OrderDetailViewModel>>(item.Details);
+                orderVM.Details = detail;
+                ordersVM.Add(orderVM);
+            }
+            //
+            return ordersVM;
         }
     }
 }

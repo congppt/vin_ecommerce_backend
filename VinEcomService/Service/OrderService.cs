@@ -30,7 +30,7 @@ namespace VinEcomService.Service
             var customer = await FindCustomerAsync();
             var cart = (await unitOfWork.OrderRepository
                 .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id)).FirstOrDefault();
-            var product = await unitOfWork.ProductRepository.GetByIdAsync(vm.ProductId);
+            var product = await unitOfWork.ProductRepository.GetProductByIdNoTrackingAsync(vm.ProductId);
             if (product is null) return false;
             //cart empty
             if (cart is null)
@@ -55,7 +55,7 @@ namespace VinEcomService.Service
             //cart already contain product
             else
             {
-                var detail = cart.Details.FirstOrDefault(d => d.ProductId == vm.ProductId);
+                var detail = cart.Details.FirstOrDefault(d => d.ProductId == product.Id);
                 if (detail != null)
                 {
                     detail.Quantity += vm.Quantity;
@@ -174,9 +174,10 @@ namespace VinEcomService.Service
             if (shipper is null) return false;
             //
             var order = await unitOfWork.OrderRepository.GetByIdAsync(orderId);
-            if (order is null || !order.ShipperId.HasValue) return false;
+            if (order is null || order.ShipperId.HasValue) return false;
             //
             order.ShipperId = shipper.Id;
+            order.Status = OrderStatus.Shipping;
             unitOfWork.OrderRepository.Update(order);
             //
             UpdateShipperStatus(shipper);
@@ -203,6 +204,7 @@ namespace VinEcomService.Service
             cart.Status = OrderStatus.Preparing;
             cart.BuildingId = customer.BuildingId;
             //
+            unitOfWork.OrderRepository.Update(cart);
             return await unitOfWork.SaveChangesAsync();
         }
         #endregion

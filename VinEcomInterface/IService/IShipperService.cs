@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using VinEcomViewModel.Base;
+using VinEcomViewModel.Order;
 using VinEcomViewModel.Shipper;
 using VinEcomViewModel.StoreStaff;
 
@@ -18,7 +19,7 @@ namespace VinEcomInterface.IService
         Task<bool> RegisterAsync(ShipperSignUpViewModel vm);
         Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm);
         Task<IEnumerable<Shipper>> GetShippersAvailableAsync();
-        Task<IEnumerable<Order>?> GetDeliveredListAsync();
+        Task<IEnumerable<OrderWithDetailsViewModel>?> GetDeliveredListAsync();
         Task<bool> ChangeWorkingStatusAsync();
         Task<bool> OrderDeliveredAsync();
     }
