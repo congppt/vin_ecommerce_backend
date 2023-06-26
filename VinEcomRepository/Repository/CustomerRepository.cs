@@ -35,5 +35,13 @@ namespace VinEcomRepository.Repository
                 .Include(x => x.Building)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Customer?> GetCustomerByUserIdAsync(int userId)
+        {
+            return await context.Set<Customer>()
+                .Include(x => x.User)
+                .Include(x => x.Building)
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+        }
     }
 }

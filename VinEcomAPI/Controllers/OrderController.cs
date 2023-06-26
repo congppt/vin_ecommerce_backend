@@ -68,6 +68,19 @@ namespace VinEcomAPI.Controllers
         }
         #endregion
 
+        #region CustomerOrderPagesAtStatus
+        [HttpGet("CustomerOrderPagesByStatus")]
+        public async Task<IActionResult> GetCustomerOrderPagesByStatus(OrderStatus status, int pageIndex = 0, int pageSize = 10)
+        {
+            if (!Enum.IsDefined(typeof(OrderStatus), status)) return BadRequest();
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
+            var result = await orderService.GetCustomerOrderPagesByStatus((int) status, pageIndex, pageSize);
+            if (result is not null) return Ok(result);
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+        }
+        #endregion
+
         #region GetCustomerOrder
         [HttpGet("CustomerOrder/{orderId?}")]
         public async Task<IActionResult> GetCustomerOrder(int orderId)

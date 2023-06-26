@@ -16,6 +16,7 @@ namespace VinEcomInterface.IService
         Task<bool> IsProductSameStoreAsync(int productId);
         Task<bool> EmptyCartAsync(int cartId);
         Task<Pagination<Order>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize);
+        Task<Pagination<Order>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize);
         Task<Order?> GetCustomerOrdersAsync(int orderId);
         Task<Order?> GetStoreOrderAsync(int orderId);
         Task<bool> AssignShipperAsync(int orderId);

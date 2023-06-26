@@ -116,6 +116,15 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region CustomerOrderPagesAtStatus
+        public async Task<Pagination<Order>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        {
+            var customer = await FindCustomerAsync();
+            if (customer == null) return null;
+            return await unitOfWork.OrderRepository.GetOrderPagesByCustomerIdAndStatusAsync(customer.Id, status, pageIndex, pageSize);
+        }
+        #endregion
+
         #region GetCustomerOrders
         public async Task<Order?> GetCustomerOrdersAsync(int orderId)
         {
@@ -149,17 +158,23 @@ namespace VinEcomService.Service
             return await unitOfWork.SaveChangesAsync();
         }
 
-        private async Task<Shipper?> FindShipperAsync()
-        {
-            var userId = claimService.GetCurrentUserId();
-            return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
-        }
-
         private void UpdateShipperStatus(Shipper shipper)
         {
             shipper.Status = ShipperStatus.Enroute;
             unitOfWork.ShipperRepository.Update(shipper);
         }
         #endregion
+
+        private async Task<Customer?> FindCustomerAsync()
+        {
+            var userId = claimService.GetCurrentUserId();
+            return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(userId);
+        }
+
+        private async Task<Shipper?> FindShipperAsync()
+        {
+            var userId = claimService.GetCurrentUserId();
+            return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
+        }
     }
 }

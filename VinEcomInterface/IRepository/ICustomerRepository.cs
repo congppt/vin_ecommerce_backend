@@ -11,5 +11,6 @@ namespace VinEcomInterface.IRepository
     {
         Task<Customer?> AuthorizeAsync(string phone, string password);
         Task<Customer?> GetCustomerByIdASync(int id);
+        Task<Customer?> GetCustomerByUserIdAsync(int userId);
     }
 }

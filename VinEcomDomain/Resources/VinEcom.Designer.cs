@@ -70,6 +70,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Người dùng không tồn tại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_CUSTOMER_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("VINECOM_CUSTOMER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đường dẫn ảnh không được để trống..
         /// </summary>
         public static string VINECOM_IMAGE_URL_EMPTY_ERROR {

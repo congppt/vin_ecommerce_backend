@@ -243,4 +243,7 @@
   <data name="VINECOM_SHIPPER_FINISH_ORDER_FAILED" xml:space="preserve">
     <value>Hoàn thành đơn hàng thất bại. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Người dùng không tồn tại. Vui lòng thử lại.</value>
+  </data>
 </root>
