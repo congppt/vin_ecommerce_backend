@@ -58,6 +58,7 @@ namespace VinEcomService
             //
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //
+            services.AddScoped<IBuildingService, BuildingService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IShipperService, ShipperService>();
             services.AddScoped<IStoreStaffService, StoreStaffService>();

@@ -151,8 +151,8 @@ namespace VinEcomService.Service
 
         private async Task<Shipper?> FindShipperAsync()
         {
-            var shipperId = claimService.GetCurrentUserId();
-            return await unitOfWork.ShipperRepository.GetByIdAsync(shipperId);
+            var userId = claimService.GetCurrentUserId();
+            return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
         }
 
         private void UpdateShipperStatus(Shipper shipper)
