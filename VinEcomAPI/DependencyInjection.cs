@@ -38,6 +38,8 @@ namespace VinEcomAPI
             services.AddSingleton(config);
             services.AddHttpContextAccessor();
             services.AddSingleton<IClaimService, ClaimService>();
+            //
+            services.AddCors();
         }
     }
 }
