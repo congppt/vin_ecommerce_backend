@@ -51,7 +51,10 @@ namespace VinEcomRepository.Repository
                 .AsNoTracking()
                 .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
-                .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);
+                .FirstOrDefaultAsync(x => x.Id == id 
+                && !x.IsRemoved
+                && !x.IsOutOfStock
+                && !x.Store.IsBlocked);
         }
 
         public async Task<Pagination<Product>> GetProductByCategoryAsync(ProductCategory category, int pageIndex, int pageSize)

@@ -28,8 +28,10 @@ namespace VinEcomService.Service
         public async Task<bool> AddToCartAsync(AddToCartViewModel vm)
         {
             var customer = await FindCustomerAsync();
+            if (customer is null) return false;
             var cart = (await unitOfWork.OrderRepository
-                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id)).FirstOrDefault();
+                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id))
+                .FirstOrDefault();
             var product = await unitOfWork.ProductRepository.GetProductByIdNoTrackingAsync(vm.ProductId);
             if (product is null) return false;
             //cart empty
@@ -39,7 +41,6 @@ namespace VinEcomService.Service
                 {
                     ProductId = vm.ProductId,
                     Quantity = vm.Quantity,
-                    Price = product.DiscountPrice is null ? product.OriginalPrice : product.DiscountPrice,
                 };
                 var newOrder = new Order
                 {
@@ -55,7 +56,7 @@ namespace VinEcomService.Service
             //cart already contain product
             else
             {
-                var detail = cart.Details.FirstOrDefault(d => d.ProductId == product.Id);
+                var detail = cart.Details.FirstOrDefault(d => d.ProductId == vm.ProductId);
                 if (detail != null)
                 {
                     detail.Quantity += vm.Quantity;
@@ -70,7 +71,6 @@ namespace VinEcomService.Service
                         OrderId = cart.Id,
                         ProductId = vm.ProductId,
                         Quantity = vm.Quantity,
-                        Price = product.DiscountPrice is null ? product.OriginalPrice : product.DiscountPrice,
                     };
                     await unitOfWork.OrderDetailRepository.AddAsync(orderDetail);
                     if (await unitOfWork.SaveChangesAsync()) return true;
@@ -197,15 +197,44 @@ namespace VinEcomService.Service
             var customer = await FindCustomerAsync();
             if (customer is null) return false;
             //
-            var cart = (await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id))!.FirstOrDefault();
+            var cart = (await unitOfWork.OrderRepository
+                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customer.Id))?.FirstOrDefault();
             if (cart == null) return false;
+            //
+            if (await IsValidCartProductAsync(cart.Details.ToList()))
+            {
+                cart = await UpdateCartAsync(cart, customer);
+                //
+                unitOfWork.OrderRepository.Update(cart);
+                return await unitOfWork.SaveChangesAsync();
+            }
+            return false;
+        }
+
+        private async Task<bool> IsValidCartProductAsync(List<OrderDetail> details)
+        {
+            foreach (var item in details)
+            {
+                var product = await unitOfWork.ProductRepository.GetProductByIdNoTrackingAsync(item.ProductId);
+                if (product is null) return false;
+            }
+
+            return true;
+        }
+
+        private async Task<Order> UpdateCartAsync(Order? cart, Customer customer)
+        {
+            foreach (var item in cart.Details)
+            {
+                var product = await unitOfWork.ProductRepository.GetProductByIdNoTrackingAsync(item.ProductId);
+                item.Price = product.DiscountPrice.HasValue ? product.DiscountPrice : product.OriginalPrice;
+            }
             //
             cart.ShipFee = 5000;
             cart.Status = OrderStatus.Preparing;
             cart.BuildingId = customer.BuildingId;
             //
-            unitOfWork.OrderRepository.Update(cart);
-            return await unitOfWork.SaveChangesAsync();
+            return cart;
         }
         #endregion
 
