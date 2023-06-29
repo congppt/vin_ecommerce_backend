@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
+using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Order;
@@ -19,7 +20,12 @@ namespace VinEcomOther.MapperConfig
         public AutoMapperProfile()
         {
             CreateMap(typeof(Pagination<>), typeof(Pagination<>));
+            //
             CreateMap<ProductCreateModel, Product>();
+            CreateMap<Product, ProductViewModel>()
+                .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.GetDisplayName()))
+                .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Store.Name));
+            //
             CreateMap<SignUpViewModel, User>();
             CreateMap<StoreRegisterViewModel, Store>();
             CreateMap<Store, StoreFilterResultViewModel>();

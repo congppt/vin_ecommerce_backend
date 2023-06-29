@@ -32,22 +32,40 @@ namespace VinEcomService.Service
         {
             this.productValidator = productValidator;
         }
-        public async Task<Pagination<Product>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
-        {
-            if (!IsValidCategory(filter.Category))
-                return new Pagination<Product>
-                {
-                    Items = new List<Product>(),
-                    PageIndex = pageIndex,
-                    PageSize = pageSize,
-                };
-            return await unitOfWork.ProductRepository.GetProductFiltetAsync(pageIndex, pageSize, filter);
-        }
 
-        private bool IsValidCategory(int category)
+        #region Products
+        public async Task<Pagination<ProductViewModel>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
         {
-            return Enum.IsDefined(typeof(ProductCategory), category);
+            //Get Paging by Category
+            if (filter.Category.HasValue)
+            {
+                var result = await unitOfWork.ProductRepository.GetProductByCategoryAsync(filter.Category.Value, pageIndex, pageSize);
+                return mapper.Map<Pagination<ProductViewModel>>(result);
+            }
+            //Get paging by Store Id
+            if (filter.StoreId.HasValue)
+            {
+                var result = await unitOfWork.ProductRepository.GetStoreProductPageAsync(new StoreProductFilterViewModel
+                {
+                    StoreId = filter.StoreId.Value,
+                    PageIndex = pageIndex,
+                    PageSize = pageSize
+                });
+                return mapper.Map<Pagination<ProductViewModel>>(result);
+            }
+            //Get paging by name
+            if (!string.IsNullOrEmpty(filter.Name))
+            {
+                var result = await unitOfWork.ProductRepository.GetProductPagesByNameAsync(filter.Name, pageIndex, pageSize);
+                return mapper.Map<Pagination<ProductViewModel>>(result);
+            }
+            //Origin product paging
+            var productPages = await unitOfWork.ProductRepository.GetProductPagingAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<ProductViewModel>>(productPages);
         }
+        #endregion
+
+        #region Add
         public async Task<bool> AddAsync(ProductCreateModel product)
         {
             var storeId = claimService.GetStoreId();
@@ -59,60 +77,16 @@ namespace VinEcomService.Service
             await unitOfWork.ProductRepository.AddAsync(createProduct);
             return await unitOfWork.SaveChangesAsync();
         }
+        #endregion
+
         public async Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product)
         {
             return await productValidator.ProductCreateValidator.ValidateAsync(product);
         }
 
-        public async Task<ValidationResult> ValidateStoreProductFilterAsync(StoreProductFilterViewModel vm)
+        public async Task<ValidationResult> ValidateFilterProductAsync(ProductFilterModel product)
         {
-            return await productValidator.StoreProductFilterValidator.ValidateAsync(vm);
+            return await productValidator.ProductFilterValidator.ValidateAsync(product);
         }
-        public async Task<Pagination<Product>> GetStoreProductPageAsync(StoreProductFilterViewModel vm)
-        {
-            return await unitOfWork.ProductRepository.GetStoreProductPageAsync(vm);
-        }
-
-        #region GetProducts
-        public async Task<Pagination<Product>> GetProductPagingAsync(int pageIndex, int pageSize)
-        {
-            return await unitOfWork.ProductRepository.GetPageAsync(pageIndex, pageSize);
-        }
-
-        public async Task<IEnumerable<ProductRatingViewModel>> GetProductRatingAsync(List<int> productIds)
-        {
-            var listRatingDetail = new List<ProductRatingViewModel>();
-            foreach (var productId in productIds)
-            {
-                var ratingDetail = await GetRatingDetailAsync(productId);
-                listRatingDetail.Add(ratingDetail);
-            }
-            return listRatingDetail;
-        }
-
-        private async Task<ProductRatingViewModel> GetRatingDetailAsync(int productId)
-        {
-            var orderDetails = await unitOfWork.OrderDetailRepository.GetDetailsByProductIdAsync(productId);
-            var rating = 0;
-            var numOfRating = 0;
-            //
-            foreach (var detail in orderDetails)
-            {
-                if (detail.Rate.HasValue)
-                {
-                    rating += detail.Rate.Value;
-                    numOfRating++;
-                }
-            }
-            //
-            var averageRate = numOfRating != 0 ? rating / numOfRating : 0;
-            return new ProductRatingViewModel
-            {
-                ProductId = productId,
-                AverageRating = averageRate,
-                NumOfRating = numOfRating
-            };
-        }
-        #endregion
     }
 }

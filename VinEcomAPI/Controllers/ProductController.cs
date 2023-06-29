@@ -19,36 +19,20 @@ namespace VinEcomAPI.Controllers
             this.productService = productService;
         }
 
-        [HttpPost("StoreProducts")]
-        public async Task<IActionResult> GetStoreProductPageAsync([FromBody] StoreProductFilterViewModel vm)
-        {
-            var validateResult = await productService.ValidateStoreProductFilterAsync(vm);
-            if (!validateResult.IsValid)
-            {
-                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
-                return BadRequest(errors);
-            }
-            var result = await productService.GetStoreProductPageAsync(vm);
-            return Ok(result);
-        }
-
         [HttpGet("Products")]
-        public async Task<IActionResult> GetProductPage(int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
         {
+            if (filter.Category.HasValue)
+            {
+                var validateResult = await productService.ValidateFilterProductAsync(filter);
+                if (!validateResult.IsValid) return BadRequest(validateResult.Errors);
+            }
             if (pageIndex < 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
             if (pageSize <= 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
-            var products = await productService.GetProductPagingAsync(pageIndex, pageSize);
-            return Ok(products);
-        }
-
-        [HttpGet("Filter")]
-        public async Task<IActionResult> GetProductFilterAsync([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
-        {
-            if (pageIndex < 0) return BadRequest();
-            if (pageSize <= 0) return BadRequest();
             var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
             return Ok(products);
         }
+
         [HttpPost("Add")]
         public async Task<IActionResult> AddProductAsync([FromBody] ProductCreateModel product)
         {
