@@ -252,4 +252,7 @@
   <data name="VINECOM_ORDER_CHECKOUT_FAILED" xml:space="preserve">
     <value>Thanh toán thất bại. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_USER_AVATAR_URL_NOT_FOUND" xml:space="preserve">
+    <value>Hình ảnh không tồn tại.</value>
+  </data>
 </root>

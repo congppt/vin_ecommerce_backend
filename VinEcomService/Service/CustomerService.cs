@@ -9,6 +9,7 @@ using AutoMapper;
 using VinEcomInterface.IValidator;
 using VinEcomDomain.Enum;
 using FluentValidation.Results;
+using VinEcomDomain.Resources;
 
 namespace VinEcomService.Service
 {
@@ -30,7 +31,9 @@ namespace VinEcomService.Service
             string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Customer);
             return new AuthorizedViewModel
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                Name = customer.User.Name,
+                AvatarUrl = customer.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND
             };
         }
 

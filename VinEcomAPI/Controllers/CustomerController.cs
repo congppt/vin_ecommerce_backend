@@ -39,7 +39,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
 
-        [HttpGet("GetById/{id?}")]
+        [HttpGet("Customers/{id?}")]
         public async Task<IActionResult> GetById(int id)
         {
             if (id <= 0) return BadRequest();

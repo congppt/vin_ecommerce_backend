@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
+using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
@@ -38,7 +39,9 @@ namespace VinEcomService.Service
             string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Shipper);
             return new AuthorizedViewModel
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                Name = shipper.User.Name,
+                AvatarUrl = shipper.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND
             };
         }
         public async Task<bool> RegisterAsync(ShipperSignUpViewModel vm)

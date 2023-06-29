@@ -376,6 +376,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hình ảnh không tồn tại..
+        /// </summary>
+        public static string VINECOM_USER_AVATAR_URL_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("VINECOM_USER_AVATAR_URL_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số điện thoại này đã được sử dụng..
         /// </summary>
         public static string VINECOM_USER_REGISTER_PHONE_DUPLICATED {

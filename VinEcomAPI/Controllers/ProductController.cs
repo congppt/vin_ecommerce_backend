@@ -32,29 +32,24 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetProducts")]
+        [HttpGet("Products")]
         public async Task<IActionResult> GetProductPage(int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
             if (pageSize <= 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
             var products = await productService.GetProductPagingAsync(pageIndex, pageSize);
-            var ratings = await productService.GetProductRatingAsync(products.Items.Select(x => x.Id).ToList());
-            return Ok(new
-            {
-                ProductPaging = products,
-                ProductRatings = ratings
-            });
+            return Ok(products);
         }
 
-        [HttpPost("Filter")]
-        public async Task<IActionResult> GetProductFilterAsync(ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
+        [HttpGet("Filter")]
+        public async Task<IActionResult> GetProductFilterAsync([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest();
             if (pageSize <= 0) return BadRequest();
             var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
             return Ok(products);
         }
-        [HttpPost("AddAsync")]
+        [HttpPost("Add")]
         public async Task<IActionResult> AddProductAsync([FromBody] ProductCreateModel product)
         {
             var validateResult = await productService.ValidateCreateProductAsync(product);

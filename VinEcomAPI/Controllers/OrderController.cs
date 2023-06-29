@@ -37,7 +37,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetOrders
-        [HttpGet("GetOrders")]
+        [HttpGet("Orders")]
         public async Task<IActionResult> GetOrdersAsync(int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
@@ -93,7 +93,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetCustomerOrder
-        [HttpGet("CustomerOrder/{orderId?}")]
+        [HttpGet("CustomerOrders/{orderId?}")]
         public async Task<IActionResult> GetCustomerOrder(int orderId)
         {
             if (orderId <= 0) return BadRequest();
@@ -104,7 +104,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetStoreOrder
-        [HttpGet("GetStoreOrder/{orderId}")]
+        [HttpGet("StoreOrders/{orderId}")]
         public async Task<IActionResult> GetStoreOrder(int orderId)
         {
             if (orderId <= 0) return BadRequest();

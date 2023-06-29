@@ -63,7 +63,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
         }
 
-        [HttpGet("DeliveredList")]
+        [HttpGet("DeliveredOrders")]
         public async Task<IActionResult> GetDeliveredList()
         {
             var result = await shipperService.GetDeliveredListAsync();

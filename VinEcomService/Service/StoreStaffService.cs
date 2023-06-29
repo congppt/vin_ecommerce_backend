@@ -36,7 +36,9 @@ namespace VinEcomService.Service
             string accessToken = storeStaff.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Staff, storeStaff.StoreId);
             return new AuthorizedViewModel
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                Name = storeStaff.User.Name,
+                AvatarUrl = storeStaff.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND
             };
         }
 

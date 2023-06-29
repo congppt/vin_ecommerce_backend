@@ -15,7 +15,7 @@ namespace VinEcomAPI.Controllers
             this.buildingService = buildingService;
         }
 
-        [HttpGet("GetById/{id?}")]
+        [HttpGet("Buildings/{id?}")]
         public async Task<IActionResult> GetBuildingById(int id)
         {
             if (id <= 0) return BadRequest();

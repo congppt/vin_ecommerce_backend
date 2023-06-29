@@ -10,5 +10,7 @@ namespace VinEcomViewModel.Product
     public class ProductFilterModel
     {
         public int Category { get; set; }
+        public int StoreId { get; set; }
+        public string Name { get; set; }
     }
 }
