@@ -224,16 +224,18 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region PendingOrders
+        public async Task<IEnumerable<OrderWithDetailsViewModel>> GetPendingOrdersAsync()
+        {
+            var orders = await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Preparing, null);
+            return mapper.Map<IEnumerable<OrderWithDetailsViewModel>>(orders);
+        }
+        #endregion
+
         private async Task<Customer?> FindCustomerAsync()
         {
             var userId = claimService.GetCurrentUserId();
             return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(userId);
-        }
-
-        private async Task<Shipper?> FindShipperAsync()
-        {
-            var userId = claimService.GetCurrentUserId();
-            return await unitOfWork.ShipperRepository.GetShipperByUserId(userId);
         }
     }
 }

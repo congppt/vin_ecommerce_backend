@@ -134,5 +134,14 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetPendingOrder
+        [HttpGet("PendingOrders")]
+        public async Task<IActionResult> GetPendingOrdersAsync()
+        {
+            var result = await orderService.GetPendingOrdersAsync();
+            return Ok(result);
+        }
+        #endregion
     }
 }

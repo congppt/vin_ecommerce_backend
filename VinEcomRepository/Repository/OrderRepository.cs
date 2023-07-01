@@ -41,8 +41,13 @@ namespace VinEcomRepository.Repository
         {
             var result = context.Set<Order>()
                                 .AsNoTracking()
-                                .Include(o => o.Details)
-                                .ThenInclude(d => d.Product)
+                                .Include(x => x.Details)
+                                .ThenInclude(x => x.Product)
+                                .ThenInclude(x => x.Store)
+                                .ThenInclude(x => x.Building)
+                                .Include(x => x.Customer)
+                                .ThenInclude(x => x.User)
+                                .Include(x => x.Building)
                                 .Where(o => o.Status == status);
             if (customerId != null)
             {
@@ -68,7 +73,7 @@ namespace VinEcomRepository.Repository
         public async Task<Pagination<Order>> GetOrderPagesByCustomerIdAndStatusAsync(int customerId, int status, int pageIndex, int pageSize)
         {
             var sourse = context.Set<Order>()
-                .Where(x => x.CustomerId == customerId && (int) x.Status == status);
+                .Where(x => x.CustomerId == customerId && (int)x.Status == status);
             //
             var totalCount = await sourse.CountAsync();
             var items = await sourse
@@ -93,7 +98,7 @@ namespace VinEcomRepository.Repository
         {
             var sourse = context.Set<Order>()
                 .Where(x => x.Details.Any(ord => ord.Product.StoreId == storeId) &&
-                (int) x.Status == status);
+                (int)x.Status == status);
             //
             var totalCount = await sourse.CountAsync();
             var items = await sourse
@@ -144,7 +149,7 @@ namespace VinEcomRepository.Repository
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
-                .FirstOrDefaultAsync(x => x.Id == orderId && 
+                .FirstOrDefaultAsync(x => x.Id == orderId &&
                 x.Details.Any(ord => ord.Product.StoreId == storeId));
         }
     }
