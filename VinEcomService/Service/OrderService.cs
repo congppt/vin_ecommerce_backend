@@ -167,30 +167,6 @@ namespace VinEcomService.Service
         }
         #endregion
 
-        #region AssignShipper
-        public async Task<bool> AssignShipperAsync(int orderId)
-        {
-            var shipper = await FindShipperAsync();
-            if (shipper is null) return false;
-            //
-            var order = await unitOfWork.OrderRepository.GetByIdAsync(orderId);
-            if (order is null || order.ShipperId.HasValue) return false;
-            //
-            order.ShipperId = shipper.Id;
-            order.Status = OrderStatus.Shipping;
-            unitOfWork.OrderRepository.Update(order);
-            //
-            UpdateShipperStatus(shipper);
-            return await unitOfWork.SaveChangesAsync();
-        }
-
-        private void UpdateShipperStatus(Shipper shipper)
-        {
-            shipper.Status = ShipperStatus.Enroute;
-            unitOfWork.ShipperRepository.Update(shipper);
-        }
-        #endregion
-
         #region Checkout
         public async Task<bool> CheckoutAsync()
         {

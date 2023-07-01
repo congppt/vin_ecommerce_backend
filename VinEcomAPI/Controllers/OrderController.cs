@@ -114,17 +114,6 @@ namespace VinEcomAPI.Controllers
         }
         #endregion
 
-        #region AssignShipper
-        [HttpPut("AssignShipper/{orderId?}")]
-        public async Task<IActionResult> AssignShipper(int orderId)
-        {
-            if (orderId <= 0) return BadRequest();
-            var result = await orderService.AssignShipperAsync(orderId);
-            if (result) return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
-        }
-        #endregion
-
         #region Checkout
         [HttpPatch("Checkout")]
         public async Task<IActionResult> CheckoutAsync()

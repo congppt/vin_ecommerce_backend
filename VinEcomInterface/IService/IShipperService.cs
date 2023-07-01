@@ -22,5 +22,6 @@ namespace VinEcomInterface.IService
         Task<IEnumerable<OrderWithDetailsViewModel>?> GetDeliveredListAsync();
         Task<bool> ChangeWorkingStatusAsync();
         Task<bool> OrderDeliveredAsync();
+        Task<bool> ReceiveOrderAsync(int orderId);
     }
 }

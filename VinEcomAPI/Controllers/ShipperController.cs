@@ -70,5 +70,16 @@ namespace VinEcomAPI.Controllers
             if (result is null) return NotFound();
             return Ok(result);
         }
+
+        #region ReceiveOrder
+        [HttpPut("ReceiveOrder/{orderId?}")]
+        public async Task<IActionResult> ReceiveOrder(int orderId)
+        {
+            if (orderId <= 0) return BadRequest();
+            var result = await shipperService.ReceiveOrderAsync(orderId);
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
+        }
+        #endregion
     }
 }
