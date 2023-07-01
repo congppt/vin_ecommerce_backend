@@ -19,5 +19,6 @@ namespace VinEcomInterface.IRepository
         Task<Pagination<Order>> GetOrderPagesByStoreIdAndStatusAsync(int storeId, int status, int pageIndex, int pageSize);
         Task<Pagination<Order>> GetOrderPagesByCustomerIdAndStatusAsync(int customerId, int status, int pageIndex, int pageSize);
         Task<IEnumerable<Order>> GetOrdersByShipperIdAsync(int shipperId);
+        Task<Order?> GetOrderByIdAsync(int id);
     }
 }

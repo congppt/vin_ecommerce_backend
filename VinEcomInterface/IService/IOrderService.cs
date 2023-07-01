@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
+using VinEcomViewModel.Order;
 using VinEcomViewModel.OrderDetail;
 
 namespace VinEcomInterface.IService
@@ -21,5 +22,6 @@ namespace VinEcomInterface.IService
         Task<Order?> GetCustomerOrdersAsync(int orderId);
         Task<Order?> GetStoreOrderAsync(int orderId);
         Task<bool> CheckoutAsync();
+        Task<OrderWithDetailsViewModel?> GetOrderByIdAsync(int id);
     }
 }

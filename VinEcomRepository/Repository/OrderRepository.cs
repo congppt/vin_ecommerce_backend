@@ -51,6 +51,20 @@ namespace VinEcomRepository.Repository
             return await result.ToListAsync();
         }
 
+        public async Task<Order?> GetOrderByIdAsync(int id)
+        {
+            return await context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Pagination<Order>> GetOrderPagesByCustomerIdAndStatusAsync(int customerId, int status, int pageIndex, int pageSize)
         {
             var sourse = context.Set<Order>()
@@ -105,10 +119,12 @@ namespace VinEcomRepository.Repository
             return await context.Set<Order>()
                 .AsNoTracking()
                 .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .ThenInclude(x => x.Building)
                 .Include(x => x.Customer)
                 .ThenInclude(x => x.User)
-                .Include(x => x.Shipper)
-                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
                 .Where(x => x.ShipperId == shipperId)
                 .ToListAsync();
         }

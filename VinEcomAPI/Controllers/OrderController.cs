@@ -48,7 +48,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region IsProductSameStore
-        [HttpGet("IsProductSameStore")]
+        [HttpGet("IsProductSameStore/{productId?}")]
         public async Task<IActionResult> IsProductSameStoreAsync(int productId)
         {
             var result = await orderService.IsProductSameStoreAsync(productId);
@@ -121,6 +121,17 @@ namespace VinEcomAPI.Controllers
             var result = await orderService.CheckoutAsync();
             if (result) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CHECKOUT_FAILED });
+        }
+        #endregion
+
+        #region GetById
+        [HttpGet("Orders/{id?}")]
+        public async Task<IActionResult> GetOrderByIdAsync(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var result = await orderService.GetOrderByIdAsync(id);
+            if (result is null) return NotFound();
+            return Ok(result);
         }
         #endregion
     }

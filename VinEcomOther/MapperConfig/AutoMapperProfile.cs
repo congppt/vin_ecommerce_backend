@@ -38,7 +38,13 @@ namespace VinEcomOther.MapperConfig
             //Order
             CreateMap<Order, OrderWithDetailsViewModel>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer.User.Name))
-                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper.User.Name));
+                .ForMember(dest => dest.FromBuildingName, opt => opt.MapFrom(src => src.Details.First().Product.Store.Building.Name))
+                .ForMember(dest => dest.FromBuildingLocation, opt => opt.MapFrom(src => src.Details
+                .First().Product.Store.Building.Latitude + "," + src.Details.First().Product.Store.Building.Longitude))
+                .ForMember(dest => dest.ToBuildingName, opt => opt.MapFrom(src => src.Building.Name))
+                .ForMember(dest => dest.ToBuildingLocation, opt => opt.MapFrom(src => src.Building.Latitude + "," + src.Building.Longitude))
+                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Details.First().Product.Store.Name))
+                .ForMember(dest => dest.StoreImageUrl, opt => opt.MapFrom(src => src.Details.First().Product.Store.ImageUrl));
             //OrderDetail
             CreateMap<OrderDetail, OrderDetailViewModel>();
         }

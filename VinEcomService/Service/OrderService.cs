@@ -12,6 +12,8 @@ using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using AutoMapper;
 using System.Numerics;
+using VinEcomViewModel.Order;
+using VinEcomDbContext.Migrations;
 
 namespace VinEcomService.Service
 {
@@ -211,6 +213,14 @@ namespace VinEcomService.Service
             cart.BuildingId = customer.BuildingId;
             //
             return cart;
+        }
+        #endregion
+
+        #region GetById
+        public async Task<OrderWithDetailsViewModel?> GetOrderByIdAsync(int id)
+        {
+            var order = await unitOfWork.OrderRepository.GetOrderByIdAsync(id);
+            return mapper.Map<OrderWithDetailsViewModel>(order);
         }
         #endregion
 
