@@ -47,5 +47,14 @@ namespace VinEcomAPI.Controllers
             if (result is not null) return Ok(result);
             return NotFound();
         }
+
+        [HttpGet("Customers")]
+        public async Task<IActionResult> GetCustomerPages(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest(new { message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
+            if (pageSize <= 0) return BadRequest(new { message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
+            var result = await customerService.GetCustomerPagesAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
     }
 }

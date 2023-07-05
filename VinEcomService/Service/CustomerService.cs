@@ -10,6 +10,7 @@ using VinEcomInterface.IValidator;
 using VinEcomDomain.Enum;
 using FluentValidation.Results;
 using VinEcomDomain.Resources;
+using VinEcomUtility.Pagination;
 
 namespace VinEcomService.Service
 {
@@ -65,6 +66,12 @@ namespace VinEcomService.Service
         {
             var result = await unitOfWork.CustomerRepository.GetCustomerByIdASync(id);
             return mapper.Map<CustomerViewModel?>(result);
+        }
+
+        public async Task<Pagination<CustomerViewModel>> GetCustomerPagesAsync(int pageIndex, int pageSize)
+        {
+            var result = await unitOfWork.CustomerRepository.GetCustomerPagesAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<CustomerViewModel>>(result);
         }
     }
 }

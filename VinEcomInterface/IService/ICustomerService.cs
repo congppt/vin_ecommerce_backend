@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
+using VinEcomUtility.Pagination;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 
@@ -17,5 +18,6 @@ namespace VinEcomInterface.IService
         Task<bool> IsBuildingExistedAsync(int buildingId);
         Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm);
         Task<CustomerViewModel?> GetCustomerByIdAsync(int id);
+        Task<Pagination<CustomerViewModel>> GetCustomerPagesAsync(int pageIndex, int pageSize);
     }
 }

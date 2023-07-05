@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDomain.Model;
+using VinEcomUtility.Pagination;
 
 namespace VinEcomInterface.IRepository
 {
@@ -12,5 +13,6 @@ namespace VinEcomInterface.IRepository
         Task<Customer?> AuthorizeAsync(string phone, string password);
         Task<Customer?> GetCustomerByIdASync(int id);
         Task<Customer?> GetCustomerByUserIdAsync(int userId);
+        Task<Pagination<Customer>> GetCustomerPagesAsync(int pageIndex, int pageSize);
     }
 }
