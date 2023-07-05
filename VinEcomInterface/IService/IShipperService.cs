@@ -18,7 +18,7 @@ namespace VinEcomInterface.IService
         Task<AuthorizedViewModel?> AuthorizeAsync(SignInViewModel vm);
         Task<bool> RegisterAsync(ShipperSignUpViewModel vm);
         Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm);
-        Task<IEnumerable<Shipper>> GetShippersAvailableAsync();
+        Task<IEnumerable<ShipperViewModel>> GetShippersAvailableAsync();
         Task<IEnumerable<OrderWithDetailsViewModel>?> GetDeliveredListAsync();
         Task<bool> ChangeWorkingStatusAsync();
         Task<bool> OrderDeliveredAsync();

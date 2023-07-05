@@ -61,5 +61,15 @@ namespace VinEcomUtility.UtilityMethod
                 _ => "",
             };
         }
+        public static string GetDisplayName(this ShipperStatus status)
+        {
+            return status switch
+            {
+                ShipperStatus.Offline => VinEcom.VINECOM_SHIPPER_STATUS_OFFLINE,
+                ShipperStatus.Available => VinEcom.VINECOM_SHIPPER_STATUS_AVAILABLE,
+                ShipperStatus.Enroute => VinEcom.VINECOM_SHIPPER_STATUS_ENROUTE,
+                _ => "",
+            };
+        }
     }
 }

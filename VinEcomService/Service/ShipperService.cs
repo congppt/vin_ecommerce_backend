@@ -64,9 +64,10 @@ namespace VinEcomService.Service
             return await validator.ShipperCreateValidator.ValidateAsync(vm);
         }
 
-        public async Task<IEnumerable<Shipper>> GetShippersAvailableAsync()
+        public async Task<IEnumerable<ShipperViewModel>> GetShippersAvailableAsync()
         {
-            return await unitOfWork.ShipperRepository.GetAvailableShipperAsync();
+            var result = await unitOfWork.ShipperRepository.GetAvailableShipperAsync();
+            return mapper.Map<IEnumerable<ShipperViewModel>>(result);
         }
 
         public async Task<bool> ChangeWorkingStatusAsync()

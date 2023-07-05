@@ -286,6 +286,33 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đang hoạt động.
+        /// </summary>
+        public static string VINECOM_SHIPPER_STATUS_AVAILABLE {
+            get {
+                return ResourceManager.GetString("VINECOM_SHIPPER_STATUS_AVAILABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đang giao hàng.
+        /// </summary>
+        public static string VINECOM_SHIPPER_STATUS_ENROUTE {
+            get {
+                return ResourceManager.GetString("VINECOM_SHIPPER_STATUS_ENROUTE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không hoạt động.
+        /// </summary>
+        public static string VINECOM_SHIPPER_STATUS_OFFLINE {
+            get {
+                return ResourceManager.GetString("VINECOM_SHIPPER_STATUS_OFFLINE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quán cafe.
         /// </summary>
         public static string VINECOM_STORE_CATEGORY_BEVERAGE {

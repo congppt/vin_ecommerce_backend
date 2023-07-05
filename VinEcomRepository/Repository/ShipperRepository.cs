@@ -31,6 +31,7 @@ namespace VinEcomRepository.Repository
         {
             return await context.Set<Shipper>()
                 .AsNoTracking()
+                .Include(x => x.User)
                 .Where(x => x.Status == VinEcomDomain.Enum.ShipperStatus.Available)
                 .ToListAsync();
         }

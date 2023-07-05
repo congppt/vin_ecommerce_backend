@@ -11,6 +11,7 @@ using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Order;
 using VinEcomViewModel.Product;
+using VinEcomViewModel.Shipper;
 using VinEcomViewModel.Store;
 
 namespace VinEcomOther.MapperConfig
@@ -47,6 +48,13 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.StoreImageUrl, opt => opt.MapFrom(src => src.Details.First().Product.Store.ImageUrl));
             //OrderDetail
             CreateMap<OrderDetail, OrderDetailViewModel>();
+            //Shipper
+            CreateMap<Shipper, ShipperViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User.Name))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.User.Phone))
+                .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
+                .ForMember(dest => dest.VehicleType, opt => opt.MapFrom(src => src.VehicleType.GetDisplayName()))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()));
         }
     }
 }
