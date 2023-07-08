@@ -11,6 +11,7 @@ namespace VinEcomViewModel.Order
         public decimal? ShipFee { get; set; }
         public OrderStatus Status { get; set; }
         public string Customer { get; set; }
+        public string CustomerPhone { get; set; }
         public string FromBuildingName { get; set; }
         public string FromBuildingLocation { get; set; }
         public string ToBuildingName { get; set; }
