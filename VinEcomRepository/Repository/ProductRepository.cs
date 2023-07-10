@@ -23,7 +23,7 @@ namespace VinEcomRepository.Repository
         {
             var source = context.Set<Product>()
                 .Include(x => x.Store)
-                .AsNoTracking().Where(p => p.StoreId == vm.StoreId && !p.IsRemoved);
+                .AsNoTracking().Where(p => p.StoreId == vm.StoreId && !p.IsRemoved && !p.Store.IsBlocked);
             var totalCount = await source.CountAsync();
             var items = await source.Skip(vm.PageIndex * vm.PageSize).Take(vm.PageSize).ToListAsync();
             var result = new Pagination<Product>()
@@ -42,7 +42,7 @@ namespace VinEcomRepository.Repository
             return await context.Set<Product>()
                 .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
-                .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);
+                .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved && !x.Store.IsBlocked);
         }
 
         public async Task<Product?> GetProductByIdNoTrackingAsync(int id)
@@ -51,7 +51,7 @@ namespace VinEcomRepository.Repository
                 .AsNoTracking()
                 .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
-                .FirstOrDefaultAsync(x => x.Id == id 
+                .FirstOrDefaultAsync(x => x.Id == id
                 && !x.IsRemoved
                 && !x.IsOutOfStock
                 && !x.Store.IsBlocked);
@@ -62,7 +62,7 @@ namespace VinEcomRepository.Repository
             var products = context.Set<Product>()
                 .Include(x => x.Store)
                 .AsNoTracking()
-                .Where(x => x.Category == category && !x.IsRemoved);
+                .Where(x => x.Category == category && !x.IsRemoved && !x.Store.IsBlocked);
             var totalCount = await products.CountAsync();
             var items = await products.AsNoTracking().Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             var result = new Pagination<Product>()
@@ -81,7 +81,7 @@ namespace VinEcomRepository.Repository
             var products = context.Set<Product>()
                 .Include(x => x.Store)
                 .AsNoTracking()
-                .Where(x => x.Name.ToLower().Contains(name.ToLower())&& !x.IsRemoved);
+                .Where(x => x.Name.ToLower().Contains(name.ToLower()) && !x.IsRemoved && !x.Store.IsBlocked);
             var totalCount = await products.CountAsync();
             var items = await products.AsNoTracking().Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             var result = new Pagination<Product>()
@@ -97,10 +97,12 @@ namespace VinEcomRepository.Repository
 
         public async Task<Pagination<Product>> GetProductPagingAsync(int pageIndex, int pageSize)
         {
-            var totalCount = await context.Set<Product>().CountAsync();
-            var items = await context.Set<Product>()
+            var products = context.Set<Product>()
+               .AsNoTracking()
                .Include(x => x.Store)
-               .AsNoTracking().Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
+               .Where(x => !x.IsRemoved && !x.Store.IsBlocked);
+            var totalCount = await products.CountAsync();
+            var items = await products.Skip(pageIndex * pageSize).Take(pageSize).ToListAsync();
             var result = new Pagination<Product>()
             {
                 Items = items,

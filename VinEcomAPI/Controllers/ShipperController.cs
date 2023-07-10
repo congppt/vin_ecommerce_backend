@@ -52,7 +52,7 @@ namespace VinEcomAPI.Controllers
         {
             var result = await shipperService.ChangeWorkingStatusAsync();
             if (result) return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
+            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
 
         [HttpPatch("FinishOrder")]
@@ -60,7 +60,7 @@ namespace VinEcomAPI.Controllers
         {
             var result = await shipperService.OrderDeliveredAsync();
             if (result) return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
+            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
         }
 
         [HttpGet("DeliveredOrders")]
@@ -78,7 +78,7 @@ namespace VinEcomAPI.Controllers
             if (orderId <= 0) return BadRequest();
             var result = await shipperService.ReceiveOrderAsync(orderId);
             if (result) return Ok();
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
+            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
         }
         #endregion
     }
