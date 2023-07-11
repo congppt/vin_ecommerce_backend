@@ -4,6 +4,7 @@ using VinEcomInterface.IService;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 using VinEcomDomain.Resources;
+using VinEcomRepository;
 
 namespace VinEcomAPI.Controllers
 {
@@ -88,6 +89,19 @@ namespace VinEcomAPI.Controllers
             var result = await customerService.UpdatePasswordAsync(vm);
             if (result) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
+
+        [HttpPatch("UpdateBlockStatus/{customerId}")]
+        public async Task<IActionResult> UpdateBlockStatusAsync(int customerId)
+        {
+            if (customerId <= 0) return BadRequest();
+            //
+            var customer = await customerService.FindCustomerAsync(customerId);
+            if (customer is null) return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+            //
+            var result = await customerService.UpdateBlockStatusAsync(customer);
+            if (result is true) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_CUSTOMER_BLOCK_ERROR });
         }
     }
 }

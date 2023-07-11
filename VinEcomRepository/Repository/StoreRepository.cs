@@ -35,5 +35,25 @@ namespace VinEcomRepository.Repository
             //if (result.TotalPagesCount < pageIndex + 1) return await GetPageByStoreIdAsync(0, pageSize);
             return result;
         }
+
+        public async Task<Pagination<Store>> GetStorePagesAsync(int pageIndex, int pageSize)
+        {
+            var source = context.Set<Store>()
+                .Include(x => x.Building)
+                .AsNoTracking().Where(x => !x.IsBlocked);
+            //
+            var totalCount = await source.CountAsync();
+            var items = await source.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();
+            //
+            var result = new Pagination<Store>()
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItemsCount = totalCount
+            };
+
+            return result;
+        }
     }
 }

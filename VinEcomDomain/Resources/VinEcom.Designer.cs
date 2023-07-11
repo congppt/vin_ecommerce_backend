@@ -70,6 +70,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_CUSTOMER_BLOCK_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_CUSTOMER_BLOCK_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mật khẩu hiện tại không chính xác..
         /// </summary>
         public static string VINECOM_CURRENT_PASSWORD_INCORRECT {
@@ -111,6 +120,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_IMAGE_URL_FORMAT_ERROR {
             get {
                 return ResourceManager.GetString("VINECOM_IMAGE_URL_FORMAT_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số lượng đơn hàng phải lớn hơn 0..
+        /// </summary>
+        public static string VINECOM_NUM_OF_ORDERS_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_NUM_OF_ORDERS_ERROR", resourceCulture);
             }
         }
         

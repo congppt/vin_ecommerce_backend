@@ -77,6 +77,12 @@ namespace VinEcomService.Service
             return await unitOfWork.SaveChangesAsync();
         }
 
+        public async Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize)
+        {
+            var result = await unitOfWork.StoreRepository.GetStorePagesAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<StoreViewModel>>(result);
+        }
+
         public async Task<Store?> FindStoreAsync(int storeId)
         {
             return await unitOfWork.StoreRepository.GetByIdAsync(storeId);

@@ -75,7 +75,7 @@ namespace VinEcomAPI.Controllers
             if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
             var result = await orderService.GetStoreOrderPagesByStatus((int) status, pageIndex, pageSize);
             if (result is not null) return Ok(result);
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
+            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace VinEcomAPI.Controllers
             if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
             var result = await orderService.GetCustomerOrderPagesByStatus((int) status, pageIndex, pageSize);
             if (result is not null) return Ok(result);
-            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
         }
         #endregion
 
@@ -140,6 +140,16 @@ namespace VinEcomAPI.Controllers
         public async Task<IActionResult> GetPendingOrdersAsync()
         {
             var result = await orderService.GetPendingOrdersAsync();
+            return Ok(result);
+        }
+        #endregion
+
+        #region GetRecentOrders
+        [HttpGet("RecentOrders/{numOfOrders?}")]
+        public async Task<IActionResult> GetRecentOrders(int numOfOrders = 10)
+        {
+            if (numOfOrders <= 0) return BadRequest(new { Message = VinEcom.VINECOM_NUM_OF_ORDERS_ERROR });
+            var result = await orderService.GetRecentOrdersAsync(numOfOrders);
             return Ok(result);
         }
         #endregion

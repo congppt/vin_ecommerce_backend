@@ -10,6 +10,7 @@ using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
 using VinEcomUtility.Pagination;
+using VinEcomViewModel.Order;
 
 namespace VinEcomRepository.Repository
 {
@@ -141,6 +142,21 @@ namespace VinEcomRepository.Repository
             if (result == null) return null;
             if (customerId.HasValue) return result.CustomerId == customerId ? result : null;
             return result;
+        }
+
+        public async Task<IEnumerable<Order>> GetRecentOrdersAsync(int numOfOrders)
+        {
+            var source = context.Set<Order>()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .AsNoTracking()
+                .OrderByDescending(x => x.OrderDate)
+                .Where(x => x.Status == OrderStatus.Done);
+            //
+            return await source
+                .Take(numOfOrders)
+                .ToListAsync();
         }
 
         public async Task<Order?> GetStoreOrderWithDetailAsync(int orderId, int storeId)

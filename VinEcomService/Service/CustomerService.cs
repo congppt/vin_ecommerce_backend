@@ -74,6 +74,18 @@ namespace VinEcomService.Service
             return mapper.Map<Pagination<CustomerViewModel>>(result);
         }
 
+        public async Task<bool> UpdateBlockStatusAsync(Customer customer)
+        {
+            customer.User.IsBlocked = !customer.User.IsBlocked;
+            unitOfWork.CustomerRepository.Update(customer);
+            return await unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<Customer?> FindCustomerAsync(int customerId)
+        {
+            return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(customerId);
+        }
+
         public async Task<CustomerViewModel> GetPersonalInfoAsync()
         {
             var id = claimService.GetRoleId();

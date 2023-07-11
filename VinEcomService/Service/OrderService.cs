@@ -92,6 +92,10 @@ namespace VinEcomService.Service
             if (detail != null)
             {
                 unitOfWork.OrderDetailRepository.Delete(detail);
+                if (cart.Details.Count == 0)
+                {
+                    unitOfWork.OrderRepository.Delete(cart);
+                }
                 return await unitOfWork.SaveChangesAsync();
             }
 
@@ -229,6 +233,14 @@ namespace VinEcomService.Service
         {
             var orders = await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Preparing, null);
             return mapper.Map<IEnumerable<OrderWithDetailsViewModel>>(orders);
+        }
+        #endregion
+
+        #region RecentOrders
+        public async Task<IEnumerable<OrderWithDetailsViewModel>> GetRecentOrdersAsync(int numOfOrders)
+        {
+            var result = await unitOfWork.OrderRepository.GetRecentOrdersAsync(numOfOrders);
+            return mapper.Map<IEnumerable<OrderWithDetailsViewModel>>(result);
         }
         #endregion
 
