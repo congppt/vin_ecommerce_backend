@@ -92,6 +92,10 @@ namespace VinEcomService.Service
             if (detail != null)
             {
                 unitOfWork.OrderDetailRepository.Delete(detail);
+                if (cart.Details.Count == 0)
+                {
+                    unitOfWork.OrderRepository.Delete(cart);
+                }
                 return await unitOfWork.SaveChangesAsync();
             }
 

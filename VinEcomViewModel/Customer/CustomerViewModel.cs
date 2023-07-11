@@ -8,6 +8,7 @@ namespace VinEcomViewModel.Customer
         //
         public int UserId { get; set; }
         public int BuildingId { get; set; }
+        public string BuidingName { get; set; }
         //
         public string Name { get; set; }
         public string Phone { get; set; }

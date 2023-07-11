@@ -22,7 +22,7 @@ namespace VinEcomAPI.Controllers
         {
             var result = await orderService.AddToCartAsync(vm);
             if (result is true) return Ok();
-            return StatusCode(StatusCodes.Status400BadRequest, VinEcom.VINECOM_ORDER_ADDTOCART_FAILED);
+            return StatusCode(StatusCodes.Status500InternalServerError, VinEcom.VINECOM_ORDER_ADDTOCART_FAILED);
         }
 
         #region RemoveFromCart
@@ -32,7 +32,7 @@ namespace VinEcomAPI.Controllers
             if (productId <= 0) return BadRequest();
             var result = await orderService.RemoveFromCartAsync(productId); 
             if (result is true) return Ok();
-            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_ORDER_REMOVE_FROM_CART_FAILED });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_REMOVE_FROM_CART_FAILED });
         }
         #endregion
 
@@ -120,7 +120,7 @@ namespace VinEcomAPI.Controllers
         {
             var result = await orderService.CheckoutAsync();
             if (result) return Ok();
-            return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_ORDER_CHECKOUT_FAILED });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CHECKOUT_FAILED });
         }
         #endregion
 

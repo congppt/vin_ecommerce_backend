@@ -61,5 +61,16 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
         #endregion
+
+        #region GetAll
+        [HttpGet("Stores")]
+        public async Task<IActionResult> GetStorePagesAsync(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
+            var result = await storeService.GetStorePagesAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
+        #endregion
     }
 }

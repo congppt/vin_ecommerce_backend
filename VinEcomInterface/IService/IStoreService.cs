@@ -20,5 +20,6 @@ namespace VinEcomInterface.IService
         Task<Pagination<StoreFilterResultViewModel>> GetStoreFilterResultAsync(StoreFilterViewModel vm);
         Task<bool> ChangeBlockStatusAsync(Store store);
         Task<bool> UpdateWorkingStatus();
+        Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize);
     }
 }
