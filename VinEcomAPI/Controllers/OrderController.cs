@@ -143,5 +143,15 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetRecentOrders
+        [HttpGet("RecentOrders/{numOfOrders?}")]
+        public async Task<IActionResult> GetRecentOrders(int numOfOrders = 10)
+        {
+            if (numOfOrders <= 0) return BadRequest(new { Message = VinEcom.VINECOM_NUM_OF_ORDERS_ERROR });
+            var result = await orderService.GetRecentOrdersAsync(numOfOrders);
+            return Ok(result);
+        }
+        #endregion
     }
 }

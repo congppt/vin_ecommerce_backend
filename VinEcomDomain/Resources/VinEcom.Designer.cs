@@ -97,6 +97,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số lượng đơn hàng phải lớn hơn 0..
+        /// </summary>
+        public static string VINECOM_NUM_OF_ORDERS_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_NUM_OF_ORDERS_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể thêm vào giỏ hàng. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_ORDER_ADDTOCART_FAILED {

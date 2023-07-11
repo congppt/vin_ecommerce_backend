@@ -24,5 +24,6 @@ namespace VinEcomInterface.IService
         Task<bool> CheckoutAsync();
         Task<OrderWithDetailsViewModel?> GetOrderByIdAsync(int id);
         Task<IEnumerable<OrderWithDetailsViewModel>> GetPendingOrdersAsync();
+        Task<IEnumerable<OrderWithDetailsViewModel>> GetRecentOrdersAsync(int numOfOrders);
     }
 }
