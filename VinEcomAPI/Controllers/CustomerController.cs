@@ -56,5 +56,23 @@ namespace VinEcomAPI.Controllers
             var result = await customerService.GetCustomerPagesAsync(pageIndex, pageSize);
             return Ok(result);
         }
+
+        [HttpPatch("Block/{customerId}")]
+        public async Task<IActionResult> BlockCustomer(int customerId)
+        {
+            if (customerId <= 0) return BadRequest();
+            var result = await customerService.BlockCustomerAsync(customerId);
+            if (result is true) return Ok();
+            return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+        }
+
+        [HttpPatch("Unblock/{customerId}")]
+        public async Task<IActionResult> UnblockCustomer(int customerId)
+        {
+            if (customerId <= 0) return BadRequest();
+            var result = await customerService.UnblockCustomerAsync(customerId);
+            if (result is true) return Ok();
+            return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+        }
     }
 }
