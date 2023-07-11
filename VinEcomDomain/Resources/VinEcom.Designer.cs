@@ -70,6 +70,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_CUSTOMER_BLOCK_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_CUSTOMER_BLOCK_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người dùng không tồn tại. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_CUSTOMER_NOT_FOUND {

@@ -19,7 +19,7 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm);
         Task<CustomerViewModel?> GetCustomerByIdAsync(int id);
         Task<Pagination<CustomerViewModel>> GetCustomerPagesAsync(int pageIndex, int pageSize);
-        Task<bool> BlockCustomerAsync(int customerId);
-        Task<bool> UnblockCustomerAsync(int customerId);
+        Task<bool> UpdateBlockStatusAsync(Customer customer);
+        Task<Customer?> FindCustomerAsync(int customerId);
     }
 }

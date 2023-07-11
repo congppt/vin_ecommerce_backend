@@ -74,24 +74,16 @@ namespace VinEcomService.Service
             return mapper.Map<Pagination<CustomerViewModel>>(result);
         }
 
-        public async Task<bool> BlockCustomerAsync(int customerId)
+        public async Task<bool> UpdateBlockStatusAsync(Customer customer)
         {
-            var customer = await unitOfWork.CustomerRepository.GetCustomerByIdASync(customerId);
-            if (customer is null) return false;
-            //
-            customer.User.IsBlocked = true;
+            customer.User.IsBlocked = !customer.User.IsBlocked;
             unitOfWork.CustomerRepository.Update(customer);
             return await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<bool> UnblockCustomerAsync(int customerId)
+        public async Task<Customer?> FindCustomerAsync(int customerId)
         {
-            var customer = await unitOfWork.CustomerRepository.GetCustomerByIdASync(customerId);
-            if (customer is null) return false;
-            //
-            customer.User.IsBlocked = false;
-            unitOfWork.CustomerRepository.Update(customer);
-            return await unitOfWork.SaveChangesAsync();
+            return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(customerId);
         }
     }
 }

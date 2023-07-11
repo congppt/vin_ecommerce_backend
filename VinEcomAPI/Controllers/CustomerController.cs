@@ -4,6 +4,7 @@ using VinEcomInterface.IService;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 using VinEcomDomain.Resources;
+using VinEcomRepository;
 
 namespace VinEcomAPI.Controllers
 {
@@ -57,22 +58,17 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("Block/{customerId}")]
-        public async Task<IActionResult> BlockCustomer(int customerId)
+        [HttpPatch("UpdateBlockStatus/{customerId}")]
+        public async Task<IActionResult> UpdateBlockStatusAsync(int customerId)
         {
             if (customerId <= 0) return BadRequest();
-            var result = await customerService.BlockCustomerAsync(customerId);
+            //
+            var customer = await customerService.FindCustomerAsync(customerId);
+            if (customer is null) return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+            //
+            var result = await customerService.UpdateBlockStatusAsync(customer);
             if (result is true) return Ok();
-            return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
-        }
-
-        [HttpPatch("Unblock/{customerId}")]
-        public async Task<IActionResult> UnblockCustomer(int customerId)
-        {
-            if (customerId <= 0) return BadRequest();
-            var result = await customerService.UnblockCustomerAsync(customerId);
-            if (result is true) return Ok();
-            return NotFound(new { Message = VinEcom.VINECOM_CUSTOMER_NOT_FOUND });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_CUSTOMER_BLOCK_ERROR });
         }
     }
 }
