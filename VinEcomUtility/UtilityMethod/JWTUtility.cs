@@ -14,7 +14,7 @@ namespace VinEcomUtility.UtilityMethod
 {
     public static class JWTUtility
     {
-        public static string GenerateToken(this User user, IConfiguration configuration, 
+        public static string GenerateToken(this User user, int id, IConfiguration configuration, 
             DateTime createdAt, int minuteValidFor, Role role, int storeId = -1, string? secretKey = null)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey ?? configuration["Jwt:Key"]));
@@ -22,6 +22,7 @@ namespace VinEcomUtility.UtilityMethod
             var claims = new[]
             {
                 new Claim("Id", user.Id.ToString()),
+                new Claim("RoleId", id.ToString()),
                 new Claim(ClaimTypes.Role, role.ToString()),
                 new Claim("StoreId", storeId.ToString())
             };

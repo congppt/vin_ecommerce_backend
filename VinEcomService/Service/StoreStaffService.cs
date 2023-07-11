@@ -33,7 +33,7 @@ namespace VinEcomService.Service
         {
             var storeStaff = await unitOfWork.StoreStaffRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (storeStaff is null) return null;
-            string accessToken = storeStaff.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Staff, storeStaff.StoreId);
+            string accessToken = storeStaff.User.GenerateToken(storeStaff.Id, config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Staff, storeStaff.StoreId);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,

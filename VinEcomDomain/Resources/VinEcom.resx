@@ -175,7 +175,7 @@
     <value>Số điện thoại hoặc mật khẩu không chính xác.</value>
   </data>
   <data name="VINECOM_SERVER_ERROR" xml:space="preserve">
-    <value>Đăng ký thất bại. Lỗi hệ thống</value>
+    <value>Thao tác thất bại. Lỗi hệ thống</value>
   </data>
   <data name="VINECOM_USER_REGISTER_PHONE_DUPLICATED" xml:space="preserve">
     <value>Số điện thoại này đã được sử dụng.</value>
@@ -263,5 +263,14 @@
   </data>
   <data name="VINECOM_SHIPPER_STATUS_OFFLINE" xml:space="preserve">
     <value>Không hoạt động</value>
+  </data>
+  <data name="VINECOM_EMAIL_INVALID_ERROR" xml:space="preserve">
+    <value>Địa chỉ email không phù hợp.</value>
+  </data>
+  <data name="VINECOM_UPDATE_SUCCESS" xml:space="preserve">
+    <value>Cập nhật thành công.</value>
+  </data>
+  <data name="VINECOM_CURRENT_PASSWORD_INCORRECT" xml:space="preserve">
+    <value>Mật khẩu hiện tại không chính xác.</value>
   </data>
 </root>

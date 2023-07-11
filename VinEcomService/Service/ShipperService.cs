@@ -36,7 +36,7 @@ namespace VinEcomService.Service
         {
             var shipper = await unitOfWork.ShipperRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (shipper is null) return null;
-            string accessToken = shipper.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Shipper);
+            string accessToken = shipper.User.GenerateToken(shipper.Id, config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Shipper);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,

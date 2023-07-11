@@ -56,5 +56,38 @@ namespace VinEcomAPI.Controllers
             var result = await customerService.GetCustomerPagesAsync(pageIndex, pageSize);
             return Ok(result);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetPersonalInfo()
+        {
+            var result = await customerService.GetPersonalInfoAsync();
+            return Ok(result);
+        }
+        [HttpPatch]
+        public async Task<IActionResult> UpdatePersonalBasicInfoAsync([FromBody] CustomerUpdateBasicViewModel vm)
+        {
+            var validateResult = await customerService.ValidateUpdateBasicAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            var result = await customerService.UpdateBasicInfoAsync(vm);
+            if (result) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS});
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
+        [HttpPatch("ChangePassword")]
+        public async Task<IActionResult> UpdatePasswordAsync([FromBody] UpdatePasswordViewModel vm)
+        {
+            var validateResult = await customerService.ValidateUpdatePasswordAsync(vm); 
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            if (!await customerService.IsCorrectCurrentPasswordAsync(vm)) return Conflict(new { message = VinEcom.VINECOM_CURRENT_PASSWORD_INCORRECT });
+            var result = await customerService.UpdatePasswordAsync(vm);
+            if (result) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace VinEcomRepository.Repository
         public async Task<Product?> GetProductByIdAsync(int id)
         {
             return await context.Set<Product>()
+                .AsNoTracking()
                 .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
                 .FirstOrDefaultAsync(x => x.Id == id && !x.IsRemoved);

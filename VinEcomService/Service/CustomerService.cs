@@ -29,7 +29,7 @@ namespace VinEcomService.Service
         {
             var customer = await unitOfWork.CustomerRepository.AuthorizeAsync(vm.Phone, vm.Password);
             if (customer is null) return null;
-            string accessToken = customer.User.GenerateToken(config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Customer);
+            string accessToken = customer.User.GenerateToken(customer.Id, config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Customer);
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,
@@ -64,7 +64,7 @@ namespace VinEcomService.Service
 
         public async Task<CustomerViewModel?> GetCustomerByIdAsync(int id)
         {
-            var result = await unitOfWork.CustomerRepository.GetCustomerByIdASync(id);
+            var result = await unitOfWork.CustomerRepository.GetCustomerByIdAsync(id);
             return mapper.Map<CustomerViewModel?>(result);
         }
 
@@ -72,6 +72,28 @@ namespace VinEcomService.Service
         {
             var result = await unitOfWork.CustomerRepository.GetCustomerPagesAsync(pageIndex, pageSize);
             return mapper.Map<Pagination<CustomerViewModel>>(result);
+        }
+
+        public async Task<CustomerViewModel> GetPersonalInfoAsync()
+        {
+            var id = claimService.GetRoleId();
+            var result = await unitOfWork.CustomerRepository.GetCustomerByIdAsync(id);
+            return mapper.Map<CustomerViewModel>(result);
+        }
+
+        public async Task<bool> UpdateBasicInfoAsync(CustomerUpdateBasicViewModel vm)
+        {
+            var id = claimService.GetRoleId();
+            var customer = await unitOfWork.CustomerRepository.GetCustomerByIdAsync(id);
+            mapper.Map(vm, customer);
+            unitOfWork.CustomerRepository.Update(customer);
+            if (await unitOfWork.SaveChangesAsync()) return true;
+            return false;
+        }
+
+        public async Task<ValidationResult> ValidateUpdateBasicAsync(CustomerUpdateBasicViewModel vm)
+        {
+            return await validator.CustomerUpdateBasicValidator.ValidateAsync(vm);
         }
     }
 }

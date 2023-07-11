@@ -70,11 +70,29 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu hiện tại không chính xác..
+        /// </summary>
+        public static string VINECOM_CURRENT_PASSWORD_INCORRECT {
+            get {
+                return ResourceManager.GetString("VINECOM_CURRENT_PASSWORD_INCORRECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người dùng không tồn tại. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_CUSTOMER_NOT_FOUND {
             get {
                 return ResourceManager.GetString("VINECOM_CUSTOMER_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ email không phù hợp..
+        /// </summary>
+        public static string VINECOM_EMAIL_INVALID_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_EMAIL_INVALID_ERROR", resourceCulture);
             }
         }
         
@@ -259,7 +277,7 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đăng ký thất bại. Lỗi hệ thống.
+        ///   Looks up a localized string similar to Thao tác thất bại. Lỗi hệ thống.
         /// </summary>
         public static string VINECOM_SERVER_ERROR {
             get {
@@ -390,6 +408,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_STORE_REGISTER_SUCCESS {
             get {
                 return ResourceManager.GetString("VINECOM_STORE_REGISTER_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thành công..
+        /// </summary>
+        public static string VINECOM_UPDATE_SUCCESS {
+            get {
+                return ResourceManager.GetString("VINECOM_UPDATE_SUCCESS", resourceCulture);
             }
         }
         

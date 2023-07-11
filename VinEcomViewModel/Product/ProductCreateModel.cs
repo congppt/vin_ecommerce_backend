@@ -8,6 +8,7 @@ using System.Xml;
 using VinEcomDomain.Constant;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Resources;
+using VinEcomViewModel.Base;
 
 #nullable disable warnings
 namespace VinEcomViewModel.Product
@@ -38,8 +39,7 @@ namespace VinEcomViewModel.Product
             //Image URL
             RuleFor(x => x.ImageUrl).NotEmpty()
                 .WithMessage(VinEcom.VINECOM_IMAGE_URL_EMPTY_ERROR)
-                .Must(x => Uri.TryCreate(x, UriKind.Absolute, out var validateResult) && (validateResult.Scheme == Uri.UriSchemeHttp || validateResult.Scheme == Uri.UriSchemeHttps))
-                .WithMessage(VinEcom.VINECOM_IMAGE_URL_FORMAT_ERROR);
+                .IsImageUrlAsync();
             //OriginalPrice
             RuleFor(x => x.OriginalPrice).NotEmpty()
                 .WithMessage(VinEcom.VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR)

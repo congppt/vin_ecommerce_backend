@@ -22,6 +22,7 @@ namespace VinEcomRepository.Repository
         public async Task<Order?> GetCartByIdAsync(int id)
         {
             return await context.Set<Order>()
+                .AsNoTracking()
                 .Include(x => x.Details)
                 .FirstOrDefaultAsync(x => x.Id == id && x.Status == OrderStatus.Cart);
         }

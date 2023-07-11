@@ -8,6 +8,7 @@ using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
+using VinEcomViewModel.Building;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Order;
 using VinEcomViewModel.Product;
@@ -35,7 +36,8 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.User.Phone))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
-                .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.User.IsBlocked));
+                .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.User.IsBlocked))
+                .ForMember(dest => dest.Building, opt => opt.MapFrom(src => src.Building));
             //Order
             CreateMap<Order, OrderWithDetailsViewModel>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer.User.Name))
@@ -55,6 +57,10 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
                 .ForMember(dest => dest.VehicleType, opt => opt.MapFrom(src => src.VehicleType.GetDisplayName()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()));
+            CreateMap<Building, BuildingBasicViewModel>();
+            CreateMap<CustomerUpdateBasicViewModel, User>();
+            CreateMap<CustomerUpdateBasicViewModel, Customer>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
         }
     }
 }

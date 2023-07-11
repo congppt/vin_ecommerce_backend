@@ -10,5 +10,6 @@ namespace VinEcomInterface.IRepository
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User?> GetByPhone(string phone);
+        Task<bool> IsPasswordCorrectAsync(int id, string password);
     }
 }

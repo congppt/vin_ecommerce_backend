@@ -11,5 +11,8 @@ namespace VinEcomInterface.IService
     public interface IUserService : IBaseService
     {
         Task<bool> IsPhoneExistAsync(string phone);
+        Task<ValidationResult> ValidateUpdatePasswordAsync(UpdatePasswordViewModel vm);
+        Task<bool> UpdatePasswordAsync(UpdatePasswordViewModel vm);
+        Task<bool> IsCorrectCurrentPasswordAsync(UpdatePasswordViewModel vm);
     }
 }

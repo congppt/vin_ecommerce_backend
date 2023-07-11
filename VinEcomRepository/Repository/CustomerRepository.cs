@@ -29,9 +29,10 @@ namespace VinEcomRepository.Repository
             return null;
         }
 
-        public async Task<Customer?> GetCustomerByIdASync(int id)
+        public async Task<Customer?> GetCustomerByIdAsync(int id)
         {
             return await context.Set<Customer>()
+                .AsNoTracking()
                 .Include(x => x.User)
                 .Include(x => x.Building)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -40,6 +41,7 @@ namespace VinEcomRepository.Repository
         public async Task<Customer?> GetCustomerByUserIdAsync(int userId)
         {
             return await context.Set<Customer>()
+                .AsNoTracking()
                 .Include(x => x.User)
                 .Include(x => x.Building)
                 .FirstOrDefaultAsync(x => x.UserId == userId);

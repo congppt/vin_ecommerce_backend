@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDbContext;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.UtilityMethod;
 
 namespace VinEcomRepository.Repository
 {
@@ -22,6 +23,13 @@ namespace VinEcomRepository.Repository
                                     .AsNoTracking()
                                     .FirstOrDefaultAsync(u => u.Phone == phone);
             return user;
+        }
+
+        public async Task<bool> IsPasswordCorrectAsync(int id, string password)
+        {
+            //disable tracking lower performance
+            var user = await context.Set<User>().FirstOrDefaultAsync(u => u.Id == id);
+            return password.IsCorrectHashSource(user.PasswordHash);
         }
     }
 }
