@@ -39,7 +39,6 @@ namespace VinEcomOther.Validator
         public IValidator<StoreStaffSignUpViewModel> StaffCreateValidator => staffCreateValidator;
 
         public IValidator<CustomerUpdateBasicViewModel> CustomerUpdateBasicValidator => customerUpdateBasicValidator;
-
-        public IValidator<UpdatePasswordViewModel> CustomerUpdatePasswordValidator => updatePasswordValidator;
+        public IValidator<UpdatePasswordViewModel> UpdatePasswordValidator => updatePasswordValidator;
     }
 }
