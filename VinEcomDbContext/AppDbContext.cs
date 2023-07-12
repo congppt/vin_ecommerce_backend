@@ -18,11 +18,5 @@ namespace VinEcomDbContext
         public DbSet<Store> Store { get; set; }
         public DbSet<StoreStaff> StoreStaff { get; set; }
         public DbSet<User> User { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.EnableSensitiveDataLogging();
-        }
     }
 }
