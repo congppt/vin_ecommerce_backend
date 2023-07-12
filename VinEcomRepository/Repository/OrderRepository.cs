@@ -43,6 +43,7 @@ namespace VinEcomRepository.Repository
         {
             var result = context.Set<Order>()
                                 .AsNoTracking()
+                                .AsNoTrackingWithIdentityResolution()
                                 .Include(x => x.Details)
                                 .ThenInclude(x => x.Product)
                                 .ThenInclude(x => x.Store)

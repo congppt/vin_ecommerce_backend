@@ -86,10 +86,13 @@ namespace VinEcomService.Service
             shipper.Status = ShipperStatus.Available;
             unitOfWork.ShipperRepository.Update(shipper);
             // Get current shipper order
-            var shipperOrderList = await unitOfWork.OrderRepository.GetOrdersByShipperIdAsync(shipper.Id);
-            var currentOrder = shipperOrderList.LastOrDefault(x => x.Status == OrderStatus.Shipping);
+            var currentOrder = shipper.Orders.LastOrDefault(x => x.Status == OrderStatus.Shipping);
             // Update order status
-            if (currentOrder is not null) currentOrder.Status = OrderStatus.Done;
+            if (currentOrder is not null)
+            {
+                currentOrder.Status = OrderStatus.Done;
+                unitOfWork.OrderRepository.Update(currentOrder);
+            }
             //
             return await unitOfWork.SaveChangesAsync();
         }
@@ -128,7 +131,7 @@ namespace VinEcomService.Service
         public async Task<bool> ReceiveOrderAsync(int orderId)
         {
             var shipper = await FindShipperAsync();
-            if (shipper is null) return false;
+            if (shipper is null || shipper.Status == ShipperStatus.Enroute) return false;
             //
             var order = await unitOfWork.OrderRepository.GetByIdAsync(orderId);
             if (order is null || order.ShipperId.HasValue) return false;

@@ -50,7 +50,6 @@ namespace VinEcomRepository.Repository
         {
             return await context.Set<Product>()
                 .AsNoTracking()
-                .Include(x => x.Store)
                 .Include(x => x.OrderDetails)
                 .FirstOrDefaultAsync(x => x.Id == id
                 && !x.IsRemoved
