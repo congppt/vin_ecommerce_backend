@@ -61,14 +61,14 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         [EnumAuthorize(Role.Customer)]
-        [HttpGet]
+        [HttpGet("info")]
         public async Task<IActionResult> GetPersonalInfo()
         {
             var result = await customerService.GetPersonalInfoAsync();
             return Ok(result);
         }
         [EnumAuthorize(Role.Customer)]
-        [HttpPatch]
+        [HttpPatch("info")]
         public async Task<IActionResult> UpdatePersonalBasicInfoAsync([FromBody] CustomerUpdateBasicViewModel vm)
         {
             var validateResult = await customerService.ValidateUpdateBasicAsync(vm);
@@ -82,7 +82,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Customer)]
-        [HttpPatch("change-password")]
+        [HttpPatch("password")]
         public async Task<IActionResult> UpdatePasswordAsync([FromBody] UpdatePasswordViewModel vm)
         {
             var validateResult = await customerService.ValidateUpdatePasswordAsync(vm); 

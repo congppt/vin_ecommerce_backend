@@ -17,14 +17,14 @@ namespace VinEcomAPI.Controllers
         {
             this.staffService = staffService;
         }
-        [HttpPost("Authorize")]
+        [HttpPost("authorize")]
         public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
             var result = await staffService.AuthorizeAsync(vm);
             if (result is null) return Unauthorized(new { message = VinEcom.VINECOM_USER_AUTHORIZE_FAILED });
             return Ok(result);
         }
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] StoreStaffSignUpViewModel vm)
         {
             var validateResult = await staffService.ValidateRegistrationAsync(vm);

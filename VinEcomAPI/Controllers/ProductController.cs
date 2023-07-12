@@ -24,7 +24,7 @@ namespace VinEcomAPI.Controllers
             this.claimService = claimService;
         }
 
-        [HttpGet("Products")]
+        [HttpGet("page")]
         public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
         {
             if (filter.Category.HasValue)
@@ -38,7 +38,7 @@ namespace VinEcomAPI.Controllers
             return Ok(products);
         }
 
-        [HttpPost("Add")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddProductAsync([FromBody] ProductCreateModel product)
         {
             var validateResult = await productService.ValidateCreateProductAsync(product);
