@@ -14,6 +14,7 @@ namespace VinEcomViewModel.Base
         {
             return ruleBuilder.MustAsync(async (imageUrl, c) =>
             {
+                if (!Uri.TryCreate(imageUrl, UriKind.Absolute, out var validateResult) || (validateResult.Scheme != Uri.UriSchemeHttp && validateResult.Scheme != Uri.UriSchemeHttps)) return false;
                 using HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync(imageUrl);
                 if (!response.IsSuccessStatusCode)

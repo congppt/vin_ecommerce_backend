@@ -27,7 +27,7 @@ namespace VinEcomViewModel.Customer
             RuleFor(x => x.Name).Length(MIN_NAME_LENGTH, MAX_NAME_LENGTH)
                                 .WithMessage(NAME_LENGTH_ERROR);
             RuleFor(x => x.Email).EmailAddress().WithMessage(VinEcom.VINECOM_EMAIL_INVALID_ERROR);
-            RuleFor(x => x.AvatarUrl).IsImageUrlAsync().When(x => string.IsNullOrWhiteSpace(x.AvatarUrl));
+            RuleFor(x => x.AvatarUrl).IsImageUrlAsync().When(x => !string.IsNullOrWhiteSpace(x.AvatarUrl));
         }
     }
 }
