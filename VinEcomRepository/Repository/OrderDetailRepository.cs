@@ -16,6 +16,17 @@ namespace VinEcomRepository.Repository
         {
         }
 
+        public async Task<OrderDetail?> GetDetailByIdAsync(int id)
+        {
+            return await context.Set<OrderDetail>()
+                .AsNoTracking()
+                .Include(x => x.Product)
+                .Include(x => x.Order)
+                .ThenInclude(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<IEnumerable<OrderDetail>> GetDetailsByProductIdAsync(int productId)
         {
             return await context.Set<OrderDetail>()

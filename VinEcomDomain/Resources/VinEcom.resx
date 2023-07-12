@@ -285,4 +285,7 @@
   <data name="VINECOM_UNAUTHORIZED" xml:space="preserve">
     <value>Không đủ thẩm quyền truy cập.</value>
   </data>
+  <data name="VINECOM_ORDER_DETAIL_NOT_FOUND" xml:space="preserve">
+    <value>Không có dữ liệu về đơn hàng.</value>
+  </data>
 </root>

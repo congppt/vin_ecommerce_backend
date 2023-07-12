@@ -69,6 +69,8 @@ namespace VinEcomRepository.Repository
                 .ThenInclude(x => x.Building)
                 .Include(x => x.Customer)
                 .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
                 .Include(x => x.Building)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }

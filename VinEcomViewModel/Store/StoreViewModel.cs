@@ -1,4 +1,5 @@
 ﻿using VinEcomDomain.Enum;
+using VinEcomViewModel.Building;
 
 #nullable disable warnings
 namespace VinEcomViewModel.Store
@@ -13,7 +14,6 @@ namespace VinEcomViewModel.Store
         public decimal Balance { get; set; }
         public bool IsWorking { get; set; }
         //
-        public int BuildingId { get; set; }
-        public string BuidingName { get; set; }
+        public BuildingBasicViewModel Building { get; set; }
     }
 }

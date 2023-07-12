@@ -75,5 +75,16 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetById
+        [HttpGet("{id?}")]
+        public async Task<IActionResult> GetByIdAsync(int id, bool isBlocked = false)
+        {
+            if (id <= 0) return BadRequest();
+            var result = await storeService.GetByIdAsync(id, isBlocked);
+            if (result is not null) return Ok(result);
+            return NotFound(new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
+        }
+        #endregion
     }
 }
