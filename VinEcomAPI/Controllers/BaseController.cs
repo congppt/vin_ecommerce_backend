@@ -17,7 +17,7 @@ namespace VinEcomAPI.Controllers
         {
             this.baseService = baseService;
         }
-        [HttpGet("building")]
+        [HttpGet("buildings")]
         public async Task<IActionResult> GetBuildingsAsync()
         {
             var buildings = await baseService.GetBuildingsAsync();
@@ -25,7 +25,7 @@ namespace VinEcomAPI.Controllers
             return Ok(buildings);
         }
 
-        [HttpGet("building/{id?}")]
+        [HttpGet("buildings/{id?}")]
         public async Task<IActionResult> GetBuildingById(int id)
         {
             if (id <= 0) return BadRequest();

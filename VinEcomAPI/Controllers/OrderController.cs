@@ -9,7 +9,7 @@ using VinEcomAPI.CustomWebAttribute;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -149,7 +149,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetRecentOrders
-        [HttpGet("recent/{numOfOrders?}")]
+        [HttpGet("recent")]
         public async Task<IActionResult> GetRecentOrders(int numOfOrders = 10)
         {
             if (numOfOrders <= 0) return BadRequest(new { Message = VinEcom.VINECOM_NUM_OF_ORDERS_ERROR });

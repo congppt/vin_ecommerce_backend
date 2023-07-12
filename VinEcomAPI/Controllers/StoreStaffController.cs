@@ -8,7 +8,7 @@ using VinEcomService.Service;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class StoreStaffController : ControllerBase
     {

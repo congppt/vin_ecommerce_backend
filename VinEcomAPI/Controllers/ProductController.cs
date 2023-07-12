@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -55,6 +55,7 @@ namespace VinEcomAPI.Controllers
             var hideBlock = role == Role.Customer;
             var result = await productService.GetProductByIdAsync(id, hideBlock);
             if (result == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
+            if (result.Store.Id != claimService.GetStoreId()) return Unauthorized(new { message = VinEcom.VINECOM_UNAUTHORIZED });
             return Ok(result);
         }
     }

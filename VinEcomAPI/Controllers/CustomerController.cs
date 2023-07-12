@@ -11,7 +11,7 @@ using VinEcomAPI.CustomWebAttribute;
 
 namespace VinEcomAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
