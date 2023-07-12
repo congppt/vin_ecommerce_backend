@@ -4,6 +4,10 @@ using System.Text;
 using VinEcomInterface.IService;
 using VinEcomService.Service;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using VinEcomAPI.CustomRouteUrl;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Template;
 
 namespace VinEcomAPI
 {
@@ -12,11 +16,15 @@ namespace VinEcomAPI
         public static void InjectWebAPIService(this IServiceCollection services, IConfiguration config)
         {
             // Add services to the container.
-            services.AddControllers()
-                    .AddJsonOptions( options =>
+            services.AddControllers(options =>
+            {
+                options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            })
+                .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });
+            services.AddRouting(option => option.LowercaseUrls = true);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

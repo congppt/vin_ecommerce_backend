@@ -11,5 +11,6 @@ namespace VinEcomInterface.IService
     public interface IBaseService
     {
         Task<IEnumerable<Building>> GetBuildingsAsync();
+        Task<Building?> GetBuildingById(int id);
     }
 }

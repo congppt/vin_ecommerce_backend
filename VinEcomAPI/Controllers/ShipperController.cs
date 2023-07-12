@@ -18,14 +18,14 @@ namespace VinEcomAPI.Controllers
         {
             this.shipperService = shipperService;
         }
-        [HttpPost("Authorize")]
+        [HttpPost("authorize")]
         public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
             var result = await shipperService.AuthorizeAsync(vm);
             if (result is null) return Unauthorized(new { message = VinEcom.VINECOM_USER_AUTHORIZE_FAILED });
             return Ok(result);
         }
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] ShipperSignUpViewModel vm)
         {
             var validateResult = await shipperService.ValidateRegistrationAsync(vm);
@@ -40,14 +40,14 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
 
-        [HttpGet("AvailableShippers")]
+        [HttpGet("available-shippers")]
         public async Task<IActionResult> GetListAvailableShipper()
         {
             var result = await shipperService.GetShippersAvailableAsync();
             return Ok(result);
         }
 
-        [HttpPut("ChangeWorkingStatus")]
+        [HttpPut("change-working-status")]
         public async Task<IActionResult> ChangeWorkingStatus()
         {
             var result = await shipperService.ChangeWorkingStatusAsync();
@@ -55,7 +55,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
 
-        [HttpPatch("FinishOrder")]
+        [HttpPatch("finish-order")]
         public async Task<IActionResult> FinishedOrder()
         {
             var result = await shipperService.OrderDeliveredAsync();
@@ -63,7 +63,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
         }
 
-        [HttpGet("DeliveredOrders")]
+        [HttpGet("delivered-orders")]
         public async Task<IActionResult> GetDeliveredList()
         {
             var result = await shipperService.GetDeliveredListAsync();
@@ -72,7 +72,7 @@ namespace VinEcomAPI.Controllers
         }
 
         #region ReceiveOrder
-        [HttpPut("ReceiveOrder/{orderId?}")]
+        [HttpPut("receive-order/{orderId?}")]
         public async Task<IActionResult> ReceiveOrder(int orderId)
         {
             if (orderId <= 0) return BadRequest();

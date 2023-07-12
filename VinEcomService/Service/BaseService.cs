@@ -42,5 +42,10 @@ namespace VinEcomService.Service
         {
             return await unitOfWork.BuildingRepository.GetAllAsync();
         }
+
+        public async Task<Building?> GetBuildingById(int id)
+        {
+            return await unitOfWork.BuildingRepository.GetByIdAsync(id);
+        }
     }
 }

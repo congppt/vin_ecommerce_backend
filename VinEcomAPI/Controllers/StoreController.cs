@@ -15,7 +15,7 @@ namespace VinEcomAPI.Controllers
         {
             this.storeService = storeService;
         }
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterStoreAsync([FromBody] StoreRegisterViewModel vm)
         {
             var validationResult = await storeService.ValidateStoreRegistrationAsync(vm);
@@ -28,7 +28,7 @@ namespace VinEcomAPI.Controllers
             if (await storeService.RegisterAsync(vm)) return Ok(new { message = VinEcom.VINECOM_STORE_REGISTER_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
-        [HttpPost("Filter")]
+        [HttpPost("filter")]
         public async Task<IActionResult> GetStoresByFilterAsync([FromBody] StoreFilterViewModel vm)
         {
             var validateResult = await storeService.ValidateStoreFilterAsync(vm);
@@ -41,7 +41,7 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("UpdateBlockStatus")]
+        [HttpPatch("update-block-status")]
         public async Task<IActionResult> UpdateBlockStatus(int storeId)
         {
             if (storeId < 0) return BadRequest();
@@ -53,7 +53,7 @@ namespace VinEcomAPI.Controllers
         }
 
         #region UpdateWorkingStatus
-        [HttpPatch("UpdateWorkingStatus")]
+        [HttpPatch("update-working-status")]
         public async Task<IActionResult> UpdateWorkingStatusAsync()
         {
             var result = await storeService.UpdateWorkingStatus();
@@ -63,7 +63,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetAll
-        [HttpGet("Stores")]
+        [HttpGet("stores")]
         public async Task<IActionResult> GetStorePagesAsync(int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
