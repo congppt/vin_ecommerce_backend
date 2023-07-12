@@ -16,5 +16,6 @@ namespace VinEcomInterface.IService
         Task<bool> AddAsync(ProductCreateModel product);
         Task<ValidationResult> ValidateCreateProductAsync(ProductCreateModel product);
         Task<ValidationResult> ValidateFilterProductAsync(ProductFilterModel product);
+        Task<ProductViewModel?> GetProductByIdAsync(int id, bool hideBlocked);
     }
 }

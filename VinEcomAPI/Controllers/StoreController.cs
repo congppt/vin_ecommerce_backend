@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VinEcomAPI.CustomWebAttribute;
 using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Store;
+using VinEcomDomain.Enum;
 
 namespace VinEcomAPI.Controllers
 {
@@ -15,6 +17,7 @@ namespace VinEcomAPI.Controllers
         {
             this.storeService = storeService;
         }
+        
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterStoreAsync([FromBody] StoreRegisterViewModel vm)
         {
@@ -40,7 +43,7 @@ namespace VinEcomAPI.Controllers
             var result = await storeService.GetStoreFilterResultAsync(vm);
             return Ok(result);
         }
-
+        
         [HttpPatch("UpdateBlockStatus")]
         public async Task<IActionResult> UpdateBlockStatus(int storeId)
         {
@@ -53,7 +56,8 @@ namespace VinEcomAPI.Controllers
         }
 
         #region UpdateWorkingStatus
-        [HttpPatch("UpdateWorkingStatus")]
+        [EnumAuthorize(Role.Staff)]
+        [HttpPut("UpdateWorkingStatus")]
         public async Task<IActionResult> UpdateWorkingStatusAsync()
         {
             var result = await storeService.UpdateWorkingStatus();

@@ -7,7 +7,7 @@ namespace VinEcomAPI.CustomWebAttribute
     {
         public EnumAuthorizeAttribute(Role role)
         {
-            Roles = role.ToString();
+            Roles = role.ToString().Replace(" ", string.Empty);
         }
     }
 }

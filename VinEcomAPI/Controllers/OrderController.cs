@@ -5,6 +5,7 @@ using VinEcomViewModel.OrderDetail;
 using VinEcomDomain.Resources;
 using VinEcomDomain.Enum;
 using VinEcomRepository;
+using VinEcomAPI.CustomWebAttribute;
 
 namespace VinEcomAPI.Controllers
 {
@@ -17,7 +18,8 @@ namespace VinEcomAPI.Controllers
         {
             this.orderService = orderService;
         }
-        [HttpPost("AddToCart")]
+        [EnumAuthorize(Role.Customer)]
+        [HttpPost("add-to-cart")]
         public async Task<IActionResult> AddToCartAsync([FromBody] AddToCartViewModel vm)
         {
             var result = await orderService.AddToCartAsync(vm);
@@ -26,7 +28,8 @@ namespace VinEcomAPI.Controllers
         }
 
         #region RemoveFromCart
-        [HttpPatch("RemoveFromCart/{productId?}")]
+        [EnumAuthorize(Role.Customer)]
+        [HttpPatch("remove-from-cart/{productId?}")]
         public async Task<IActionResult> RemoveFromCartAsync(int productId)
         {
             if (productId <= 0) return BadRequest();
@@ -37,7 +40,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetOrders
-        [HttpGet("Orders")]
+        [HttpGet("page")]
         public async Task<IActionResult> GetOrdersAsync(int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
@@ -115,6 +118,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region Checkout
+        [EnumAuthorize(Role.Customer)]
         [HttpPatch("Checkout")]
         public async Task<IActionResult> CheckoutAsync()
         {

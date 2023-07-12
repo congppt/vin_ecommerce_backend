@@ -70,20 +70,20 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cập nhật thất bại. Vui lòng thử lại..
-        /// </summary>
-        public static string VINECOM_CUSTOMER_BLOCK_ERROR {
-            get {
-                return ResourceManager.GetString("VINECOM_CUSTOMER_BLOCK_ERROR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mật khẩu hiện tại không chính xác..
         /// </summary>
         public static string VINECOM_CURRENT_PASSWORD_INCORRECT {
             get {
                 return ResourceManager.GetString("VINECOM_CURRENT_PASSWORD_INCORRECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại. Vui lòng thử lại..
+        /// </summary>
+        public static string VINECOM_CUSTOMER_BLOCK_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_CUSTOMER_BLOCK_ERROR", resourceCulture);
             }
         }
         
@@ -295,6 +295,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sản phẩm không tồn tại..
+        /// </summary>
+        public static string VINECOM_PRODUCT_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thao tác thất bại. Lỗi hệ thống.
         /// </summary>
         public static string VINECOM_SERVER_ERROR {
@@ -426,6 +435,15 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_STORE_REGISTER_SUCCESS {
             get {
                 return ResourceManager.GetString("VINECOM_STORE_REGISTER_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không đủ thẩm quyền truy cập..
+        /// </summary>
+        public static string VINECOM_UNAUTHORIZED {
+            get {
+                return ResourceManager.GetString("VINECOM_UNAUTHORIZED", resourceCulture);
             }
         }
         

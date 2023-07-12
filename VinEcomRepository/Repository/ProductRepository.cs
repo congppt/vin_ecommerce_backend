@@ -114,5 +114,13 @@ namespace VinEcomRepository.Repository
 
             return result;
         }
+
+        public async Task<Product?> GetProductByIdAsync(int id, bool hideBlocked)
+        {
+            var product = await context.Set<Product>().AsNoTracking().Include(p => p.Store).FirstOrDefaultAsync(p => p.Id == id);
+            if (product == null) return null;
+            if (!hideBlocked) return product;
+            return product.IsRemoved ? null : product;
+        }
     }
 }

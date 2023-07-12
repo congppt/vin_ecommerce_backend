@@ -88,5 +88,12 @@ namespace VinEcomService.Service
         {
             return await productValidator.ProductFilterValidator.ValidateAsync(product);
         }
+
+        public async Task<ProductViewModel?> GetProductByIdAsync(int id, bool hideBlocked)
+        {
+            var product = await unitOfWork.ProductRepository.GetProductByIdAsync(id, hideBlocked);
+            var vm = mapper.Map<ProductViewModel>(product);
+            return vm;
+        }
     }
 }

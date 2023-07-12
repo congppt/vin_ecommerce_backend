@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
 using VinEcomInterface.IService;
 
 namespace VinEcomService.Service
@@ -30,6 +32,12 @@ namespace VinEcomService.Service
         {
             var id = contextAccessor.HttpContext?.User?.FindFirst("RoleId")?.Value;
             return id is null ? -1 : int.Parse(id);
+        }
+
+        public Role GetRole()
+        {
+            var role = contextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value;
+            return Enum.Parse<Role>(role);
         }
     }
 }

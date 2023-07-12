@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VinEcomAPI.CustomWebAttribute;
 using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
 using VinEcomRepository;
 using VinEcomService.Service;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Shipper;
+using VinEcomDomain.Enum;
 
 namespace VinEcomAPI.Controllers
 {
@@ -46,7 +48,7 @@ namespace VinEcomAPI.Controllers
             var result = await shipperService.GetShippersAvailableAsync();
             return Ok(result);
         }
-
+        [EnumAuthorize(Role.Shipper)]
         [HttpPut("ChangeWorkingStatus")]
         public async Task<IActionResult> ChangeWorkingStatus()
         {
@@ -54,7 +56,7 @@ namespace VinEcomAPI.Controllers
             if (result is true) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_STORE_CHANGE_STATUS_ERROR });
         }
-
+        [EnumAuthorize(Role.Shipper)]
         [HttpPatch("FinishOrder")]
         public async Task<IActionResult> FinishedOrder()
         {
@@ -62,7 +64,7 @@ namespace VinEcomAPI.Controllers
             if (result is true) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_SHIPPER_FINISH_ORDER_FAILED });
         }
-
+        [EnumAuthorize(Role.Shipper)]
         [HttpGet("DeliveredOrders")]
         public async Task<IActionResult> GetDeliveredList()
         {
@@ -72,6 +74,7 @@ namespace VinEcomAPI.Controllers
         }
 
         #region ReceiveOrder
+        [EnumAuthorize(Role.Shipper)]
         [HttpPut("ReceiveOrder/{orderId?}")]
         public async Task<IActionResult> ReceiveOrder(int orderId)
         {

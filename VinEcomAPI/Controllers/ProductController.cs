@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
+using VinEcomAPI.CustomWebAttribute;
 using VinEcomDomain.Model;
 using VinEcomDomain.Resources;
 using VinEcomInterface.IService;
 using VinEcomViewModel.Product;
+using VinEcomDomain.Enum;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace VinEcomAPI.Controllers
 {
@@ -14,9 +17,11 @@ namespace VinEcomAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
-        public ProductController(IProductService productService)
+        private readonly IClaimService claimService;
+        public ProductController(IProductService productService, IClaimService claimService)
         {
             this.productService = productService;
+            this.claimService = claimService;
         }
 
         [HttpGet("Products")]
@@ -41,6 +46,16 @@ namespace VinEcomAPI.Controllers
             //
             if (await productService.AddAsync(product)) return Ok(product);
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_PRODUCT_CREATE_ERROR });
+        }
+        [EnumAuthorize(Role.Administrator | Role.Staff | Role.Customer)]
+        [HttpGet("{id?}")]
+        public async Task<IActionResult> GetProductByIdAsync(int id)
+        {
+            var role = claimService.GetRole();
+            var hideBlock = role == Role.Customer;
+            var result = await productService.GetProductByIdAsync(id, hideBlock);
+            if (result == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
+            return Ok(result);
         }
     }
 }

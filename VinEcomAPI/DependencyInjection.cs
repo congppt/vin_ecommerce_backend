@@ -4,6 +4,9 @@ using System.Text;
 using VinEcomInterface.IService;
 using VinEcomService.Service;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.Extensions.Options;
+using VinEcomUtility.Transformer;
 
 namespace VinEcomAPI
 {
@@ -12,8 +15,10 @@ namespace VinEcomAPI
         public static void InjectWebAPIService(this IServiceCollection services, IConfiguration config)
         {
             // Add services to the container.
-            services.AddControllers()
-                    .AddJsonOptions( options =>
+            services.AddControllers(opt =>
+            {
+                opt.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+            }).AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 });

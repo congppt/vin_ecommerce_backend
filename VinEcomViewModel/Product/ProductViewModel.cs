@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VinEcomViewModel.Store;
 #nullable disable warnings
 namespace VinEcomViewModel.Product
 {
@@ -14,6 +15,6 @@ namespace VinEcomViewModel.Product
         public bool IsOutOfStock { get; set; }
         public string Category { get; set; }
         //
-        public string Store { get; set; }
+        public StoreBasicViewModel Store { get; set; }
     }
 }

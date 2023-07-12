@@ -24,9 +24,10 @@ namespace VinEcomOther.MapperConfig
             CreateMap(typeof(Pagination<>), typeof(Pagination<>));
             //
             CreateMap<ProductCreateModel, Product>();
+            CreateMap<Store, StoreBasicViewModel>();
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.GetDisplayName()))
-                .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Store.Name));
+                .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Store));
             //
             CreateMap<SignUpViewModel, User>();
             CreateMap<StoreRegisterViewModel, Store>();

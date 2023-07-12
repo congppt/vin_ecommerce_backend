@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace VinEcomDomain.Enum
 {
+    [Flags]
     public enum Role
     {
-        Administrator,
-        Customer,
-        Shipper,
-        Staff
+        Administrator = 1,
+        Staff = 2,
+        Shipper = 4,
+        Customer = 8
     }
 }

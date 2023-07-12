@@ -279,4 +279,10 @@
   <data name="VINECOM_CURRENT_PASSWORD_INCORRECT" xml:space="preserve">
     <value>Mật khẩu hiện tại không chính xác.</value>
   </data>
+  <data name="VINECOM_PRODUCT_NOT_EXIST" xml:space="preserve">
+    <value>Sản phẩm không tồn tại.</value>
+  </data>
+  <data name="VINECOM_UNAUTHORIZED" xml:space="preserve">
+    <value>Không đủ thẩm quyền truy cập.</value>
+  </data>
 </root>

@@ -18,5 +18,6 @@ namespace VinEcomInterface.IRepository
         Task<Product?> GetProductByIdNoTrackingAsync(int id);
         Task<Pagination<Product>> GetStoreProductPageAsync(StoreProductFilterViewModel vm);
         Task<Pagination<Product>> GetProductPagesByNameAsync(string name, int pageIndex, int pageSize);
+        Task<Product?> GetProductByIdAsync(int id, bool hideBlocked);
     }
 }

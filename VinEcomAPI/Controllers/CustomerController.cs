@@ -20,14 +20,14 @@ namespace VinEcomAPI.Controllers
         {
             this.customerService = customerService;
         }
-        [HttpPost("Authorize")]
+        [HttpPost("authorize")]
         public async Task<IActionResult> AuthorizeAsync([FromBody] SignInViewModel vm)
         {
             var result = await customerService.AuthorizeAsync(vm);
             if (result is null) return Unauthorized(new { message = VinEcom.VINECOM_USER_AUTHORIZE_FAILED });
             return Ok(result);
         }
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] CustomerSignUpViewModel vm)
         {
             var validateResult = await customerService.ValidateRegistrationAsync(vm);
@@ -43,7 +43,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Administrator)]
-        [HttpGet("Customers/{id?}")]
+        [HttpGet("{id?}")]
         public async Task<IActionResult> GetById(int id)
         {
             if (id <= 0) return BadRequest();
@@ -52,7 +52,7 @@ namespace VinEcomAPI.Controllers
             return NotFound();
         }
         [EnumAuthorize(Role.Administrator)]
-        [HttpGet("Customers")]
+        [HttpGet("page")]
         public async Task<IActionResult> GetCustomerPages(int pageIndex = 0, int pageSize = 10)
         {
             if (pageIndex < 0) return BadRequest(new { message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
@@ -82,7 +82,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Customer)]
-        [HttpPatch("ChangePassword")]
+        [HttpPatch("change-password")]
         public async Task<IActionResult> UpdatePasswordAsync([FromBody] UpdatePasswordViewModel vm)
         {
             var validateResult = await customerService.ValidateUpdatePasswordAsync(vm); 
@@ -97,8 +97,8 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Administrator)]
-        [HttpPatch("UpdateBlockStatus/{customerId}")]
-        public async Task<IActionResult> UpdateBlockStatusAsync(int customerId)
+        [HttpDelete("block")]
+        public async Task<IActionResult> UpdateBlockStatusAsync([FromQuery] int customerId)
         {
             if (customerId <= 0) return BadRequest();
             //
