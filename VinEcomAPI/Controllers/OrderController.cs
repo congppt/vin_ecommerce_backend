@@ -157,5 +157,16 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetDetailById
+        [HttpGet("detail/{detailId?}")]
+        public async Task<IActionResult> GetDetailByIdAsync(int detailId)
+        {
+            if (detailId <= 0) return BadRequest();
+            var result = await orderService.GetOrderDetailByIdAsync(detailId);
+            if (result is not null) return Ok(result);
+            return NotFound(new { Message = VinEcom.VINECOM_ORDER_DETAIL_NOT_FOUND });
+        }
+        #endregion
     }
 }

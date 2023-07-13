@@ -1,4 +1,6 @@
 ﻿using VinEcomDomain.Enum;
+using VinEcomViewModel.OrderDetail;
+using VinEcomViewModel.Shipper;
 
 #nullable disable warnings
 namespace VinEcomViewModel.Order
@@ -18,7 +20,7 @@ namespace VinEcomViewModel.Order
         public string ToBuildingLocation { get; set; }
         public string StoreName { get; set; }
         public string StoreImageUrl { get; set; }
-        public int? ShipperId { get; set; }
-        public IEnumerable<OrderDetailViewModel> Details { get; set; }
+        public ShipperViewModel Shipper { get; set; }
+        public IEnumerable<OrderDetailBasicViewModel> Details { get; set; }
     }
 }

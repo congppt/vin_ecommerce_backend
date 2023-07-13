@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
 using Microsoft.Extensions.Configuration;
+using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,6 +87,12 @@ namespace VinEcomService.Service
         public async Task<Store?> FindStoreAsync(int storeId)
         {
             return await unitOfWork.StoreRepository.GetByIdAsync(storeId);
+        }
+
+        public async Task<StoreViewModel?> GetByIdAsync(int id, bool isBlocked)
+        {
+            var result = await unitOfWork.StoreRepository.GetStoreByIdAsync(id, isBlocked);
+            return mapper.Map<StoreViewModel>(result);
         }
     }
 }

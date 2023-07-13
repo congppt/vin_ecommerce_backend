@@ -21,5 +21,6 @@ namespace VinEcomInterface.IService
         Task<bool> ChangeBlockStatusAsync(Store store);
         Task<bool> UpdateWorkingStatus();
         Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize);
+        Task<StoreViewModel?> GetByIdAsync(int id, bool isBlocked);
     }
 }

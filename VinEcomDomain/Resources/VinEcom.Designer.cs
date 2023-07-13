@@ -160,6 +160,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không có dữ liệu về đơn hàng..
+        /// </summary>
+        public static string VINECOM_ORDER_DETAIL_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_DETAIL_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không thể xóa sản phẩm khỏi giỏ hàng. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_ORDER_REMOVE_FROM_CART_FAILED {

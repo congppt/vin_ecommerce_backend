@@ -36,6 +36,13 @@ namespace VinEcomRepository.Repository
             return result;
         }
 
+        public async Task<Store?> GetStoreByIdAsync(int id, bool isBlocked)
+        {
+            return await context.Set<Store>()
+                .AsNoTracking()
+                .Include(x => x.Building).FirstOrDefaultAsync(x => x.Id == id && x.IsBlocked == isBlocked);
+        }
+
         public async Task<Pagination<Store>> GetStorePagesAsync(int pageIndex, int pageSize)
         {
             var source = context.Set<Store>()

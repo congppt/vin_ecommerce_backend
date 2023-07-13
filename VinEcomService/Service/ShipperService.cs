@@ -16,6 +16,7 @@ using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
 using VinEcomViewModel.Order;
+using VinEcomViewModel.OrderDetail;
 using VinEcomViewModel.Shipper;
 
 namespace VinEcomService.Service
@@ -119,7 +120,7 @@ namespace VinEcomService.Service
             foreach (var item in orders)
             {
                 var orderVM = mapper.Map<OrderWithDetailsViewModel>(item);
-                var detail = mapper.Map<List<OrderDetailViewModel>>(item.Details);
+                var detail = mapper.Map<List<OrderDetailBasicViewModel>>(item.Details);
                 orderVM.Details = detail;
                 ordersVM.Add(orderVM);
             }

@@ -10,5 +10,6 @@ namespace VinEcomInterface.IRepository
     public interface IOrderDetailRepository : IBaseRepository<OrderDetail>
     {
         Task<IEnumerable<OrderDetail>> GetDetailsByProductIdAsync(int productId);
+        Task<OrderDetail?> GetDetailByIdAsync(int id);
     }
 }

@@ -244,6 +244,14 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region GetDetailById
+        public async Task<OrderDetailViewModel?> GetOrderDetailByIdAsync(int id)
+        {
+            var result = await unitOfWork.OrderDetailRepository.GetDetailByIdAsync(id);
+            return mapper.Map<OrderDetailViewModel>(result);
+        }
+        #endregion
+
         private async Task<Customer?> FindCustomerAsync()
         {
             var userId = claimService.GetCurrentUserId();
