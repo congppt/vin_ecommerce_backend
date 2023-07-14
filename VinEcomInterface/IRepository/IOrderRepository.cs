@@ -13,7 +13,7 @@ namespace VinEcomInterface.IRepository
     public interface IOrderRepository : IBaseRepository<Order>
     {
         Task<IEnumerable<Order>?> GetOrderAtStateWithDetailsAsync(OrderStatus status, int? customerId);
-        Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId);
+        Task<Order?> GetCartByCustomerIdAndStoreId(int customerId, int storeId);
         Task<Order?> GetCartByIdAsync(int id);
         Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId);
         Task<Order?> GetStoreOrderWithDetailAsync(int orderId, int storeId);
@@ -22,5 +22,7 @@ namespace VinEcomInterface.IRepository
         Task<IEnumerable<Order>> GetOrdersByShipperIdAsync(int shipperId);
         Task<Order?> GetOrderByIdAsync(int id);
         Task<IEnumerable<Order>> GetRecentOrdersAsync(int numOfOrders);
+        Task<IEnumerable<Order>> GetOrderByStoreIdAndStateAsync(int storeId, OrderStatus? status);
+        Task<IEnumerable<Order>> GetOrdersAsync();
     }
 }

@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
 using VinEcomUtility.Pagination;
+using VinEcomViewModel.OrderDetail;
 using VinEcomViewModel.Store;
 
 namespace VinEcomService.Service
@@ -92,6 +94,31 @@ namespace VinEcomService.Service
         {
             var result = await unitOfWork.StoreRepository.GetStoreByIdAsync(id, isBlocked);
             return mapper.Map<StoreViewModel>(result);
+        }
+
+        public async Task<IEnumerable<OrderDetailViewModel>> GetStoreReviewAsync()
+        {
+            var storeId = claimService.GetStoreId();
+            var details = await unitOfWork.OrderDetailRepository.GetDetailsByStoreIdAndStatusAsync(storeId, OrderStatus.Done);
+            var detailRevieweds = details.Where(x => !string.IsNullOrEmpty(x.Comment) || x.Rate.HasValue);
+            return mapper.Map<IEnumerable<OrderDetailViewModel>>(detailRevieweds);
+        }
+
+        public async Task<decimal> GetStoreOrderTotalAsync(OrderStatus? status)
+        {
+            var total = 0m;
+            var storeId = claimService.GetStoreId();
+            var orders = await unitOfWork.OrderRepository.GetOrderByStoreIdAndStateAsync(storeId, status);
+            //
+            foreach (var order in orders)
+            {
+                foreach (var detail in order.Details)
+                {
+                    total += detail.Price.HasValue ? detail.Price.Value : 0 * detail.Quantity;
+                }
+            }
+            //
+            return total;
         }
     }
 }

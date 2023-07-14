@@ -11,7 +11,7 @@ namespace VinEcomViewModel.Order
         public DateTime OrderDate { get; set; }
         public string? TransactionId { get; set; }
         public decimal? ShipFee { get; set; }
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
         public string Customer { get; set; }
         public string CustomerPhone { get; set; }
         public string FromBuildingName { get; set; }

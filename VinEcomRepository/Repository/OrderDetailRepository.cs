@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDbContext;
+using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
 
@@ -21,6 +22,7 @@ namespace VinEcomRepository.Repository
             return await context.Set<OrderDetail>()
                 .AsNoTracking()
                 .Include(x => x.Product)
+                .ThenInclude(x => x.Store)
                 .Include(x => x.Order)
                 .ThenInclude(x => x.Customer)
                 .ThenInclude(x => x.User)
@@ -33,6 +35,20 @@ namespace VinEcomRepository.Repository
                 .AsNoTracking()
                 .Include(x => x.Product)
                 .Where(x => x.ProductId == productId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<OrderDetail>> GetDetailsByStoreIdAndStatusAsync(int storeId, OrderStatus status)
+        {
+            return await context.Set<OrderDetail>()
+                .AsNoTracking()
+                .Include(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .Include(x => x.Order)
+                .ThenInclude(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Where(x => x.Product.StoreId == storeId &&
+                x.Order.Status == status)
                 .ToListAsync();
         }
     }

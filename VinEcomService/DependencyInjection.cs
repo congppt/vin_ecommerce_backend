@@ -71,6 +71,7 @@ namespace VinEcomService
             services.AddScoped<IProductValidator, ProductValidator>();
             services.AddScoped<IUserValidator, UserValidator>();
             services.AddScoped<IStoreValidator, StoreValidator>();
+            services.AddScoped<IOrderValidator, OrderValidator>();
             services.AddValidatorsFromAssemblyContaining<CustomerCreateRule>();
             services.AddValidatorsFromAssemblyContaining<ProductCreateRule>();
         }

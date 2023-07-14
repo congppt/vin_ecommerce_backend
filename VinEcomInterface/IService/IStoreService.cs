@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
+using VinEcomViewModel.OrderDetail;
 using VinEcomViewModel.Store;
 
 namespace VinEcomInterface.IService
@@ -22,5 +24,7 @@ namespace VinEcomInterface.IService
         Task<bool> UpdateWorkingStatus();
         Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize);
         Task<StoreViewModel?> GetByIdAsync(int id, bool isBlocked);
+        Task<IEnumerable<OrderDetailViewModel>> GetStoreReviewAsync();
+        Task<decimal> GetStoreOrderTotalAsync(OrderStatus? status);
     }
 }

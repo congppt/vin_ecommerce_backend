@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using VinEcomDbContext;
@@ -28,14 +29,15 @@ namespace VinEcomRepository.Repository
                 .FirstOrDefaultAsync(x => x.Id == id && x.Status == OrderStatus.Cart);
         }
 
-        public async Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId)
+        public async Task<Order?> GetCartByCustomerIdAndStoreId(int customerId, int storeId)
         {
             return await context.Set<Order>()
                 .AsNoTracking()
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
-                .FirstOrDefaultAsync(x => x.CustomerId == userId && x.Status == OrderStatus.Cart &&
+                .FirstOrDefaultAsync(x => x.CustomerId == customerId && 
+                x.Status == OrderStatus.Cart &&
                 x.Details.Any(det => det.Product.Store.Id == storeId));
         }
 
@@ -171,6 +173,33 @@ namespace VinEcomRepository.Repository
                 .ThenInclude(x => x.Store)
                 .FirstOrDefaultAsync(x => x.Id == orderId &&
                 x.Details.Any(ord => ord.Product.StoreId == storeId));
+        }
+
+        public async Task<IEnumerable<Order>> GetOrderByStoreIdAndStateAsync(int storeId, OrderStatus? status)
+        {
+            var orders = context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .Where(o => o.Details.Any(d => d.Product.StoreId == storeId) &&
+                o.Status != OrderStatus.Cart);
+            //
+            if (status.HasValue)
+            {
+                orders = orders.Where(o => o.Status == status.Value);
+            }
+            //
+            return await orders.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersAsync()
+        {
+            return await context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .Where(x => x.Status != OrderStatus.Cart)
+                .ToListAsync();
         }
     }
 }

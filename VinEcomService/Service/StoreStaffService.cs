@@ -64,5 +64,22 @@ namespace VinEcomService.Service
         {
             return await validator.StaffCreateValidator.ValidateAsync(vm);
         }
+
+        #region CancelOrder
+        public async Task<bool> CancelOrderAsync(Order order)
+        {
+            if (order is null || order.Status != OrderStatus.Preparing) return false;
+            //
+            order.Status = OrderStatus.Cancel;
+            unitOfWork.OrderRepository.Update(order);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        #endregion
+
+        public async Task<Order?> GetOrderByIdAsync(int orderId)
+        {
+            var storeId = claimService.GetStoreId();
+            return await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+        }
     }
 }
