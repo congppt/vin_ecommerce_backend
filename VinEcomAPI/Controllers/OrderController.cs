@@ -133,7 +133,7 @@ namespace VinEcomAPI.Controllers
         public async Task<IActionResult> GetOrderByIdAsync(int id)
         {
             if (id <= 0) return BadRequest();
-            var result = await orderService.GetOrderByIdAsync(id);
+            var result = await orderService.GetOrderVMByIdAsync(id);
             if (result is null) return NotFound();
             return Ok(result);
         }
@@ -166,6 +166,20 @@ namespace VinEcomAPI.Controllers
             var result = await orderService.GetOrderDetailByIdAsync(detailId);
             if (result is not null) return Ok(result);
             return NotFound(new { Message = VinEcom.VINECOM_ORDER_DETAIL_NOT_FOUND });
+        }
+        #endregion
+
+        #region CancelOrder
+        [EnumAuthorize(Role.Customer)]
+        [HttpPatch("cancel/{id?}")]
+        public async Task<IActionResult> CancelOrderAsync(int id)
+        {
+            if (id <= 0) return BadRequest();
+            var order = await orderService.GetOrderByIdAsync(id);
+            if (order is null) return NotFound(new { Message = VinEcom.VINECOM_ORDER_NOT_FOUND });
+            var result = await orderService.CancelOrderAsync(order);
+            if (result is true) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CANCEL_FAILED });
         }
         #endregion
     }

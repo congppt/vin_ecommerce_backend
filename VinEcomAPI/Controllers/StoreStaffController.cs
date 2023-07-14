@@ -5,6 +5,8 @@ using VinEcomViewModel.Base;
 using VinEcomDomain.Resources;
 using VinEcomViewModel.StoreStaff;
 using VinEcomService.Service;
+using VinEcomAPI.CustomWebAttribute;
+using VinEcomDomain.Enum;
 
 namespace VinEcomAPI.Controllers
 {
@@ -39,5 +41,21 @@ namespace VinEcomAPI.Controllers
             if (result) return Created("", new { message = VinEcom.VINECOM_USER_REGISTER_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
+
+        #region CancelOrder
+        [EnumAuthorize(Role.Staff)]
+        [HttpPatch("order/cancel/{orderId}")]
+        public async Task<IActionResult> CancelOrderAsync(int orderId)
+        {
+            if (orderId <= 0) return BadRequest();
+            //
+            var order = await staffService.GetOrderByIdAsync(orderId);
+            if (order == null) return NotFound(new { Message = VinEcom.VINECOM_ORDER_NOT_FOUND });
+            //
+            var result = await staffService.CancelOrderAsync(order);
+            if (result is true) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CANCEL_FAILED });
+        }
+        #endregion
     }
 }

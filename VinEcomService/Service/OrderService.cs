@@ -14,6 +14,7 @@ using AutoMapper;
 using System.Numerics;
 using VinEcomViewModel.Order;
 using VinEcomDbContext.Migrations;
+using System.Runtime.InteropServices;
 
 namespace VinEcomService.Service
 {
@@ -221,7 +222,7 @@ namespace VinEcomService.Service
         #endregion
 
         #region GetById
-        public async Task<OrderWithDetailsViewModel?> GetOrderByIdAsync(int id)
+        public async Task<OrderWithDetailsViewModel?> GetOrderVMByIdAsync(int id)
         {
             var order = await unitOfWork.OrderRepository.GetOrderByIdAsync(id);
             return mapper.Map<OrderWithDetailsViewModel>(order);
@@ -251,6 +252,25 @@ namespace VinEcomService.Service
             return mapper.Map<OrderDetailViewModel>(result);
         }
         #endregion
+
+        #region CancelOrder
+        public async Task<bool> CancelOrderAsync(Order order)
+        {
+            if (order is null || order.Status != OrderStatus.Preparing) return false;
+            //
+            var customerId = claimService.GetRoleId();
+            if (customerId == -1 || order.CustomerId != customerId) return false;
+            //
+            order.Status = OrderStatus.Cancel;
+            unitOfWork.OrderRepository.Update(order);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        #endregion
+
+        public async Task<Order?> GetOrderByIdAsync(int id)
+        {
+            return await unitOfWork.OrderRepository.GetByIdAsync(id);
+        }
 
         private async Task<Customer?> FindCustomerAsync()
         {

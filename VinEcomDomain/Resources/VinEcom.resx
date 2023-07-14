@@ -288,4 +288,10 @@
   <data name="VINECOM_ORDER_DETAIL_NOT_FOUND" xml:space="preserve">
     <value>Không có dữ liệu về đơn hàng.</value>
   </data>
+  <data name="VINECOM_ORDER_NOT_FOUND" xml:space="preserve">
+    <value>Không có dữ liệu về đơn hàng.</value>
+  </data>
+  <data name="VINECOM_ORDER_CANCEL_FAILED" xml:space="preserve">
+    <value>Hủy đơn thất bại. Vui lòng thử lại.</value>
+  </data>
 </root>
