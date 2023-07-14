@@ -186,5 +186,15 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_CANCEL_FAILED });
         }
         #endregion
+
+        #region GetOrderTotal
+        [EnumAuthorize(Role.Administrator)]
+        [HttpGet("total")]
+        public async Task<IActionResult> GetOrderTotalAsync()
+        {
+            var result = await orderService.GetOrderTotalAsync();
+            return Ok(new { total = result });
+        }
+        #endregion
     }
 }

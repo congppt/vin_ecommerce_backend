@@ -96,5 +96,16 @@ namespace VinEcomAPI.Controllers
             return Ok(result);
         }
         #endregion
+
+        #region GetStoreTotalOrder
+        [EnumAuthorize(Role.Staff)]
+        [HttpGet("order/total")]
+        public async Task<IActionResult> GetStoreOrderTotal(OrderStatus? status = null)
+        {
+            if (status.HasValue && status.Value == OrderStatus.Cart) return BadRequest();
+            var result = await storeService.GetStoreOrderTotalAsync(status);
+            return Ok(new { total = result });
+        }
+        #endregion
     }
 }

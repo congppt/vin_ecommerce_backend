@@ -104,5 +104,22 @@ namespace VinEcomService.Service
             var detailRevieweds = details.Where(x => !string.IsNullOrEmpty(x.Comment) || x.Rate.HasValue);
             return mapper.Map<IEnumerable<OrderDetailViewModel>>(detailRevieweds);
         }
+
+        public async Task<decimal> GetStoreOrderTotalAsync(OrderStatus? status)
+        {
+            var total = 0m;
+            var storeId = claimService.GetStoreId();
+            var orders = await unitOfWork.OrderRepository.GetOrderByStoreIdAndStateAsync(storeId, status);
+            //
+            foreach (var order in orders)
+            {
+                foreach (var detail in order.Details)
+                {
+                    total += detail.Price.HasValue ? detail.Price.Value : 0 * detail.Quantity;
+                }
+            }
+            //
+            return total;
+        }
     }
 }

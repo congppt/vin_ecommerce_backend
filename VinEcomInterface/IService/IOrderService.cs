@@ -29,6 +29,7 @@ namespace VinEcomInterface.IService
         Task<IEnumerable<OrderWithDetailsViewModel>> GetRecentOrdersAsync(int numOfOrders);
         Task<OrderDetailViewModel?> GetOrderDetailByIdAsync(int id);
         Task<bool> CancelOrderAsync(Order order);
+        Task<decimal> GetOrderTotalAsync();
         //
         Task<Order?> GetOrderByIdAsync (int id);
     }

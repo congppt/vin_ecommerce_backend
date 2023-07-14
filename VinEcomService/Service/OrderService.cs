@@ -301,5 +301,21 @@ namespace VinEcomService.Service
             var userId = claimService.GetCurrentUserId();
             return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(userId);
         }
+
+        public async Task<decimal> GetOrderTotalAsync()
+        {
+            var total = 0m;
+            var orders = await unitOfWork.OrderRepository.GetOrdersAsync();
+            //
+            foreach (var order in orders)
+            {
+                foreach (var detail in order.Details)
+                {
+                    total += detail.Price.HasValue ? detail.Price.Value : 0 * detail.Quantity;
+                }
+            }
+            //
+            return total;
+        }
     }
 }
