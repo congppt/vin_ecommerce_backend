@@ -69,5 +69,16 @@ namespace VinEcomAPI.Controllers
             if (result) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
+        [EnumAuthorize(Role.Staff)]
+        [HttpPut]
+        public async Task<IActionResult> SetProductOutOfStockAsync(int productId)
+        {
+            if (productId <= 0) return BadRequest();
+            var product = await productService.GetProductByIdAsync(productId, false);
+            if (product == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
+            var result = await productService.RemoveAsync(productId);
+            if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
     }
 }
