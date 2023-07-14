@@ -86,5 +86,15 @@ namespace VinEcomAPI.Controllers
             return NotFound(new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
         }
         #endregion
+
+        #region GetReviews
+        [EnumAuthorize(Role.Staff)]
+        [HttpGet("reviews")]
+        public async Task<IActionResult> GetStoreReviewsAsync()
+        {
+            var result = await storeService.GetStoreReviewAsync();
+            return Ok(result);
+        }
+        #endregion
     }
 }
