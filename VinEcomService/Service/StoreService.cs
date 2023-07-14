@@ -43,8 +43,7 @@ namespace VinEcomService.Service
         {
             var store = mapper.Map<Store>(vm);
             await unitOfWork.StoreRepository.AddAsync(store);
-            if (await unitOfWork.SaveChangesAsync()) return true;
-            return false;
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ValidationResult> ValidateStoreFilterAsync(StoreFilterViewModel vm)

@@ -57,8 +57,7 @@ namespace VinEcomService.Service
                 StoreId = vm.StoreId
             };
             await unitOfWork.StoreStaffRepository.AddAsync(staff);
-            if (await unitOfWork.SaveChangesAsync()) return true;
-            return false;
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ValidationResult> ValidateRegistrationAsync(StoreStaffSignUpViewModel vm)

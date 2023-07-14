@@ -77,6 +77,8 @@ namespace VinEcomAPI.Controllers
                 var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
                 return BadRequest(errors);
             }
+            var isValidBuilding = await customerService.IsBuildingExistedAsync(vm.BuildingId);
+            if (!isValidBuilding) return BadRequest(new { message = VinEcom.VINECOM_BUILDING_NOT_EXIST });
             var result = await customerService.UpdateBasicInfoAsync(vm);
             if (result) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS});
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });

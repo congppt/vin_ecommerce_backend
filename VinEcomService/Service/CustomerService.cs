@@ -53,8 +53,7 @@ namespace VinEcomService.Service
                 BuildingId = vm.BuildingId,
             };
             await unitOfWork.CustomerRepository.AddAsync(customer);
-            if (await unitOfWork.SaveChangesAsync()) return true;
-            return false;
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ValidationResult> ValidateRegistrationAsync(CustomerSignUpViewModel vm)
@@ -98,9 +97,9 @@ namespace VinEcomService.Service
             var id = claimService.GetRoleId();
             var customer = await unitOfWork.CustomerRepository.GetCustomerByIdAsync(id);
             mapper.Map(vm, customer);
+            customer.Building = null;
             unitOfWork.CustomerRepository.Update(customer);
-            if (await unitOfWork.SaveChangesAsync()) return true;
-            return false;
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ValidationResult> ValidateUpdateBasicAsync(CustomerUpdateBasicViewModel vm)

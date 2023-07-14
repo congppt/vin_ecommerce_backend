@@ -52,8 +52,7 @@ namespace VinEcomService.Service
                     Details = new List<OrderDetail> { orderDetail }
                 };
                 await unitOfWork.OrderRepository.AddAsync(newOrder);
-                if (await unitOfWork.SaveChangesAsync()) return true;
-                return false;
+                return await unitOfWork.SaveChangesAsync();
             }
             //cart already contain product
             else
@@ -63,8 +62,7 @@ namespace VinEcomService.Service
                 {
                     detail.Quantity += vm.Quantity;
                     unitOfWork.OrderDetailRepository.Update(detail);
-                    if (await unitOfWork.SaveChangesAsync()) return true;
-                    return false;
+                    return await unitOfWork.SaveChangesAsync();
                 }
                 else
                 {
@@ -75,8 +73,7 @@ namespace VinEcomService.Service
                         Quantity = vm.Quantity,
                     };
                     await unitOfWork.OrderDetailRepository.AddAsync(orderDetail);
-                    if (await unitOfWork.SaveChangesAsync()) return true;
-                    return false;
+                    return await unitOfWork.SaveChangesAsync();
                 }
             }
         }

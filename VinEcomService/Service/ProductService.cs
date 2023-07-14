@@ -95,5 +95,11 @@ namespace VinEcomService.Service
             var vm = mapper.Map<ProductViewModel>(product);
             return vm;
         }
+        public async Task<bool> RemoveProductAsync(int productId)
+        {
+            var product = await unitOfWork.ProductRepository.GetByIdAsync(productId);
+            product.IsRemoved = !product.IsRemoved;
+            return await unitOfWork.SaveChangesAsync();
+        }
     }
 }

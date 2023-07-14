@@ -56,8 +56,7 @@ namespace VinEcomService.Service
                 VehicleType = vm.VehicleType
             };
             await unitOfWork.ShipperRepository.AddAsync(shipper);
-            if (await unitOfWork.SaveChangesAsync()) return true;
-            return false;
+            return await unitOfWork.SaveChangesAsync();
         }
 
         public async Task<ValidationResult> ValidateRegistrationAsync(ShipperSignUpViewModel vm)
