@@ -15,19 +15,25 @@ using System.Numerics;
 using VinEcomViewModel.Order;
 using VinEcomDbContext.Migrations;
 using System.Runtime.InteropServices;
+using FluentValidation.Results;
+using VinEcomInterface.IValidator;
 
 namespace VinEcomService.Service
 {
     public class OrderService : BaseService, IOrderService
     {
-        public OrderService(IUnitOfWork unitOfWork,
-                            IConfiguration config,
-                            ITimeService timeService,
-                            ICacheService cacheService,
-                            IClaimService claimService,
-                            IMapper mapper) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
-        { }
+        private readonly IOrderValidator orderValidator;
 
+        public OrderService(IUnitOfWork unitOfWork,
+            IConfiguration config, ITimeService timeService,
+            ICacheService cacheService, IClaimService claimService,
+            IMapper mapper, IOrderValidator orderValidator) :
+            base(unitOfWork, config, timeService, cacheService, claimService, mapper)
+        {
+            this.orderValidator = orderValidator;
+        }
+
+        #region AddToCart
         public async Task<bool> AddToCartAsync(AddToCartViewModel vm)
         {
             var customer = await FindCustomerAsync();
@@ -81,6 +87,14 @@ namespace VinEcomService.Service
                 }
             }
         }
+        #endregion
+
+        #region ValidateAddToCart
+        public async Task<ValidationResult> ValidateAddToCart(AddToCartViewModel vm)
+        {
+            return await orderValidator.CartAddValidator.ValidateAsync(vm);
+        }
+        #endregion
 
         #region RemoveFromCart
         public async Task<bool> RemoveFromCartAsync(int productId)
@@ -121,18 +135,28 @@ namespace VinEcomService.Service
         #region GetOrders
         public async Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize)
         {
-            return await unitOfWork.OrderRepository.GetPageAsync(pageIndex, pageSize); 
+            return await unitOfWork.OrderRepository.GetPageAsync(pageIndex, pageSize);
         }
         #endregion
 
         #region IsProductSameStore
+        /// <summary>
+        /// Return true if the added product's store is same as product's store in cart, otherwise false.
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
         public async Task<bool> IsProductSameStoreAsync(int productId)
         {
             var product = await unitOfWork.ProductRepository.GetProductByIdAsync(productId);
-            var userId = claimService.GetCurrentUserId();
-            if (product is not null && userId != -1)
+            var customerId = claimService.GetRoleId();
+            var cart = (await unitOfWork.OrderRepository
+                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customerId))
+                .FirstOrDefault();
+            if (cart is null) return true;
+            //
+            if (product is not null)
             {
-                var order = await unitOfWork.OrderRepository.GetCartByUserIdAndStoreId(userId, product.StoreId);
+                var order = await unitOfWork.OrderRepository.GetCartByCustomerIdAndStoreId(customerId, product.StoreId);
                 return order is not null;
             }
             return false;
@@ -143,7 +167,7 @@ namespace VinEcomService.Service
         public async Task<Pagination<Order>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize)
         {
             var storeId = claimService.GetStoreId();
-            if (storeId <= 0) return null; 
+            if (storeId <= 0) return null;
             return await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
         }
         #endregion

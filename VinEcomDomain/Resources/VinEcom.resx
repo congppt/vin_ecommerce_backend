@@ -294,4 +294,10 @@
   <data name="VINECOM_ORDER_CANCEL_FAILED" xml:space="preserve">
     <value>Hủy đơn thất bại. Vui lòng thử lại.</value>
   </data>
+  <data name="VINECOM_ORDER_ADDTOCART_QUANTITY_ERROR" xml:space="preserve">
+    <value>Không thể thêm vào giỏ hàng. Số lượng tối thiểu là 1.</value>
+  </data>
+  <data name="VINECOM_ORDER_ADDTOCART_PRODUCT_NOT_SAME_STORE" xml:space="preserve">
+    <value>Sản phẩm trong giỏ hàng và sản phẩm được thêm không cùng một cửa hàng.</value>
+  </data>
 </root>

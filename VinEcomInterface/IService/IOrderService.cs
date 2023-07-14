@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace VinEcomInterface.IService
     public interface IOrderService : IBaseService
     {
         Task<bool> AddToCartAsync(AddToCartViewModel vm);
+        Task<ValidationResult> ValidateAddToCart(AddToCartViewModel vm);
         Task<bool> RemoveFromCartAsync(int productId);
         Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize);
         Task<bool> IsProductSameStoreAsync(int productId);

@@ -142,6 +142,24 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sản phẩm trong giỏ hàng và sản phẩm được thêm không cùng một cửa hàng..
+        /// </summary>
+        public static string VINECOM_ORDER_ADDTOCART_PRODUCT_NOT_SAME_STORE {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_ADDTOCART_PRODUCT_NOT_SAME_STORE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không thể thêm vào giỏ hàng. Số lượng tối thiểu là 1..
+        /// </summary>
+        public static string VINECOM_ORDER_ADDTOCART_QUANTITY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_ORDER_ADDTOCART_QUANTITY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhận đơn thất bại. Vui lòng thử lại..
         /// </summary>
         public static string VINECOM_ORDER_ASSIGN_SHIPPER_FAILED {

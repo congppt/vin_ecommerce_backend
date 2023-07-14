@@ -28,14 +28,15 @@ namespace VinEcomRepository.Repository
                 .FirstOrDefaultAsync(x => x.Id == id && x.Status == OrderStatus.Cart);
         }
 
-        public async Task<Order?> GetCartByUserIdAndStoreId(int userId, int storeId)
+        public async Task<Order?> GetCartByCustomerIdAndStoreId(int customerId, int storeId)
         {
             return await context.Set<Order>()
                 .AsNoTracking()
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
-                .FirstOrDefaultAsync(x => x.CustomerId == userId && x.Status == OrderStatus.Cart &&
+                .FirstOrDefaultAsync(x => x.CustomerId == customerId && 
+                x.Status == OrderStatus.Cart &&
                 x.Details.Any(det => det.Product.Store.Id == storeId));
         }
 

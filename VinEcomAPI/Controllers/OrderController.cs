@@ -18,14 +18,27 @@ namespace VinEcomAPI.Controllers
         {
             this.orderService = orderService;
         }
+
+        #region AddToCart
         [EnumAuthorize(Role.Customer)]
         [HttpPost("cart/add")]
         public async Task<IActionResult> AddToCartAsync([FromBody] AddToCartViewModel vm)
         {
+            var validateResult = await orderService.ValidateAddToCart(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(x => new { property = x.PropertyName, message = x.ErrorMessage });
+                return BadRequest(errors);
+            }
+            //
+            var isProductSameStore = await orderService.IsProductSameStoreAsync(vm.ProductId);
+            if (isProductSameStore is false) return BadRequest(new { Message = VinEcom.VINECOM_ORDER_ADDTOCART_PRODUCT_NOT_SAME_STORE });
+            //
             var result = await orderService.AddToCartAsync(vm);
             if (result is true) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, VinEcom.VINECOM_ORDER_ADDTOCART_FAILED);
         }
+        #endregion
 
         #region RemoveFromCart
         [EnumAuthorize(Role.Customer)]
@@ -46,15 +59,6 @@ namespace VinEcomAPI.Controllers
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
             if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
             var result = await orderService.GetOrdersAsync(pageIndex, pageSize);
-            return Ok(result);
-        }
-        #endregion
-
-        #region IsProductSameStore
-        [HttpGet("is-product-same-store/{productId?}")]
-        public async Task<IActionResult> IsProductSameStoreAsync(int productId)
-        {
-            var result = await orderService.IsProductSameStoreAsync(productId);
             return Ok(result);
         }
         #endregion
