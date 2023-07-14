@@ -9,7 +9,7 @@ namespace VinEcomViewModel.Store
         public int Id { get; set; }
         public string Name { get; set; }
         public string? ImageUrl { get; set; }
-        public StoreCategory Category { get; set; }
+        public string Category { get; set; }
         public double CommissionPercent { get; set; }
         public decimal Balance { get; set; }
         public bool IsWorking { get; set; }
