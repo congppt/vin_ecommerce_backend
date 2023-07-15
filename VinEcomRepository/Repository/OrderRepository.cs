@@ -21,6 +21,33 @@ namespace VinEcomRepository.Repository
         {
         }
 
+        public async Task<Pagination<Order>> GetOrderPageAsync(int pageIndex, int pageSize)
+        {
+            var totalCount = await context.Set<Order>().CountAsync();
+            var items = await context.Set<Order>()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
+                .Skip(pageIndex * pageSize).Take(pageSize)
+                .ToListAsync();
+            //
+            var result = new Pagination<Order>
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItemsCount = totalCount
+            };
+            return result;
+        }
+
         public async Task<Order?> GetCartByIdAsync(int id)
         {
             return await context.Set<Order>()
@@ -84,10 +111,16 @@ namespace VinEcomRepository.Repository
             //
             var totalCount = await sourse.CountAsync();
             var items = await sourse
+                .AsNoTracking()
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
-                .AsNoTracking()
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
                 .Skip(pageIndex * pageSize).Take(pageSize)
                 .ToListAsync();
             //
@@ -143,7 +176,16 @@ namespace VinEcomRepository.Repository
 
         public async Task<Order?> GetOrderWithDetailsAsync(int orderId, int? customerId)
         {
-            var result = await context.Set<Order>().AsNoTracking().Include(o => o.Details).FirstOrDefaultAsync(o => o.Id == orderId);
+            var result = await context.Set<Order>().AsNoTracking()
+                .AsNoTracking()
+                .Include(x => x.Details)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Store)
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
+                .FirstOrDefaultAsync(o => o.Id == orderId);
             if (result == null) return null;
             if (customerId.HasValue) return result.CustomerId == customerId ? result : null;
             return result;

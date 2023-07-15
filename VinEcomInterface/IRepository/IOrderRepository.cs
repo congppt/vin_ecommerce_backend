@@ -12,6 +12,7 @@ namespace VinEcomInterface.IRepository
 {
     public interface IOrderRepository : IBaseRepository<Order>
     {
+        Task<Pagination<Order>> GetOrderPageAsync(int pageIndex, int pageSize);
         Task<IEnumerable<Order>?> GetOrderAtStateWithDetailsAsync(OrderStatus status, int? customerId);
         Task<Order?> GetCartByCustomerIdAndStoreId(int customerId, int storeId);
         Task<Order?> GetCartByIdAsync(int id);

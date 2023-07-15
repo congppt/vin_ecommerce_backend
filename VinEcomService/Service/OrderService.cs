@@ -130,9 +130,10 @@ namespace VinEcomService.Service
         #endregion
 
         #region GetOrders
-        public async Task<Pagination<Order>> GetOrdersAsync(int pageIndex, int pageSize)
+        public async Task<Pagination<OrderBasicViewModel>> GetOrdersAsync(int pageIndex, int pageSize)
         {
-            return await unitOfWork.OrderRepository.GetPageAsync(pageIndex, pageSize);
+            var orders = await unitOfWork.OrderRepository.GetOrderPageAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<OrderBasicViewModel>>(orders);
         }
         #endregion
 
@@ -170,19 +171,21 @@ namespace VinEcomService.Service
         #endregion
 
         #region CustomerOrderPagesAtStatus
-        public async Task<Pagination<Order>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        public async Task<Pagination<OrderBasicViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize)
         {
             var customer = await FindCustomerAsync();
             if (customer == null) return null;
-            return await unitOfWork.OrderRepository.GetOrderPagesByCustomerIdAndStatusAsync(customer.Id, status, pageIndex, pageSize);
+            var orders = await unitOfWork.OrderRepository.GetOrderPagesByCustomerIdAndStatusAsync(customer.Id, status, pageIndex, pageSize);
+            return mapper.Map<Pagination<OrderBasicViewModel>>(orders);
         }
         #endregion
 
         #region GetCustomerOrders
-        public async Task<Order?> GetCustomerOrdersAsync(int orderId)
+        public async Task<OrderBasicViewModel?> GetCustomerOrdersAsync(int orderId)
         {
-            var userId = claimService.GetCurrentUserId();
-            return await unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId, userId);
+            var customerId = claimService.GetRoleId();
+            var orders = await unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId, customerId);
+            return mapper.Map<OrderBasicViewModel>(orders);
         }
         #endregion
 
