@@ -74,6 +74,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region StoreOrderPagesAtStatus
+        [EnumAuthorize(Role.Staff)]
         [HttpGet("store/page")]
         public async Task<IActionResult> GetStoreOrderPagesByStatus(OrderStatus status, int pageIndex = 0, int pageSize = 10)
         {

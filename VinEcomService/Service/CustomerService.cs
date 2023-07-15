@@ -33,8 +33,11 @@ namespace VinEcomService.Service
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,
+                UserId = customer.User.Id,
                 Name = customer.User.Name,
-                AvatarUrl = customer.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND
+                AvatarUrl = customer.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND,
+                Email = customer.User.Email,
+                Phone = customer.User.Phone
             };
         }
 

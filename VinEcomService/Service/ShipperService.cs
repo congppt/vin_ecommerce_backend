@@ -41,8 +41,11 @@ namespace VinEcomService.Service
             return new AuthorizedViewModel
             {
                 AccessToken = accessToken,
+                UserId = shipper.User.Id,
                 Name = shipper.User.Name,
-                AvatarUrl = shipper.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND
+                AvatarUrl = shipper.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND,
+                Email = shipper.User.Email,
+                Phone = shipper.User.Phone
             };
         }
         public async Task<bool> RegisterAsync(ShipperSignUpViewModel vm)
