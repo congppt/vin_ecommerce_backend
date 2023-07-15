@@ -197,5 +197,23 @@ namespace VinEcomAPI.Controllers
             return Ok(new { total = result });
         }
         #endregion
+
+        #region Rating
+        [EnumAuthorize(Role.Customer)]
+        [HttpPatch("detail/rating/{orderId?}")]
+        public async Task<IActionResult> RatingOrderAsync(OrderDetailRatingViewModel vm)
+        {
+            var validateResult = await orderService.ValidateOrderRatingAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(x => new { property = x.PropertyName, error = x.ErrorMessage });
+                return BadRequest(errors);
+            }
+            //
+            var result = await orderService.RatingOrderAsync(vm);
+            if (result is true) return Ok(new { message = VinEcom.VINECOM_RATING_SUCCESS });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
+        #endregion
     }
 }

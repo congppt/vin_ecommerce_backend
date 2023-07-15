@@ -349,6 +349,24 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đánh giá thành công..
+        /// </summary>
+        public static string VINECOM_RATING_SUCCESS {
+            get {
+                return ResourceManager.GetString("VINECOM_RATING_SUCCESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đánh giá sản phẩm chỉ cho phép giá trị từ {0} - {1}..
+        /// </summary>
+        public static string VINECOM_RATING_VALUE_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_RATING_VALUE_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thao tác thất bại. Lỗi hệ thống.
         /// </summary>
         public static string VINECOM_SERVER_ERROR {

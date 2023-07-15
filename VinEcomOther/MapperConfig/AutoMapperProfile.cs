@@ -74,6 +74,7 @@ namespace VinEcomOther.MapperConfig
             CreateMap<OrderDetail, OrderDetailViewModel>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Order.Customer));
             CreateMap<OrderDetail, OrderDetailBasicViewModel>();
+            CreateMap<OrderDetailRatingViewModel, OrderDetail>();
             //Shipper
             CreateMap<Shipper, ShipperViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User.Name))

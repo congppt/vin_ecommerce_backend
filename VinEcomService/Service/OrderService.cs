@@ -291,6 +291,28 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region ValidateRating
+        public async Task<ValidationResult> ValidateOrderRatingAsync(OrderDetailRatingViewModel vm)
+        {
+            return await orderValidator.OrderDetailRatingValidator.ValidateAsync(vm);
+        }
+        #endregion
+
+        #region RatingOrder
+        public async Task<bool> RatingOrderAsync(OrderDetailRatingViewModel vm)
+        {
+            int customerId = claimService.GetRoleId();
+            var detail = await unitOfWork.OrderDetailRepository.GetDetailByIdAndCustomerIdAsync(vm.Id, customerId);
+            if (detail is not null)
+            {
+                mapper.Map(vm, detail);
+                unitOfWork.OrderDetailRepository.Update(detail);
+                return await unitOfWork.SaveChangesAsync();
+            }
+            return false;
+        }
+        #endregion
+
         public async Task<Order?> GetOrderByIdAsync(int id)
         {
             return await unitOfWork.OrderRepository.GetByIdAsync(id);

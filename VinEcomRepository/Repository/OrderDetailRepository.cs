@@ -17,6 +17,12 @@ namespace VinEcomRepository.Repository
         {
         }
 
+        public async Task<OrderDetail?> GetDetailByIdAndCustomerIdAsync(int id, int customerId)
+        {
+            return await context.Set<OrderDetail>()
+                .FirstOrDefaultAsync(x => x.Id == id && x.Order.CustomerId == customerId);
+        }
+
         public async Task<OrderDetail?> GetDetailByIdAsync(int id)
         {
             return await context.Set<OrderDetail>()

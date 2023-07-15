@@ -30,6 +30,8 @@ namespace VinEcomInterface.IService
         Task<OrderDetailViewModel?> GetOrderDetailByIdAsync(int id);
         Task<bool> CancelOrderAsync(Order order);
         Task<decimal> GetOrderTotalAsync();
+        Task<bool> RatingOrderAsync(OrderDetailRatingViewModel vm);
+        Task<ValidationResult> ValidateOrderRatingAsync(OrderDetailRatingViewModel vm);
         //
         Task<Order?> GetOrderByIdAsync (int id);
     }
