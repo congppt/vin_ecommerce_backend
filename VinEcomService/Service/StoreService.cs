@@ -96,12 +96,12 @@ namespace VinEcomService.Service
             return mapper.Map<StoreViewModel>(result);
         }
 
-        public async Task<IEnumerable<OrderDetailViewModel>> GetStoreReviewAsync()
+        public async Task<IEnumerable<StoreReviewViewModel>> GetStoreReviewAsync()
         {
             var storeId = claimService.GetStoreId();
             var details = await unitOfWork.OrderDetailRepository.GetDetailsByStoreIdAndStatusAsync(storeId, OrderStatus.Done);
             var detailRevieweds = details.Where(x => !string.IsNullOrEmpty(x.Comment) || x.Rate.HasValue);
-            return mapper.Map<IEnumerable<OrderDetailViewModel>>(detailRevieweds);
+            return mapper.Map<IEnumerable<StoreReviewViewModel>>(detailRevieweds);
         }
 
         public async Task<decimal> GetStoreOrderTotalAsync(OrderStatus? status)

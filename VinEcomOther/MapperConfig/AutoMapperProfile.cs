@@ -77,6 +77,9 @@ namespace VinEcomOther.MapperConfig
             //Store
             CreateMap<Store, StoreViewModel>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.GetDisplayName()));
+            CreateMap<OrderDetail, StoreReviewViewModel>()
+                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Order.Customer.User.Name))
+                .ForMember(dest => dest.CustomerAvatarUrl, opt => opt.MapFrom(src => src.Order.Customer.User.AvatarUrl));
             //Staff
             CreateMap<StoreStaff, StoreStaffViewModel>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User.Name))
