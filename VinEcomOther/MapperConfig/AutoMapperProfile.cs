@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
 using VinEcomDomain.Model;
 using VinEcomUtility.Pagination;
 using VinEcomUtility.UtilityMethod;
@@ -51,17 +52,15 @@ namespace VinEcomOther.MapperConfig
             CreateMap<CustomerUpdateBasicViewModel, Customer>()
                 .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
             //Order
+            CreateMap<OrderStatus, OrderStatusViewModel>().ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => (int)src))
+                                                          .ForMember(dest => dest.DisplayName, opt => opt.MapFrom(src => src.GetDisplayName()));
             CreateMap<Order, OrderWithDetailsViewModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()))
-                .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer.User.Name))
-                .ForMember(dest => dest.CustomerPhone, opt => opt.MapFrom(src => src.Customer.User.Phone))
-                .ForMember(dest => dest.FromBuildingName, opt => opt.MapFrom(src => src.Details.First().Product.Store.Building.Name))
-                .ForMember(dest => dest.FromBuildingLocation, opt => opt.MapFrom(src => src.Details
-                .First().Product.Store.Building.Latitude + "," + src.Details.First().Product.Store.Building.Longitude))
-                .ForMember(dest => dest.ToBuildingName, opt => opt.MapFrom(src => src.Building.Name))
-                .ForMember(dest => dest.ToBuildingLocation, opt => opt.MapFrom(src => src.Building.Latitude + "," + src.Building.Longitude))
-                .ForMember(dest => dest.StoreName, opt => opt.MapFrom(src => src.Details.First().Product.Store.Name))
-                .ForMember(dest => dest.StoreImageUrl, opt => opt.MapFrom(src => src.Details.First().Product.Store.ImageUrl));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))
+                .ForMember(dest => dest.FromBuilding, opt => opt.MapFrom(src => src.Building))
+                .ForMember(dest => dest.ToBuilding, opt => opt.MapFrom(src => src.Building))
+                .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Details.First().Product.Store))
+                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper));
             CreateMap<Order, OrderBasicViewModel>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()))
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))

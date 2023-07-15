@@ -20,7 +20,7 @@ namespace VinEcomViewModel.OrderDetail
 
         public OrderDetailRatingRule()
         {
-            RuleFor(x => x.Rate).InclusiveBetween(RATE_MIN_VALUE - 1, RATE_MAX_VALUE + 1)
+            RuleFor(x => x.Rate).ExclusiveBetween(RATE_MIN_VALUE, RATE_MAX_VALUE)
                 .WithMessage(RATE_VALUE_ERROR).When(x => x.Rate.HasValue);
         }
     }
