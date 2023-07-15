@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using VinEcomViewModel.Base;
 using VinEcomViewModel.Store;
 #nullable disable warnings
 namespace VinEcomViewModel.Product
@@ -13,7 +14,7 @@ namespace VinEcomViewModel.Product
         public decimal OriginalPrice { get; set; }
         public decimal? DiscountPrice { get; set; }
         public bool IsOutOfStock { get; set; }
-        public string Category { get; set; }
+        public ProductCategoryViewModel Category { get; set; }
         //
         public StoreBasicViewModel Store { get; set; }
     }

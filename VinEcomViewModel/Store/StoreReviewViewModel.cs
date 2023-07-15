@@ -1,10 +1,11 @@
 ﻿#nullable disable warnings
+using VinEcomViewModel.Customer;
+
 namespace VinEcomViewModel.Store
 {
     public class StoreReviewViewModel
     {
-        public string CustomerName { get; set; }
-        public string CustomerAvatarUrl { get; set; }
+        public CustomerBasicViewModel Customer { get; set; }
         public int? Rate { get; set; }
         public string? Comment { get; set; }
     }

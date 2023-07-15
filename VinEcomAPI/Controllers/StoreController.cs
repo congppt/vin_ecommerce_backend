@@ -66,6 +66,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetAll
+        [EnumAuthorize(Role.Administrator | Role.Customer)]
         [HttpGet("page")]
         public async Task<IActionResult> GetStorePagesAsync(int pageIndex = 0, int pageSize = 10)
         {

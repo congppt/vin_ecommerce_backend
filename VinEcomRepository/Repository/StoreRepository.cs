@@ -43,11 +43,12 @@ namespace VinEcomRepository.Repository
                 .Include(x => x.Building).FirstOrDefaultAsync(x => x.Id == id && x.IsBlocked == isBlocked);
         }
 
-        public async Task<Pagination<Store>> GetStorePagesAsync(int pageIndex, int pageSize)
+        public async Task<Pagination<Store>> GetStorePagesAsync(int pageIndex, int pageSize, bool hideBlocked)
         {
             var source = context.Set<Store>()
                 .Include(x => x.Building)
-                .AsNoTracking().Where(x => !x.IsBlocked);
+                .AsNoTracking();
+            if (hideBlocked) source = source.Where(x => x.IsBlocked);
             //
             var totalCount = await source.CountAsync();
             var items = await source.Skip(pageSize * pageIndex).Take(pageSize).ToListAsync();

@@ -81,7 +81,8 @@ namespace VinEcomService.Service
 
         public async Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize)
         {
-            var result = await unitOfWork.StoreRepository.GetStorePagesAsync(pageIndex, pageSize);
+            var role = claimService.GetRole();
+            var result = await unitOfWork.StoreRepository.GetStorePagesAsync(pageIndex, pageSize, role != Role.Administrator);
             return mapper.Map<Pagination<StoreViewModel>>(result);
         }
 
