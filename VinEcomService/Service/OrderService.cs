@@ -162,11 +162,12 @@ namespace VinEcomService.Service
         #endregion
 
         #region StoreOrderPagesAtStatus
-        public async Task<Pagination<Order>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        public async Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize)
         {
             var storeId = claimService.GetStoreId();
             if (storeId <= 0) return null;
-            return await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
+            var orders = await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
+            return mapper.Map<Pagination<OrderStoreViewModel>>(orders);
         }
         #endregion
 
@@ -190,11 +191,12 @@ namespace VinEcomService.Service
         #endregion
 
         #region GetStoreOrder
-        public async Task<Order?> GetStoreOrderAsync(int orderId)
+        public async Task<OrderStoreViewModel?> GetStoreOrderAsync(int orderId)
         {
             var storeId = claimService.GetStoreId();
             if (storeId <= 0) return null;
-            return await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+            var order = await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+            return mapper.Map<OrderStoreViewModel>(order);
         }
         #endregion
 
@@ -324,6 +326,7 @@ namespace VinEcomService.Service
             return await unitOfWork.CustomerRepository.GetCustomerByUserIdAsync(userId);
         }
 
+        #region Total
         public async Task<decimal> GetOrderTotalAsync()
         {
             var total = 0m;
@@ -339,5 +342,6 @@ namespace VinEcomService.Service
             //
             return total;
         }
+        #endregion
     }
 }

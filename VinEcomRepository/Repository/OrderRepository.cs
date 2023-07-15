@@ -142,10 +142,16 @@ namespace VinEcomRepository.Repository
             //
             var totalCount = await sourse.CountAsync();
             var items = await sourse
+                .AsNoTracking()
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
-                .AsNoTracking()
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
                 .Skip(pageIndex * pageSize).Take(pageSize)
                 .ToListAsync();
             //
@@ -213,6 +219,12 @@ namespace VinEcomRepository.Repository
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Store)
+                .ThenInclude(x => x.Building)
+                .Include(x => x.Customer)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Shipper)
+                .ThenInclude(x => x.User)
+                .Include(x => x.Building)
                 .FirstOrDefaultAsync(x => x.Id == orderId &&
                 x.Details.Any(ord => ord.Product.StoreId == storeId));
         }
