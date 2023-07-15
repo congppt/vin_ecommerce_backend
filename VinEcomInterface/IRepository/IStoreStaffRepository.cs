@@ -10,5 +10,6 @@ namespace VinEcomInterface.IRepository
     public interface IStoreStaffRepository : IBaseRepository<StoreStaff>
     {
         Task<StoreStaff?> AuthorizeAsync(string phone, string password);
+        Task<StoreStaff?> GetStaffByIdAsync(int id);
     }
 }

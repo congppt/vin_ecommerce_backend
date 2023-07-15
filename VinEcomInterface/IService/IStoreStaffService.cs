@@ -18,5 +18,9 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateRegistrationAsync(StoreStaffSignUpViewModel vm);
         Task<bool> CancelOrderAsync(Order order);
         Task<Order?> GetOrderByIdAsync(int orderId);
+        Task<StoreStaffViewModel?> GetStaffInfoAsync();
+        Task<bool> UpdateStaffInfoAsync(StoreStaffUpdateViewModel vm);
+        //
+        Task<ValidationResult> ValidateStaffUpdateAsync(StoreStaffUpdateViewModel vm);
     }
 }

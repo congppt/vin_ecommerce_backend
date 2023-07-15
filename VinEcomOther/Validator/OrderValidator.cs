@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.Runtime.CompilerServices;
 using VinEcomInterface.IValidator;
 using VinEcomViewModel.OrderDetail;
 

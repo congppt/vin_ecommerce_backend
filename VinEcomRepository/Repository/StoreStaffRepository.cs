@@ -26,5 +26,14 @@ namespace VinEcomRepository.Repository
             if (password.IsCorrectHashSource(staff.User.PasswordHash)) return staff;
             return null;
         }
+
+        public async Task<StoreStaff?> GetStaffByIdAsync(int id)
+        {
+            return await context.Set<StoreStaff>()
+                .AsNoTracking()
+                .Include(x => x.Store)
+                .Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

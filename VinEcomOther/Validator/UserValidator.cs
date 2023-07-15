@@ -19,17 +19,21 @@ namespace VinEcomOther.Validator
         private readonly StaffCreateRule staffCreateValidator;
         private readonly CustomerUpdateBasicRule customerUpdateBasicValidator;
         private readonly UpdatePasswordRule updatePasswordValidator;
+        private readonly StaffUpdateRule staffUpdateValidator;
+
         public UserValidator(CustomerCreateRule customerCreateValidator,
                              ShipperCreateRule shipperCreateValidator,
                              StaffCreateRule staffCreateValidator,
                              CustomerUpdateBasicRule customerUpdateBasicValidator,
-                             UpdatePasswordRule updatePasswordValidator)
+                             UpdatePasswordRule updatePasswordValidator,
+                             StaffUpdateRule staffUpdateValidator)
         {
             this.customerCreateValidator = customerCreateValidator;
             this.shipperCreateValidator = shipperCreateValidator;
             this.staffCreateValidator = staffCreateValidator;
             this.customerUpdateBasicValidator = customerUpdateBasicValidator;
             this.updatePasswordValidator = updatePasswordValidator;
+            this.staffUpdateValidator = staffUpdateValidator;
         }
 
         public IValidator<CustomerSignUpViewModel> CustomerCreateValidator => customerCreateValidator;
@@ -39,6 +43,9 @@ namespace VinEcomOther.Validator
         public IValidator<StoreStaffSignUpViewModel> StaffCreateValidator => staffCreateValidator;
 
         public IValidator<CustomerUpdateBasicViewModel> CustomerUpdateBasicValidator => customerUpdateBasicValidator;
+
         public IValidator<UpdatePasswordViewModel> UpdatePasswordValidator => updatePasswordValidator;
+
+        public IValidator<StoreStaffUpdateViewModel> StaffUpdateValidator => staffUpdateValidator;
     }
 }

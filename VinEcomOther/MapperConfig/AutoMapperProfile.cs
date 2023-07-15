@@ -15,6 +15,7 @@ using VinEcomViewModel.OrderDetail;
 using VinEcomViewModel.Product;
 using VinEcomViewModel.Shipper;
 using VinEcomViewModel.Store;
+using VinEcomViewModel.StoreStaff;
 
 namespace VinEcomOther.MapperConfig
 {
@@ -46,6 +47,9 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.User.Phone))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email))
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl));
+            CreateMap<CustomerUpdateBasicViewModel, User>();
+            CreateMap<CustomerUpdateBasicViewModel, Customer>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
             //Order
             CreateMap<Order, OrderWithDetailsViewModel>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()))
@@ -70,12 +74,18 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.VehicleType, opt => opt.MapFrom(src => src.VehicleType.GetDisplayName()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()));
             CreateMap<Building, BuildingBasicViewModel>();
-            CreateMap<CustomerUpdateBasicViewModel, User>();
-            CreateMap<CustomerUpdateBasicViewModel, Customer>()
-                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
             //Store
             CreateMap<Store, StoreViewModel>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.GetDisplayName()));
+            //Staff
+            CreateMap<StoreStaff, StoreStaffViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.User.Name))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.User.Phone))
+                .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.User.Email));
+            CreateMap<StoreStaffUpdateViewModel, User>();
+            CreateMap<StoreStaffUpdateViewModel, StoreStaff>()
+                .ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
         }
     }
 }

@@ -79,6 +79,36 @@ namespace VinEcomService.Service
         }
         #endregion
 
+        #region StaffInfo
+        public async Task<StoreStaffViewModel?> GetStaffInfoAsync()
+        {
+            var staffId = claimService.GetRoleId();
+            var staff = await unitOfWork.StoreStaffRepository.GetStaffByIdAsync(staffId);
+            return mapper.Map<StoreStaffViewModel>(staff);
+        }
+        #endregion
+
+         #region ValidateUpdate
+        public Task<ValidationResult> ValidateStaffUpdateAsync(StoreStaffUpdateViewModel vm)
+        {
+            return validator.StaffUpdateValidator.ValidateAsync(vm);
+        }
+        #endregion
+
+        #region UpdateInfo
+        public async Task<bool> UpdateStaffInfoAsync(StoreStaffUpdateViewModel vm)
+        {
+            var staffId = claimService.GetRoleId();
+            var staff = await unitOfWork.StoreStaffRepository.GetStaffByIdAsync(staffId);
+            //
+            if (staff is null) return false;
+            mapper.Map(vm, staff);
+            //
+            unitOfWork.StoreStaffRepository.Update(staff);
+            return await unitOfWork.SaveChangesAsync();
+        }
+        #endregion
+
         public async Task<Order?> GetOrderByIdAsync(int orderId)
         {
             var storeId = claimService.GetStoreId();
