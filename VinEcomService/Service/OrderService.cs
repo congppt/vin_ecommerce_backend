@@ -130,10 +130,10 @@ namespace VinEcomService.Service
         #endregion
 
         #region GetOrders
-        public async Task<Pagination<OrderBasicViewModel>> GetOrdersAsync(int pageIndex, int pageSize)
+        public async Task<Pagination<OrderWithDetailsViewModel>> GetOrdersAsync(int pageIndex, int pageSize)
         {
             var orders = await unitOfWork.OrderRepository.GetOrderPageAsync(pageIndex, pageSize);
-            return mapper.Map<Pagination<OrderBasicViewModel>>(orders);
+            return mapper.Map<Pagination<OrderWithDetailsViewModel>>(orders);
         }
         #endregion
 
@@ -172,21 +172,21 @@ namespace VinEcomService.Service
         #endregion
 
         #region CustomerOrderPagesAtStatus
-        public async Task<Pagination<OrderBasicViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        public async Task<Pagination<OrderWithDetailsViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize)
         {
             var customer = await FindCustomerAsync();
             if (customer == null) return null;
             var orders = await unitOfWork.OrderRepository.GetOrderPagesByCustomerIdAndStatusAsync(customer.Id, status, pageIndex, pageSize);
-            return mapper.Map<Pagination<OrderBasicViewModel>>(orders);
+            return mapper.Map<Pagination<OrderWithDetailsViewModel>>(orders);
         }
         #endregion
 
         #region GetCustomerOrders
-        public async Task<OrderBasicViewModel?> GetCustomerOrdersAsync(int orderId)
+        public async Task<OrderWithDetailsViewModel?> GetCustomerOrdersAsync(int orderId)
         {
             var customerId = claimService.GetRoleId();
             var orders = await unitOfWork.OrderRepository.GetOrderWithDetailsAsync(orderId, customerId);
-            return mapper.Map<OrderBasicViewModel>(orders);
+            return mapper.Map<OrderWithDetailsViewModel>(orders);
         }
         #endregion
 
@@ -259,6 +259,7 @@ namespace VinEcomService.Service
         public async Task<IEnumerable<OrderWithDetailsViewModel>> GetPendingOrdersAsync()
         {
             var orders = await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Preparing, null);
+            orders = orders.OrderByDescending(x => x.OrderDate);
             return mapper.Map<IEnumerable<OrderWithDetailsViewModel>>(orders);
         }
         #endregion

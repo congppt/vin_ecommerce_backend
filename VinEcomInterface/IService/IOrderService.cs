@@ -16,12 +16,12 @@ namespace VinEcomInterface.IService
         Task<bool> AddToCartAsync(AddToCartViewModel vm);
         Task<ValidationResult> ValidateAddToCart(AddToCartViewModel vm);
         Task<bool> RemoveFromCartAsync(int productId);
-        Task<Pagination<OrderBasicViewModel>> GetOrdersAsync(int pageIndex, int pageSize);
+        Task<Pagination<OrderWithDetailsViewModel>> GetOrdersAsync(int pageIndex, int pageSize);
         Task<bool> IsProductSameStoreAsync(int productId);
         Task<bool> EmptyCartAsync(int cartId);
         Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize);
-        Task<Pagination<OrderBasicViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize);
-        Task<OrderBasicViewModel?> GetCustomerOrdersAsync(int orderId);
+        Task<Pagination<OrderWithDetailsViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize);
+        Task<OrderWithDetailsViewModel?> GetCustomerOrdersAsync(int orderId);
         Task<OrderStoreViewModel?> GetStoreOrderAsync(int orderId);
         Task<bool> CheckoutAsync();
         Task<OrderWithDetailsViewModel?> GetOrderVMByIdAsync(int id);

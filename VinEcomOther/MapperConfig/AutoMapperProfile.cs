@@ -59,18 +59,10 @@ namespace VinEcomOther.MapperConfig
             CreateMap<Order, OrderWithDetailsViewModel>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))
-                .ForMember(dest => dest.FromBuilding, opt => opt.MapFrom(src => src.Building))
-                .ForMember(dest => dest.ToBuilding, opt => opt.MapFrom(src => src.Building))
-                .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Details.First().Product.Store))
-                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper));
-            CreateMap<Order, OrderBasicViewModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()))
-                .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Customer))
                 .ForMember(dest => dest.FromBuilding, opt => opt.MapFrom(src => src.Details.First().Product.Store.Building))
                 .ForMember(dest => dest.ToBuilding, opt => opt.MapFrom(src => src.Building))
                 .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Details.First().Product.Store))
-                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper))
-                .ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.Details));
+                .ForMember(dest => dest.Shipper, opt => opt.MapFrom(src => src.Shipper));
             CreateMap<Order, OrderStoreViewModel>()
                 .ForMember(dest => dest.CustomerBuilding, opt => opt.MapFrom(src => src.Building))
                 .ForMember(dest => dest.StoreBuilding, opt => opt.MapFrom(src => src.Details.First().Product.Store.Building))
