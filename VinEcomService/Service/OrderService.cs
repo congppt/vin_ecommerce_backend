@@ -259,6 +259,7 @@ namespace VinEcomService.Service
         public async Task<IEnumerable<OrderWithDetailsViewModel>> GetPendingOrdersAsync()
         {
             var orders = await unitOfWork.OrderRepository.GetOrderAtStateWithDetailsAsync(OrderStatus.Preparing, null);
+            orders = orders.OrderByDescending(x => x.OrderDate);
             return mapper.Map<IEnumerable<OrderWithDetailsViewModel>>(orders);
         }
         #endregion
