@@ -53,7 +53,7 @@ namespace VinEcomAPI.Controllers
         {
             var role = claimService.GetRole();
             var hideBlock = role == Role.Customer;
-            var result = await productService.GetProductByIdAsync(id, hideBlock);
+            var result = await productService.GetProductByIdAsync(id, true);
             if (result == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
             if (role == Role.Staff && result.Store.Id != claimService.GetStoreId()) return Unauthorized(new { message = VinEcom.VINECOM_UNAUTHORIZED });
             return Ok(result);

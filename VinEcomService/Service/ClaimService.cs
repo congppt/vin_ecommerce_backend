@@ -34,10 +34,10 @@ namespace VinEcomService.Service
             return id is null ? -1 : int.Parse(id);
         }
 
-        public Role GetRole()
+        public Role? GetRole()
         {
             var role = contextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.Role)?.Value;
-            return Enum.Parse<Role>(role);
+            return Enum.TryParse<Role>(role, out var result) ? result : null;
         }
     }
 }

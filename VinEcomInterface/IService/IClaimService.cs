@@ -12,6 +12,6 @@ namespace VinEcomInterface.IService
         int GetCurrentUserId();
         int GetStoreId();
         int GetRoleId();
-        Role GetRole();
+        Role? GetRole();
     }
 }
