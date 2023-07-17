@@ -14,7 +14,7 @@ namespace VinEcomViewModel.Customer
     {
         public string Name { get; set; }
         public string? AvatarUrl { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int BuildingId { get; set; }
     }
     public class CustomerUpdateBasicRule : AbstractValidator<CustomerUpdateBasicViewModel>
@@ -26,7 +26,7 @@ namespace VinEcomViewModel.Customer
         {
             RuleFor(x => x.Name).Length(MIN_NAME_LENGTH, MAX_NAME_LENGTH)
                                 .WithMessage(NAME_LENGTH_ERROR);
-            RuleFor(x => x.Email).EmailAddress().WithMessage(VinEcom.VINECOM_EMAIL_INVALID_ERROR);
+            RuleFor(x => x.Email).EmailAddress().WithMessage(VinEcom.VINECOM_EMAIL_INVALID_ERROR).When(x => !string.IsNullOrWhiteSpace(x.Email));
             RuleFor(x => x.AvatarUrl).IsImageUrlAsync().When(x => !string.IsNullOrWhiteSpace(x.AvatarUrl));
         }
     }
