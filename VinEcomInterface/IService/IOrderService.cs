@@ -18,8 +18,8 @@ namespace VinEcomInterface.IService
         Task<bool> RemoveFromCartAsync(int productId);
         Task<Pagination<OrderWithDetailsViewModel>> GetOrdersAsync(int pageIndex, int pageSize);
         Task<bool> IsProductSameStoreAsync(int productId);
-        Task<bool> EmptyCartAsync(int cartId);
-        Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize);
+        Task<bool> EmptyCartAsync();
+        Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize, bool isSortDesc);
         Task<Pagination<OrderWithDetailsViewModel>?> GetCustomerOrderPagesByStatus(int status, int pageIndex, int pageSize);
         Task<OrderWithDetailsViewModel?> GetCustomerOrdersAsync(int orderId);
         Task<OrderStoreViewModel?> GetStoreOrderAsync(int orderId);

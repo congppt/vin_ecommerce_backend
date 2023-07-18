@@ -22,9 +22,9 @@ namespace VinEcomInterface.IService
         Task<Pagination<StoreFilterResultViewModel>> GetStoreFilterResultAsync(StoreFilterViewModel vm);
         Task<bool> ChangeBlockStatusAsync(Store store);
         Task<bool> UpdateWorkingStatus();
-        Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize);
+        Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize, bool isSortDesc);
         Task<StoreViewModel?> GetByIdAsync(int id, bool isBlocked);
-        Task<IEnumerable<StoreReviewViewModel>> GetStoreReviewAsync();
+        Task<IEnumerable<StoreReviewViewModel>> GetStoreReviewAsync(bool isSortDesc);
         Task<decimal> GetStoreOrderTotalAsync(OrderStatus? status);
     }
 }

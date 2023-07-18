@@ -79,10 +79,11 @@ namespace VinEcomService.Service
             return await unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize)
+        public async Task<Pagination<StoreViewModel>> GetStorePagesAsync(int pageIndex, int pageSize, bool isSortDesc)
         {
             var role = claimService.GetRole();
             var result = await unitOfWork.StoreRepository.GetStorePagesAsync(pageIndex, pageSize, role != Role.Administrator);
+            if (isSortDesc is true) result.Items = result.Items.OrderByDescending(x => x.Id).ToList();
             return mapper.Map<Pagination<StoreViewModel>>(result);
         }
 
@@ -97,11 +98,12 @@ namespace VinEcomService.Service
             return mapper.Map<StoreViewModel>(result);
         }
 
-        public async Task<IEnumerable<StoreReviewViewModel>> GetStoreReviewAsync()
+        public async Task<IEnumerable<StoreReviewViewModel>> GetStoreReviewAsync(bool isSortDesc)
         {
             var storeId = claimService.GetStoreId();
             var details = await unitOfWork.OrderDetailRepository.GetDetailsByStoreIdAndStatusAsync(storeId, OrderStatus.Done);
             var detailRevieweds = details.Where(x => !string.IsNullOrEmpty(x.Comment) || x.Rate.HasValue);
+            if (isSortDesc is true) detailRevieweds = detailRevieweds.OrderByDescending(x => x.Id);
             return mapper.Map<IEnumerable<StoreReviewViewModel>>(detailRevieweds);
         }
 

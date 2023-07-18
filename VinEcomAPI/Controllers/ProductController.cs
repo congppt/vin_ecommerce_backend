@@ -25,7 +25,7 @@ namespace VinEcomAPI.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10, bool isSortDesc = false)
         {
             if (filter.Category.HasValue)
             {
@@ -34,7 +34,7 @@ namespace VinEcomAPI.Controllers
             }
             if (pageIndex < 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
             if (pageSize <= 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
-            var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
+            var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter, isSortDesc);
             return Ok(products);
         }
 
