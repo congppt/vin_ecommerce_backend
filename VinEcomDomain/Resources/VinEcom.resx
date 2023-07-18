@@ -219,7 +219,7 @@
   <data name="VINECOM_PAGE_SIZE_ERROR" xml:space="preserve">
     <value>Kích thước trang phải lớn hơn 0.</value>
   </data>
-  <data name="VINECOM_PRODUCT_CREATE_CATEGORY_ERROR" xml:space="preserve">
+  <data name="VINECOM_PRODUCT_CATEGORY_ERROR" xml:space="preserve">
     <value>Phân loại sản phẩm này không tồn tại.</value>
   </data>
   <data name="VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR" xml:space="preserve">

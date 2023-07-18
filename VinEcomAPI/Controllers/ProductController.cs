@@ -70,7 +70,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Staff)]
-        [HttpPut]
+        [HttpPut("out-of-stock")]
         public async Task<IActionResult> SetProductOutOfStockAsync(int productId)
         {
             if (productId <= 0) return BadRequest();
@@ -78,6 +78,25 @@ namespace VinEcomAPI.Controllers
             if (product == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
             var result = await productService.SetOutOfStockAsync(productId);
             if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
+
+        [EnumAuthorize(Role.Staff)]
+        [HttpPut("update/{productId}")]
+        public async Task<IActionResult> UpdateProductAsync([FromRoute] int productId, [FromBody] ProductUpdateViewModel vm)
+        {
+            var validateResult = await productService.ValidateUpdateProductAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(x => new { property = x.PropertyName, message = x.ErrorMessage });
+                return BadRequest(errors);
+            }
+            //
+            var product = await productService.GetProductByIdAsync(productId, false);
+            if (product is null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
+            //
+            var result = await productService.UpdateProductAsync(productId, vm);
+            if (result is true) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
     }

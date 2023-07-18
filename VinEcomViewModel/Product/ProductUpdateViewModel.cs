@@ -1,35 +1,29 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using VinEcomDomain.Constant;
 using VinEcomDomain.Enum;
 using VinEcomDomain.Resources;
 using VinEcomViewModel.Base;
 
-#nullable disable warnings
 namespace VinEcomViewModel.Product
 {
-    public class ProductCreateModel
+    public class ProductUpdateViewModel
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public decimal OriginalPrice { get; set; }
+        public decimal? DiscountPrice { get; set; }
         public ProductCategory Category { get; set; }
     }
 
-    public class ProductCreateRule : AbstractValidator<ProductCreateModel>
+    public class ProductUpdateValidator : AbstractValidator<ProductUpdateViewModel>
     {
         private readonly int MIN_LENGTH_NAME = int.Parse(VinEcomSettings.Settings["PRODUCT_NAME_MIN_LENGTH"].ToString());
         private readonly int MAX_LENGTH_NAME = int.Parse(VinEcomSettings.Settings["PRODUCT_NAME_MAX_LENGTH"].ToString());
 
         private string PRODUCT_NAME_ERROR => string.Format(VinEcom.VINECOM_PRODUCT_CREATE_NAME_LENGTH_ERROR, MIN_LENGTH_NAME, MAX_LENGTH_NAME);
 
-        public ProductCreateRule()
+        public ProductUpdateValidator()
         {
             //Name
             RuleFor(x => x.Name).NotEmpty()
@@ -45,6 +39,11 @@ namespace VinEcomViewModel.Product
                 .WithMessage(VinEcom.VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR)
                 .GreaterThan(0)
                 .WithMessage(VinEcom.VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR);
+            //DiscountPrice
+            RuleFor(x => x.DiscountPrice)
+                .GreaterThan(0)
+                .WithMessage(VinEcom.VINECOM_PRODUCT_CREATE_INVALID_ORIGINAL_PRICE_ERROR)
+                .When(x => x.DiscountPrice.HasValue);
             //Category
             RuleFor(x => x.Category).IsInEnum().WithMessage(VinEcom.VINECOM_PRODUCT_CATEGORY_ERROR);
         }

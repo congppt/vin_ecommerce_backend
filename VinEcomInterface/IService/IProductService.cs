@@ -19,5 +19,7 @@ namespace VinEcomInterface.IService
         Task<ProductViewModel?> GetProductByIdAsync(int id, bool hideBlocked);
         Task<bool> RemoveAsync(int productId);
         Task<bool> SetOutOfStockAsync(int productId);
+        Task<ValidationResult> ValidateUpdateProductAsync(ProductUpdateViewModel product);
+        Task<bool> UpdateProductAsync(int productId, ProductUpdateViewModel vm);
     }
 }

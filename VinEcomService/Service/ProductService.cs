@@ -108,5 +108,19 @@ namespace VinEcomService.Service
             product.IsOutOfStock = !product.IsOutOfStock;
             return await unitOfWork.SaveChangesAsync();
         }
+
+        public async Task<ValidationResult> ValidateUpdateProductAsync(ProductUpdateViewModel product)
+        {
+            return await productValidator.ProductUpdateValidator.ValidateAsync(product);
+        }
+
+        public async Task<bool> UpdateProductAsync(int productId, ProductUpdateViewModel vm)
+        {
+            var product = await unitOfWork.ProductRepository.GetByIdAsync(productId);
+            mapper.Map(vm, product);
+            //
+            unitOfWork.ProductRepository.Update(product!);
+            return await unitOfWork.SaveChangesAsync();
+        }
     }
 }
