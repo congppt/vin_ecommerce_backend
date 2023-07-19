@@ -45,7 +45,8 @@ namespace VinEcomService.Service
                 Name = shipper.User.Name,
                 AvatarUrl = shipper.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND,
                 Email = shipper.User.Email,
-                Phone = shipper.User.Phone
+                Phone = shipper.User.Phone,
+                LicensePlate = shipper.LicensePlate
             };
         }
         public async Task<bool> RegisterAsync(ShipperSignUpViewModel vm)

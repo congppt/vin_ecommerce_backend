@@ -14,5 +14,6 @@ namespace VinEcomViewModel.Base
         public string Phone { get; set; }
         public string? Email { get; set; }
         public string? AvatarUrl { get; set; }
+        public string? LicensePlate { get; set; }
     }
 }
