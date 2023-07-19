@@ -47,13 +47,12 @@ namespace VinEcomAPI.Controllers
             if (await productService.AddAsync(product)) return Ok(product);
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_PRODUCT_CREATE_ERROR });
         }
-        //[EnumAuthorize(Role.Administrator | Role.Staff | Role.Customer)]
         [HttpGet("{id?}")]
         public async Task<IActionResult> GetProductByIdAsync(int id)
         {
             var role = claimService.GetRole();
-            var hideBlock = role == Role.Customer;
-            var result = await productService.GetProductByIdAsync(id, true);
+            var hideBlock = role == null|| role == Role.Customer;
+            var result = await productService.GetProductByIdAsync(id, hideBlock);
             if (result == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
             if (role == Role.Staff && result.Store.Id != claimService.GetStoreId()) return Unauthorized(new { message = VinEcom.VINECOM_UNAUTHORIZED });
             return Ok(result);
