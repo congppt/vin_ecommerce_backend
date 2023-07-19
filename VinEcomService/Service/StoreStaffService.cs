@@ -74,6 +74,7 @@ namespace VinEcomService.Service
             if (order is null || order.Status != OrderStatus.Preparing) return false;
             //
             order.Status = OrderStatus.Cancel;
+            order.Details = null;
             unitOfWork.OrderRepository.Update(order);
             return await unitOfWork.SaveChangesAsync();
         }
