@@ -8,5 +8,6 @@ namespace VinEcomInterface.IValidator
         IValidator<ProductCreateModel> ProductCreateValidator { get; }
         IValidator<StoreProductFilterViewModel> StoreProductFilterValidator { get; }
         IValidator<ProductFilterModel> ProductFilterValidator { get; }
+        IValidator<ProductUpdateViewModel> ProductUpdateValidator { get; }
     }
 }

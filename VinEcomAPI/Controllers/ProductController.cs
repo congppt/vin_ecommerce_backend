@@ -25,7 +25,7 @@ namespace VinEcomAPI.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetProductPage([FromQuery] ProductFilterModel filter, int pageIndex = 0, int pageSize = 10, bool isSortDesc = false)
         {
             if (filter.Category.HasValue)
             {
@@ -34,7 +34,7 @@ namespace VinEcomAPI.Controllers
             }
             if (pageIndex < 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_INDEX_ERROR });
             if (pageSize <= 0) return BadRequest(new { Message = VinEcom.VINECOM_PAGE_SIZE_ERROR });
-            var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter);
+            var products = await productService.GetProductFilterAsync(pageIndex, pageSize, filter, isSortDesc);
             return Ok(products);
         }
 
@@ -69,7 +69,7 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         [EnumAuthorize(Role.Staff)]
-        [HttpPut]
+        [HttpPut("out-of-stock")]
         public async Task<IActionResult> SetProductOutOfStockAsync(int productId)
         {
             if (productId <= 0) return BadRequest();
@@ -77,6 +77,25 @@ namespace VinEcomAPI.Controllers
             if (product == null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
             var result = await productService.SetOutOfStockAsync(productId);
             if (result) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
+
+        [EnumAuthorize(Role.Staff)]
+        [HttpPut("update/{productId}")]
+        public async Task<IActionResult> UpdateProductAsync([FromRoute] int productId, [FromBody] ProductUpdateViewModel vm)
+        {
+            var validateResult = await productService.ValidateUpdateProductAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(x => new { property = x.PropertyName, message = x.ErrorMessage });
+                return BadRequest(errors);
+            }
+            //
+            var product = await productService.GetProductByIdAsync(productId, false);
+            if (product is null) return NotFound(new { message = VinEcom.VINECOM_PRODUCT_NOT_EXIST });
+            //
+            var result = await productService.UpdateProductAsync(productId, vm);
+            if (result is true) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS });
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
     }

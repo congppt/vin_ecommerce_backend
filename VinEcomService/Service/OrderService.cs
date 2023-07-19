@@ -116,13 +116,15 @@ namespace VinEcomService.Service
         #endregion
 
         #region EmptyCart
-        public async Task<bool> EmptyCartAsync(int cartId)
+        public async Task<bool> EmptyCartAsync()
         {
-            var cart = await unitOfWork.OrderRepository.GetCartByIdAsync(cartId);
+            var customerId = claimService.GetRoleId();
+            var cart = (await unitOfWork.OrderRepository
+                .GetOrderAtStateWithDetailsAsync(OrderStatus.Cart, customerId))
+                .FirstOrDefault();
             if (cart is not null)
             {
-                cart.Details = new List<OrderDetail>();
-                unitOfWork.OrderRepository.Update(cart);
+                unitOfWork.OrderRepository.Delete(cart);
                 return await unitOfWork.SaveChangesAsync();
             }
             return false;
@@ -162,11 +164,12 @@ namespace VinEcomService.Service
         #endregion
 
         #region StoreOrderPagesAtStatus
-        public async Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize)
+        public async Task<Pagination<OrderStoreViewModel>?> GetStoreOrderPagesByStatus(int status, int pageIndex, int pageSize, bool isSortDesc)
         {
             var storeId = claimService.GetStoreId();
             if (storeId <= 0) return null;
             var orders = await unitOfWork.OrderRepository.GetOrderPagesByStoreIdAndStatusAsync(storeId, status, pageIndex, pageSize);
+            if (isSortDesc is true) orders.Items = orders.Items.OrderByDescending(x => x.Id).ToList();
             return mapper.Map<Pagination<OrderStoreViewModel>>(orders);
         }
         #endregion

@@ -65,9 +65,9 @@ namespace VinEcomAPI.Controllers
 
         #region EmptyCart
         [HttpPut("cart/empty")]
-        public async Task<IActionResult> EmptyCartAsync(int id)
+        public async Task<IActionResult> EmptyCartAsync()
         {
-            var result = await orderService.EmptyCartAsync(id);
+            var result = await orderService.EmptyCartAsync();
             if (result) return Ok();
             return BadRequest();
         }
@@ -76,12 +76,12 @@ namespace VinEcomAPI.Controllers
         #region StoreOrderPagesAtStatus
         [EnumAuthorize(Role.Staff)]
         [HttpGet("store/page")]
-        public async Task<IActionResult> GetStoreOrderPagesByStatus(OrderStatus status, int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetStoreOrderPagesByStatus(OrderStatus status, int pageIndex = 0, int pageSize = 10, bool isSortDesc = false)
         {
             if (!Enum.IsDefined(typeof(OrderStatus), status)) return BadRequest();
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
             if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
-            var result = await orderService.GetStoreOrderPagesByStatus((int) status, pageIndex, pageSize);
+            var result = await orderService.GetStoreOrderPagesByStatus((int) status, pageIndex, pageSize, isSortDesc);
             if (result is not null) return Ok(result);
             return StatusCode(StatusCodes.Status400BadRequest, new { Message = VinEcom.VINECOM_STORE_NOT_EXIST });
         }

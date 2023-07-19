@@ -277,6 +277,15 @@ namespace VinEcomDomain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phân loại sản phẩm này không tồn tại..
+        /// </summary>
+        public static string VINECOM_PRODUCT_CATEGORY_ERROR {
+            get {
+                return ResourceManager.GetString("VINECOM_PRODUCT_CATEGORY_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Món ăn.
         /// </summary>
         public static string VINECOM_PRODUCT_CATEGORY_FOOD {
@@ -291,15 +300,6 @@ namespace VinEcomDomain.Resources {
         public static string VINECOM_PRODUCT_CATEGORY_NECESSITY {
             get {
                 return ResourceManager.GetString("VINECOM_PRODUCT_CATEGORY_NECESSITY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Phân loại sản phẩm này không tồn tại..
-        /// </summary>
-        public static string VINECOM_PRODUCT_CREATE_CATEGORY_ERROR {
-            get {
-                return ResourceManager.GetString("VINECOM_PRODUCT_CREATE_CATEGORY_ERROR", resourceCulture);
             }
         }
         

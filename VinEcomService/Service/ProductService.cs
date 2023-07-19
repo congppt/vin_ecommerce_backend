@@ -34,12 +34,13 @@ namespace VinEcomService.Service
         }
 
         #region Products
-        public async Task<Pagination<ProductViewModel>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter)
+        public async Task<Pagination<ProductViewModel>> GetProductFilterAsync(int pageIndex, int pageSize, ProductFilterModel filter, bool isSortDesc)
         {
             //Get Paging by Category
             if (filter.Category.HasValue)
             {
                 var result = await unitOfWork.ProductRepository.GetProductByCategoryAsync(filter.Category.Value, pageIndex, pageSize);
+                if (isSortDesc is true) result.Items = result.Items.OrderByDescending(x => x.Id).ToList(); 
                 return mapper.Map<Pagination<ProductViewModel>>(result);
             }
             //Get paging by Store Id
@@ -51,16 +52,19 @@ namespace VinEcomService.Service
                     PageIndex = pageIndex,
                     PageSize = pageSize
                 });
+                if (isSortDesc is true) result.Items = result.Items.OrderByDescending(x => x.Id).ToList();
                 return mapper.Map<Pagination<ProductViewModel>>(result);
             }
             //Get paging by name
             if (!string.IsNullOrEmpty(filter.Name))
             {
                 var result = await unitOfWork.ProductRepository.GetProductPagesByNameAsync(filter.Name, pageIndex, pageSize);
+                if (isSortDesc is true) result.Items = result.Items.OrderByDescending(x => x.Id).ToList();
                 return mapper.Map<Pagination<ProductViewModel>>(result);
             }
             //Origin product paging
             var productPages = await unitOfWork.ProductRepository.GetProductPagingAsync(pageIndex, pageSize);
+            if (isSortDesc is true) productPages.Items = productPages.Items.OrderByDescending(x => x.Id).ToList();
             return mapper.Map<Pagination<ProductViewModel>>(productPages);
         }
         #endregion
@@ -106,6 +110,20 @@ namespace VinEcomService.Service
         {
             var product = await unitOfWork.ProductRepository.GetByIdAsync(productId);
             product.IsOutOfStock = !product.IsOutOfStock;
+            return await unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<ValidationResult> ValidateUpdateProductAsync(ProductUpdateViewModel product)
+        {
+            return await productValidator.ProductUpdateValidator.ValidateAsync(product);
+        }
+
+        public async Task<bool> UpdateProductAsync(int productId, ProductUpdateViewModel vm)
+        {
+            var product = await unitOfWork.ProductRepository.GetByIdAsync(productId);
+            mapper.Map(vm, product);
+            //
+            unitOfWork.ProductRepository.Update(product!);
             return await unitOfWork.SaveChangesAsync();
         }
     }

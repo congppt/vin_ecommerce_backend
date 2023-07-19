@@ -68,11 +68,11 @@ namespace VinEcomAPI.Controllers
         #region GetAll
         [EnumAuthorize(Role.Administrator | Role.Customer)]
         [HttpGet("page")]
-        public async Task<IActionResult> GetStorePagesAsync(int pageIndex = 0, int pageSize = 10)
+        public async Task<IActionResult> GetStorePagesAsync(int pageIndex = 0, int pageSize = 10, bool isSortDesc = false)
         {
             if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
             if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
-            var result = await storeService.GetStorePagesAsync(pageIndex, pageSize);
+            var result = await storeService.GetStorePagesAsync(pageIndex, pageSize, isSortDesc);
             return Ok(result);
         }
         #endregion
@@ -91,9 +91,9 @@ namespace VinEcomAPI.Controllers
         #region GetReviews
         [EnumAuthorize(Role.Staff)]
         [HttpGet("reviews")]
-        public async Task<IActionResult> GetStoreReviewsAsync()
+        public async Task<IActionResult> GetStoreReviewsAsync(bool isSortDesc = false)
         {
-            var result = await storeService.GetStoreReviewAsync();
+            var result = await storeService.GetStoreReviewAsync(isSortDesc);
             return Ok(result);
         }
         #endregion

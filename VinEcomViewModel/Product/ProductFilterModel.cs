@@ -22,7 +22,7 @@ namespace VinEcomViewModel.Product
         public ProductFilterValidator()
         {
             //Category
-            RuleFor(x => x.Category).IsInEnum().WithMessage(VinEcom.VINECOM_PRODUCT_CREATE_CATEGORY_ERROR);
+            RuleFor(x => x.Category).IsInEnum().WithMessage(VinEcom.VINECOM_PRODUCT_CATEGORY_ERROR);
         }
     }
 }

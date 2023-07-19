@@ -25,7 +25,7 @@ namespace VinEcomOther.MapperConfig
         public AutoMapperProfile()
         {
             CreateMap(typeof(Pagination<>), typeof(Pagination<>));
-            //
+            //Product
             CreateMap<ProductCreateModel, Product>();
             CreateMap<Store, StoreBasicViewModel>();
             CreateMap<ProductCategory, ProductCategoryViewModel>().ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => (int)src))
@@ -33,6 +33,7 @@ namespace VinEcomOther.MapperConfig
             CreateMap<Product, ProductViewModel>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
                 .ForMember(dest => dest.Store, opt => opt.MapFrom(src => src.Store));
+            CreateMap<ProductUpdateViewModel, Product>();
             //
             CreateMap<SignUpViewModel, User>();
             CreateMap<StoreRegisterViewModel, Store>();
