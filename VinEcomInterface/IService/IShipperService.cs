@@ -23,5 +23,7 @@ namespace VinEcomInterface.IService
         Task<bool> ChangeWorkingStatusAsync();
         Task<bool> OrderDeliveredAsync();
         Task<bool> ReceiveOrderAsync(int orderId);
+        Task<ValidationResult> ValidateUpdateBasicAsync(ShipperUpdateBasicViewModel vm);
+        Task<bool> UpdateBasicAsync(ShipperUpdateBasicViewModel vm);
     }
 }

@@ -152,6 +152,20 @@ namespace VinEcomService.Service
             shipper.Status = ShipperStatus.Enroute;
             unitOfWork.ShipperRepository.Update(shipper);
         }
+
+        public async Task<ValidationResult> ValidateUpdateBasicAsync(ShipperUpdateBasicViewModel vm)
+        {
+            return await validator.ShipperUpdateBasicValidator.ValidateAsync(vm);
+        }
+
+        public async Task<bool> UpdateBasicAsync(ShipperUpdateBasicViewModel vm)
+        {
+            var id = claimService.GetRoleId();
+            var shipper = await unitOfWork.ShipperRepository.GetShipperByIdAsync(id);
+            mapper.Map(vm, shipper);
+            unitOfWork.ShipperRepository.Update(shipper);
+            return await unitOfWork.SaveChangesAsync();
+        }
         #endregion
     }
 }

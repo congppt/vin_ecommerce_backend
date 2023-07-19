@@ -12,5 +12,6 @@ namespace VinEcomInterface.IRepository
         Task<Shipper?> AuthorizeAsync(string phone, string password);
         Task<IEnumerable<Shipper>> GetAvailableShipperAsync();
         Task<Shipper?> GetShipperByUserId(int userId);
+        Task<Shipper?> GetShipperByIdAsync(int shipperId);
     }
 }

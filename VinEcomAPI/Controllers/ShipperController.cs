@@ -84,5 +84,18 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { Message = VinEcom.VINECOM_ORDER_ASSIGN_SHIPPER_FAILED });
         }
         #endregion
+        [EnumAuthorize(Role.Shipper)]
+        [HttpPut("info")]
+        public async Task<IActionResult> UpdateBasicInfoAsync(ShipperUpdateBasicViewModel vm)
+        {
+            var validateResult = await shipperService.ValidateUpdateBasicAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            if (await shipperService.UpdateBasicAsync(vm)) return Ok();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
+        }
     }
 }

@@ -82,6 +82,8 @@ namespace VinEcomOther.MapperConfig
                 .ForMember(dest => dest.AvatarUrl, opt => opt.MapFrom(src => src.User.AvatarUrl))
                 .ForMember(dest => dest.VehicleType, opt => opt.MapFrom(src => src.VehicleType.GetDisplayName()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDisplayName()));
+            CreateMap<ShipperUpdateBasicViewModel, User>();
+            CreateMap<ShipperUpdateBasicViewModel, Shipper>().ForMember(dest => dest.User, opt => opt.MapFrom(src => src));
             CreateMap<Building, BuildingBasicViewModel>();
             //Store
             CreateMap<StoreCategory, StoreCategoryViewModel>().ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => (int)src))

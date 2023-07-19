@@ -36,6 +36,14 @@ namespace VinEcomRepository.Repository
                 .ToListAsync();
         }
 
+        public async Task<Shipper?> GetShipperByIdAsync(int shipperId)
+        {
+            return await context.Set<Shipper>()
+                .AsNoTracking()
+                .Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == shipperId);
+        }
+
         public async Task<Shipper?> GetShipperByUserId(int userId)
         {
             return await context.Set<Shipper>()

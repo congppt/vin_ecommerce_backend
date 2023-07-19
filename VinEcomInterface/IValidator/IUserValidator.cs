@@ -19,5 +19,6 @@ namespace VinEcomInterface.IValidator
         IValidator<CustomerUpdateBasicViewModel> CustomerUpdateBasicValidator { get; }
         IValidator<UpdatePasswordViewModel> UpdatePasswordValidator { get; }
         IValidator<StoreStaffUpdateViewModel> StaffUpdateValidator { get; }
+        IValidator<ShipperUpdateBasicViewModel> ShipperUpdateBasicValidator { get; }
     }
 }
