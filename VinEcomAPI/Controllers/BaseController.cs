@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using VinEcomAPI.CustomWebAttribute;
 using VinEcomDomain.Enum;
+using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomService.Service;
 using VinEcomUtility.UtilityMethod;
+using VinEcomViewModel.Base;
 
 namespace VinEcomAPI.Controllers
 {
@@ -13,9 +16,11 @@ namespace VinEcomAPI.Controllers
     public class BaseController : ControllerBase
     {
         private readonly IBaseService baseService;
-        public BaseController(IBaseService baseService)
+        private readonly IUserService userService;
+        public BaseController(IBaseService baseService, IUserService userService)
         {
             this.baseService = baseService;
+            this.userService = userService;
         }
         [HttpGet("buildings")]
         public async Task<IActionResult> GetBuildingsAsync()
@@ -45,6 +50,21 @@ namespace VinEcomAPI.Controllers
         {
             var dict = typeof(ProductCategory).GetEnumDictionary(val => ((ProductCategory)val).GetDisplayName());
             return Ok(dict);
+        }
+        [EnumAuthorize(Role.Customer | Role.Staff | Role.Shipper)]
+        [HttpPatch("password")]
+        public async Task<IActionResult> UpdatePasswordAsync([FromBody] UpdatePasswordViewModel vm)
+        {
+            var validateResult = await userService.ValidateUpdatePasswordAsync(vm);
+            if (!validateResult.IsValid)
+            {
+                var errors = validateResult.Errors.Select(e => new { property = e.PropertyName, message = e.ErrorMessage });
+                return BadRequest(errors);
+            }
+            if (!await userService.IsCorrectCurrentPasswordAsync(vm)) return Conflict(new { message = VinEcom.VINECOM_CURRENT_PASSWORD_INCORRECT });
+            var result = await userService.UpdatePasswordAsync(vm);
+            if (result) return Ok(new { message = VinEcom.VINECOM_UPDATE_SUCCESS });
+            return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
     }
 }
