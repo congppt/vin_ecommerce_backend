@@ -97,5 +97,13 @@ namespace VinEcomAPI.Controllers
             if (await shipperService.UpdateBasicAsync(vm)) return Ok();
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
+
+        [EnumAuthorize(Role.Shipper)]
+        [HttpGet("info")]
+        public async Task<IActionResult> GetShipperInfoAsync()
+        {
+            var result = await shipperService.GetInfoAsync();
+            return Ok(result);
+        }
     }
 }
