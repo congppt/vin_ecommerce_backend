@@ -39,7 +39,7 @@ namespace VinEcomService.Service
                 AccessToken = accessToken,
                 UserId = storeStaff.User.Id,
                 Name = storeStaff.User.Name,
-                AvatarUrl = storeStaff.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND,
+                AvatarUrl = storeStaff.User.AvatarUrl,
                 Email = storeStaff.User.Email,
                 Phone = storeStaff.User.Phone
             };

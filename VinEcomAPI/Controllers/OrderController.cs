@@ -189,7 +189,7 @@ namespace VinEcomAPI.Controllers
         #endregion
 
         #region GetOrderTotal
-        [EnumAuthorize(Role.Administrator)]
+        [EnumAuthorize(Role.Administrator | Role.Staff)]
         [HttpGet("total")]
         public async Task<IActionResult> GetOrderTotalAsync()
         {

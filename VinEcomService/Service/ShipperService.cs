@@ -43,7 +43,7 @@ namespace VinEcomService.Service
                 AccessToken = accessToken,
                 UserId = shipper.User.Id,
                 Name = shipper.User.Name,
-                AvatarUrl = shipper.User.AvatarUrl ?? VinEcom.VINECOM_USER_AVATAR_URL_NOT_FOUND,
+                AvatarUrl = shipper.User.AvatarUrl,
                 Email = shipper.User.Email,
                 Phone = shipper.User.Phone,
                 LicensePlate = shipper.LicensePlate
@@ -168,5 +168,12 @@ namespace VinEcomService.Service
             return await unitOfWork.SaveChangesAsync();
         }
         #endregion
+
+        public async Task<ShipperViewModel> GetInfoAsync()
+        {
+            var shipperId = claimService.GetRoleId();
+            var shipper = await unitOfWork.ShipperRepository.GetShipperByIdAsync(shipperId);
+            return mapper.Map<ShipperViewModel>(shipper);
+        }
     }
 }
