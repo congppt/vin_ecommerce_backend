@@ -17,6 +17,16 @@ namespace VinEcomRepository.Repository
         {
         }
 
+        public async Task<User?> AuthorizeAsync(string phone, string password)
+        {
+            var admin = await context.Set<User>()
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(c => c.Phone == phone && !c.IsBlocked);
+            if (admin == null) return null;
+            if (password.IsCorrectHashSource(admin.PasswordHash)) return admin;
+            return null;
+        }
+
         public async Task<User?> GetByPhone(string phone)
         {
             var user = await context.Set<User>()

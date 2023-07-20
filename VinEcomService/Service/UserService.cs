@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VinEcomDomain.Enum;
+using VinEcomDomain.Model;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
@@ -26,6 +28,22 @@ namespace VinEcomService.Service
                            IUserValidator validator) : base(unitOfWork, config, timeService, cacheService, claimService, mapper)
         {
             this.validator = validator;
+        }
+
+        public async Task<AuthorizedViewModel?> AdminAuthorizeAsync(SignInViewModel vm)
+        {
+            var admin = await unitOfWork.UserRepository.AuthorizeAsync(vm.Phone, vm.Password);
+            if (admin is null) return null;
+            string accessToken = admin.GenerateToken(admin.Id, config, timeService.GetCurrentTime(), 60 * 24 * 30, Role.Administrator);
+            return new AuthorizedViewModel
+            {
+                AccessToken = accessToken,
+                UserId = admin.Id,
+                Name = admin.Name,
+                AvatarUrl = admin.AvatarUrl,
+                Email = admin.Email,
+                Phone = admin.Phone
+            };
         }
 
         public async Task<bool> IsCorrectCurrentPasswordAsync(UpdatePasswordViewModel vm)
