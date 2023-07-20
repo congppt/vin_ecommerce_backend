@@ -46,6 +46,7 @@ namespace VinEcomService
             services.AddSingleton<ITimeService, TimeService>();
             services.AddSingleton<ICacheService, RedisCacheService>();
             //
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IStoreStaffRepository, StoreStaffRepository>();
             services.AddScoped<IShipperRepository, ShipperRepository>();
