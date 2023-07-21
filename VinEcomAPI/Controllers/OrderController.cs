@@ -200,7 +200,7 @@ namespace VinEcomAPI.Controllers
 
         #region Rating
         [EnumAuthorize(Role.Customer)]
-        [HttpPatch("detail/rating/{orderId?}")]
+        [HttpPatch("detail/rating")]
         public async Task<IActionResult> RatingOrderAsync(OrderDetailRatingViewModel vm)
         {
             var validateResult = await orderService.ValidateOrderRatingAsync(vm);

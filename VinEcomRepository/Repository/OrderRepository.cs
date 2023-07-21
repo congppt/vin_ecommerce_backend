@@ -23,7 +23,8 @@ namespace VinEcomRepository.Repository
 
         public async Task<Pagination<Order>> GetOrderPageAsync(int pageIndex, int pageSize)
         {
-            var totalCount = await context.Set<Order>().CountAsync();
+            var totalCount = await context.Set<Order>()
+                .Where(x => x.Status != OrderStatus.Cart).CountAsync();
             var items = await context.Set<Order>()
                 .AsNoTracking()
                 .Include(x => x.Details)
@@ -36,6 +37,7 @@ namespace VinEcomRepository.Repository
                 .ThenInclude(x => x.User)
                 .Include(x => x.Building)
                 .Skip(pageIndex * pageSize).Take(pageSize)
+                .Where(x => x.Status != OrderStatus.Cart)
                 .ToListAsync();
             //
             var result = new Pagination<Order>
