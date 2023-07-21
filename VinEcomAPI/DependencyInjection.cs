@@ -38,6 +38,7 @@ namespace VinEcomAPI
                     ValidIssuer = config["Jwt:Issuer"],
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"] ?? "VinEcomAPIJWTKey"))
                 };
             });
