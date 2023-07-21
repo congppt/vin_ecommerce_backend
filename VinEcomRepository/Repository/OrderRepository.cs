@@ -23,9 +23,12 @@ namespace VinEcomRepository.Repository
 
         public async Task<Pagination<Order>> GetOrderPageAsync(int pageIndex, int pageSize)
         {
-            var totalCount = await context.Set<Order>()
-                .Where(x => x.Status != OrderStatus.Cart).CountAsync();
-            var items = await context.Set<Order>()
+            var source = context.Set<Order>()
+                .Where(x => x.Status != OrderStatus.Cart)
+                .OrderByDescending(x => x.OrderDate);
+            //
+            var totalCount = await source.CountAsync();
+            var items = await source
                 .AsNoTracking()
                 .Include(x => x.Details)
                 .ThenInclude(x => x.Product)
@@ -109,7 +112,8 @@ namespace VinEcomRepository.Repository
         public async Task<Pagination<Order>> GetOrderPagesByCustomerIdAndStatusAsync(int customerId, int status, int pageIndex, int pageSize)
         {
             var sourse = context.Set<Order>()
-                .Where(x => x.CustomerId == customerId && (int)x.Status == status);
+                .Where(x => x.CustomerId == customerId && (int)x.Status == status)
+                .OrderByDescending(x => x.OrderDate);
             //
             var totalCount = await sourse.CountAsync();
             var items = await sourse
