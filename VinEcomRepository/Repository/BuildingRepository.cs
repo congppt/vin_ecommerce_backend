@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,12 @@ namespace VinEcomRepository.Repository
     {
         public BuildingRepository(AppDbContext context) : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Building>> GetBuildingsAsync()
+        {
+            var buildings = await context.Set<Building>().ToListAsync();
+            return buildings.OrderBy(b => b.Name);
         }
     }
 }

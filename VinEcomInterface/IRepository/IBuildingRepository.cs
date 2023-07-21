@@ -9,5 +9,6 @@ namespace VinEcomInterface.IRepository
 {
     public interface IBuildingRepository : IBaseRepository<Building>
     {
+        Task<IEnumerable<Building>> GetBuildingsAsync();
     }
 }

@@ -40,7 +40,7 @@ namespace VinEcomService.Service
 
         public async Task<IEnumerable<Building>> GetBuildingsAsync()
         {
-            return await unitOfWork.BuildingRepository.GetAllAsync();
+            return await unitOfWork.BuildingRepository.GetBuildingsAsync();
         }
 
         public async Task<Building?> GetBuildingById(int id)
