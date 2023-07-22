@@ -12,6 +12,7 @@ using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
+using VinEcomUtility.Pagination;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.StoreStaff;
@@ -114,6 +115,12 @@ namespace VinEcomService.Service
         {
             var storeId = claimService.GetStoreId();
             return await unitOfWork.OrderRepository.GetStoreOrderWithDetailAsync(orderId, storeId);
+        }
+
+        public async Task<Pagination<StoreStaffViewModel>> GetStaffPageAsync(int pageIndex, int pageSize)
+        {
+            var result = await unitOfWork.StoreStaffRepository.GetStaffPageAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<StoreStaffViewModel>>(result);
         }
     }
 }

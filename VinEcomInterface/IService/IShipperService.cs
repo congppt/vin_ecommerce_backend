@@ -26,5 +26,6 @@ namespace VinEcomInterface.IService
         Task<ValidationResult> ValidateUpdateBasicAsync(ShipperUpdateBasicViewModel vm);
         Task<bool> UpdateBasicAsync(ShipperUpdateBasicViewModel vm);
         Task<ShipperViewModel> GetInfoAsync();
+        Task<Pagination<ShipperViewModel>> GetShipperPageAsync(int pageIndex, int pageSize);
     }
 }

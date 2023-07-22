@@ -105,5 +105,15 @@ namespace VinEcomAPI.Controllers
             var result = await shipperService.GetInfoAsync();
             return Ok(result);
         }
+
+        [EnumAuthorize(Role.Administrator)]
+        [HttpGet("page")]
+        public async Task<IActionResult> GetShipperPagesAsync(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
+            var result = await shipperService.GetShipperPageAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
     }
 }

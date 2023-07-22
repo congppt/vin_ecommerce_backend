@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VinEcomDbContext;
 using VinEcomDomain.Model;
 using VinEcomInterface.IRepository;
+using VinEcomUtility.Pagination;
 using VinEcomUtility.UtilityMethod;
 
 namespace VinEcomRepository.Repository
@@ -16,6 +17,26 @@ namespace VinEcomRepository.Repository
         public ShipperRepository(AppDbContext context) : base(context)
         {
         }
+
+        public async Task<Pagination<Shipper>> GetShipperPageAsync(int pageIndex, int pageSize)
+        {
+            var totalCount = await context.Set<Shipper>().CountAsync();
+            var items = await context.Set<Shipper>()
+                .AsNoTracking()
+                .Skip(pageIndex * pageSize).Take(pageSize)
+                .Include(x => x.User)
+                .ToListAsync();
+            var result = new Pagination<Shipper>()
+            {
+                Items = items,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItemsCount = totalCount
+            };
+            //
+            return result;
+        }
+
         public async Task<Shipper?> AuthorizeAsync(string phone, string password)
         {
             var shipper = await context.Set<Shipper>()

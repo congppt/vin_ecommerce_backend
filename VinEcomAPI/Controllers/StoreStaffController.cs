@@ -104,5 +104,15 @@ namespace VinEcomAPI.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, new { message = VinEcom.VINECOM_SERVER_ERROR });
         }
         #endregion
+
+        [EnumAuthorize(Role.Administrator)]
+        [HttpGet("page")]
+        public async Task<IActionResult> GetStaffPageAsync(int pageIndex = 0, int pageSize = 10)
+        {
+            if (pageIndex < 0) return BadRequest(VinEcom.VINECOM_PAGE_INDEX_ERROR);
+            if (pageSize <= 0) return BadRequest(VinEcom.VINECOM_PAGE_SIZE_ERROR);
+            var result = await staffService.GetStaffPageAsync(pageIndex, pageSize);
+            return Ok(result);
+        }
     }
 }

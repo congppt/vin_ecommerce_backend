@@ -12,6 +12,7 @@ using VinEcomDomain.Resources;
 using VinEcomInterface;
 using VinEcomInterface.IService;
 using VinEcomInterface.IValidator;
+using VinEcomUtility.Pagination;
 using VinEcomUtility.UtilityMethod;
 using VinEcomViewModel.Base;
 using VinEcomViewModel.Customer;
@@ -174,6 +175,12 @@ namespace VinEcomService.Service
             var shipperId = claimService.GetRoleId();
             var shipper = await unitOfWork.ShipperRepository.GetShipperByIdAsync(shipperId);
             return mapper.Map<ShipperViewModel>(shipper);
+        }
+
+        public async Task<Pagination<ShipperViewModel>> GetShipperPageAsync(int pageIndex, int pageSize)
+        {
+            var shippers = await unitOfWork.ShipperRepository.GetShipperPageAsync(pageIndex, pageSize);
+            return mapper.Map<Pagination<ShipperViewModel>>(shippers);
         }
     }
 }
